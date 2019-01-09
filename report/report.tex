@@ -12,6 +12,11 @@
 
 \begin{document}
 
+\maketitle
+
+\tableofcontents
+
+\clearpage
 
 \section{Introduction}
 
@@ -25,9 +30,9 @@ We have tried models for sentence representation by word and the whole context i
 
 \section{Literature review}
 
-James Ferguson et al faced a similar problem with a small labelled dataset. In their article they describe the approach of automatically expanding dataset and improving the performance of baseline models, that was event trigger identification system in their case.
+\cite{N18-2058} faced a similar problem with a small labelled dataset. In their article they describe the approach of automatically expanding dataset and improving the performance of baseline models, that was event trigger identification system in their case.
 
-First, they trained a baseline classifier on available data. Then they identified clusters of additional data to obtain grouped paraphrases inspired by the NewsSpike idea introduced in Zhang et al. (2015). After they labelled clusters with baseline model trained fully-supervised. Combining new labelled data and original one they retrained the event extractor. (Semi-Supervised Event Extraction with Paraphrase Clusters: http://aclweb.org/anthology/N18-2058)
+First, they trained a baseline classifier on available data. Then they identified clusters of additional data to obtain grouped paraphrases inspired by the NewsSpike idea introduced in \cite{zhang2015}. After they labelled clusters with baseline model trained fully-supervised. Combining new labelled data and original one they retrained the event extractor \cite{N18-2058}.
 
 
 
@@ -106,7 +111,11 @@ Total number of sentences is 3305. Found 1882 words after filtering through stop
 
 \subsection{Forum data}
 
-To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. No  test  set  is  available was available at the beginning of the project. To  solve this  problem,  we  opted  to  created  our  own  test set following Zhang et al (2015) and Sondhi et al (2010) example.  
+To improve initial classifier we needed to extend dataset by much more
+data and more naturally constracted one. No test set is available was
+available at the beginning of the project. To solve this problem, we
+opted to created our own test set following \cite{zhang2015} and
+\cite{sondhi-EtAl:2010:POSTERS} example.
 
 Finally, 272552 unique posts
 
@@ -243,53 +252,8 @@ From simple encoder, w2v, lda, w2v + lda
 
 
 \section{References}
-
-@InProceedings{N18-2058,
-  author = 	"Ferguson, James
-		and Lockard, Colin
-		and Weld, Daniel
-		and Hajishirzi, Hannaneh",
-  title = 	"Semi-Supervised Event Extraction with Paraphrase Clusters",
-  booktitle = 	"Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 2 (Short Papers)",
-  year = 	"2018",
-  publisher = 	"Association for Computational Linguistics",
-  pages = 	"359--364",
-  location = 	"New Orleans, Louisiana",
-  url = 	"http://aclweb.org/anthology/N18-2058"
-}
-
-@InProceedings{sondhi-EtAl:2010:POSTERS,
-  author    = {Sondhi, Parikshit  and  Gupta, Manish  and  Zhai, ChengXiang  and  Hockenmaier, Julia},
-  title     = {Shallow Information Extraction from Medical Forum Data},
-  booktitle = {Coling 2010: Posters},
-  month     = {August},
-  year      = {2010},
-  address   = {Beijing, China},
-  publisher = {Coling 2010 Organizing Committee},
-  pages     = {1158--1166},
-  url       = {http://www.aclweb.org/anthology/C10-2133}
-}
-
-
-@article{article,
-author = {Zhang, Thomas and H D Cho, Jason and Zhai, Chengxiang},
-year = {2015},
-month = {03},
-pages = {},
-title = {Understanding User Intents in Online Health Forums},
-volume = {19},
-journal = {IEEE journal of biomedical and health informatics},
-doi = {10.1109/JBHI.2015.2416252}
-
-}
-
-\paragraph{APA}
-
-Zhang, T., Cho, J. H. D., \& Zhai, C. (2015). Understanding User Intents in Online Health Forums. IEEE Journal of Biomedical and Health Informatics, 19(4), 1392-1398. [7066225]. https://doi.org/10.1109/JBHI.2015.2416252
-
-\paragraph{Harvard}
-
-Zhang, T, Cho, JHD \& Zhai, C 2015, 'Understanding User Intents in Online Health Forums' IEEE Journal of Biomedical and Health Informatics, vol. 19, no. 4, 7066225, pp. 1392-1398. https://doi.org/10.1109/JBHI.2015.2416252
+\bibliographystyle{alpha}
+\bibliography{biblio}
 
 
 \end{document}
