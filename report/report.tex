@@ -3,8 +3,19 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{multirow}
+\usepackage{color}
 \usepackage[english]{babel}
+\usepackage{mylingmacros}
+
+\newcommand\add[1]{{\textcolor{blue}{ADD: #1}}}
+\newcommand\mod[1]{{\textcolor{green}{MODIFIED: #1}}}
+\newcommand\remove[1]{{\textcolor{red}{REMOVE: #1}}}
+\newcommand\expand[1]{{\textcolor{blue}{EXPAND: #1}}}
+\newcommand\rewrite[1]{{\textcolor{green}{REWRITE: #1}}}
+
 % Titre complet
+
+
 \title{Report}
 
 \author{Anna Liednikova}
@@ -21,74 +32,129 @@
 \section{Introduction}
 
  
-This project was set within the framework of a collaboration with the ALIAE startup where the aim is to develop a chatbot to collect information from clinical patients. The main idea is to replace strictly defined surveys by a more natural conversation in order to let users express themselves freely so that more information could be collected. First, we should be able to analyse the user utterances (does the user speaks about pain, physical activity etc. ?) and detect at least one most probable intent of user message so that chatbot could choose the right strategy for fulfilling information.
+This project was set within the framework of a collaboration with the
+ALIAE startup where the aim is to develop a chatbot to collect
+information from clinical patients. The main idea is to replace
+strictly defined surveys by a more natural conversation in order to
+let users express themselves freely so that more information could be
+collected.
 
 
-A small manually annotated dataset (roughly 100 sentences for each category) was available. So the purpose of the project is to find word embeddings that will allow to expand it by external data using the existing dataset with labelled intents.
+\add{The chatbot consists of three main modules: NLU (Natural
+  Language Understanding: interpreting the user input), Dialog
+  Managment (Deciding on how to respond to the user input) and NLG
+  (Generating the system response).}
 
-We have tried models for sentence representation by word and the whole context in order to use semi-supervised learning by gradually increasing train data by labelling external sources.
+\add{In this project, we focus on the NLU step which consists in}
+analysing the user utterance (does the user speaks about pain,
+physical activity etc. ?) and detecting at least one most probable
+intent of user message so that the chatbot can choose the right
+strategy for fulfilling information.
+
+\add{ADD an example showing a user input and the expected representation ie intent + entity}
+
+
+A small manually annotated dataset (roughly 100 sentences for each
+category) was available.
+
+\add{say that this dataset is not enough for learning a good NLU models. Hence your work focuses on exploring automatic ways of extending the training data and 
+  learning NLU models from these extended data.}
+
+\add{Explain report structure: which section focuses on what?}
+
+
+\remove{We have tried models for sentence representation by word and the whole context in order to use semi-supervised learning by gradually increasing train data by labelling external sources.}
 
 \section{Literature review}
 
-\cite{N18-2058} faced a similar problem with a small labelled dataset. In their article they describe the approach of automatically expanding dataset and improving the performance of baseline models, that was event trigger identification system in their case.
-
-First, they trained a baseline classifier on available data. Then they identified clusters of additional data to obtain grouped paraphrases inspired by the NewsSpike idea introduced in \cite{zhang2015}. After they labelled clusters with baseline model trained fully-supervised. Combining new labelled data and original one they retrained the event extractor \cite{N18-2058}.
-
-
+\cite{N18-2058} \mod{present an approach for automatically generating additional training data for event extraction systems}. First, they trained a baseline classifier on available data. Then, they cluster external data to obtain cluster of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor.
 
 \section{Methodology}
 
-sentence representation, clustering , classification
+\add{We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. }
+
+%% irst
+%% group together paraphrases of event mentions.
+
+%% then use the simple examples in each cluster to as-
+%% sign a label to the entire cluster
+
+%% com-
+%% bine the new examples with the original training
+%% set and retrain
+
+
+\subsection{Building Sentence Representations}
+
+We create sentence representations in two steps using machine and deep learning techniques. First, we map words to continuous representations. Second, we combine these word representations into sentence representations. 
+
+\subsubsection{Word Representations}
+
+We explore two ways of building word representations: Word2vec and LDA.
+
+\add{You need to explain what LDA and Word2Vec are and how they represent word/sentences}
+
+
+\remove{The most popular word-basis techniques to represent sentences are LDA (Latent Dirichlet Allocation) and Word2Vector model. We used their implementation from gensim library in order to build models based on the initial labelled dataset.
+}
+
+\subsubsection{Sentence Representations}
+
+\mod{We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}}.
+
+\add{Here you need to explain the theory behind it. Explain how LSTM and the PositionwiseFeedForward  build a sentence representation out of word embeddings.}
+
+\paragraph{Bi-LSTM Representations.}
+
+
+\paragraph{Tranformer Representations.}
 
 
 
-\subsection{Sentence representation models}
 
-\subsubsection{By Word representation}
+\subsection{Clustering Sentences}
 
-The most popular word-basis techniques to represent sentences are LDA (Latent Dirichlet Allocation) and Word2Vector model. We used their implementation from gensim library in order to build models based on the initial labelled dataset.
+\mod{Using the sentence representations described in the previous
+  section, we apply clustering to group together sentences that are
+  similar. We compare three clustering algorithms:}
 
-\subsubsection{By Sentence representation}
-
-In order to use context of words more PositionwiseFeedForward and BiLSTM neural networks were implemenent on Pytorch.
-
+\add{Briefly explain the key feature of each clustering algorithm}
 
 
-\subsection{Clustering models}
-
-The main idea behind using clustering models for evaluating sentence representations is to detect whatever sentences with the same intent populate the same clusters.
-
-For these purposes following clustering models were used: 
 \begin{itemize}
 \item K-Means (KM)
 \item AgglomerativeClustering(‘ward’) (AG)
 \item GaussianMixture (GM)
 \end{itemize}
 
-The number of clusters was set to the number of intents (20) that allows using not only purity and Silhouette coefficients to evaluate the clusters but also homogeneity and completeness to get the idea how resulting groups correlate with initial intents. Also, for each model, we plotted a confusion matrix with a background gradient to visualize how well clusters separate different intents.
+We set the number of clusters to the number of intents (20)
+which allows using not only purity and Silhouette coefficients to
+evaluate the clusters but also homogeneity and completeness to get the
+idea how resulting groups correlate with initial intents. Also, for
+each model, we plot a confusion matrix with a background gradient
+to visualize how well clusters separate different intents.
 
+\subsection{Classifying Sentences}
 
+Train on labelled data
 
-\subsection{Classification models}
-
-SVC on labelled data
-
-test on unlabelled data
+Test on unlabelled data
 
 \section{Datasets}
 
-\subsection{Dataset with intents}
+\subsection{Labelled Data}
 
 The initial dataset is created manually covering 20 main possible users intents. Each sentence represents one intent. For, example,
 
-\begin{lstlisting}
-{'text': 'After sleep, for 2-3 hours, 
-I am better and then start feeling tired again',
- 'intent': 'sleep',
+\enumsentence{
+\textbf{Text:} After sleep, for 2-3 hours, I am better and then start feeling tired again\\
+\textbf{Intent:} sleep
 }
-\end{lstlisting}
 
-Distribution of labels is show on fig. \ref{figure:name}
+The distribution of labels is shown in Figure~\ref{figure:name}. There
+are in average, 3.4 words per sentence (min: 0, max: 12, std:
+2.16367).  The total number of sentences is 3305 and the vocabulary
+consists of 1882 content words (after removing stopwords).
 
  \begin{figure}[h]
  	\centering
@@ -98,7 +164,7 @@ Distribution of labels is show on fig. \ref{figure:name}
  \end{figure}
 
 
-{'min': 0, 'max': 12, 'mean': 3.438, 'std': 2.16367}
+
 
  \begin{figure}[h]
  	\centering
@@ -107,25 +173,19 @@ Distribution of labels is show on fig. \ref{figure:name}
  \label{words_freq}
  \end{figure}
 
-Total number of sentences is 3305. Found 1882 words after filtering through stopwords list. 
+
 
 \subsection{Forum data}
 
-To improve initial classifier we needed to extend dataset by much more
-data and more naturally constracted one. No test set is available was
-available at the beginning of the project. To solve this problem, we
-opted to created our own test set following \cite{zhang2015} and
-\cite{sondhi-EtAl:2010:POSTERS} example.
+To create additional training data, we extracted textual data from
+HealthBoards \add{URL}, a medical forum web portal that allows
+patients to discuss their ailments.
 
-Finally, 272552 unique posts
+We scraped 272,553 unique posts contained in each category.  The post
+were then segmented into sentences, tokenized and lemmatized using NLP
+libraries. Stop words were removed.
 
-
-\subsection{Preprocessing routine}
-
-Some proprocessing routine should be covered. This routine includes sentence tokenization, word tokenization, stop words removing and lemmatization. 
-
-Most popular and common tools for nlp are NLTK and SpaCy but they differ in behaviour.
-
+We compared two libraries, NLTK and SpaCy.
 
 For example, in word tokenization they give different results that can influence not only simple statistics but meaning too. Some example of different tokenization can be seen in table \ref{token_dif}. Though concating words to ones like 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning in case of big dataset, in our case it seems better to stay with spacy way of tokenization in order to have smaller and more simple vocabualary.
 
@@ -177,20 +237,27 @@ NLTK & SpaCy \\ \hline
 ['i', 'm', 'supposed', 'to', 'take', '6', '35', 'mg', 'tablets', 'a', 'day', 'but', 'i', 'have', 'taken', '20', 'today'] \\ 
 \hline
 \end{tabular}	
-\caption{\label{token_dif}Tokenization comparision}
+\caption{\label{token_dif}Tokenization comparison}
 \end{table}
 \end{center}
 
 
-
-HealthBoards is a medical forum web portal that allows patients to discuss their ailments.
-We scraped 272553 unique posts contained in each category. Finally, the corpus consists of N  sentences. Table \ref{visina8} shows the dataset statistics.
+Finally, the corpus consists of N  sentences. Table \ref{tab:datastats} and Figure~\ref{visina8} show the dataset statistics.
 
 
 {'min': 0, 'max': 2027, 'mean': 10.932588521491454, 'std': 8.964716092053479}
 {'min': 3.2580388329566468, 'max': 35.23600634007455, 'mean': 11.224462266261876, 'std': 6.963225985041148}
 
-
+\begin{table}
+\begin{tabular}{ |l|rrr| }
+  \hline
+   & \# Sentence & Avg Stce Size (min/max) & Vocab. Size\\\hline
+  Unlabelled Data & 3305 & 3.4 (0/12) & 1882 \\
+  Labelled Data & & 10.93 (0/2027) & \\\hline
+\end{tabular}
+\caption{Labelled and Unlabelled Data}
+\label{tab:datastats}
+\end{table}
  \begin{figure}[h]
  	\centering
  	\includegraphics[scale=0.5]{report3.png}
@@ -204,10 +271,10 @@ Data should be divided in subsets by increasing sentence length because of the d
 \section{Experiment}
 
 \subsection{Clustering}
-\subsubsection{Evoluation metrics}
+\subsubsection{Evaluation metrics}
 \subsubsection{W2V model}
 
-Comparision table
+Comparison table
 
 \begin{tabular}{ |p{2cm}|p{1cm}|c|c|c|c|p{1cm}| }
 \hline
@@ -241,10 +308,10 @@ From simple encoder, w2v, lda, w2v + lda
 
 From simple encoder, w2v, lda, w2v + lda
 
-\subsubsection{Overall comparision}
+\subsubsection{Overall comparison}
 
 \subsection{Classifier}
-\subsubsection{Evoluation metrics}
+\subsubsection{Evaluation metrics}
 \subsubsection{Results for each model}
 
 
