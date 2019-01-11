@@ -109,6 +109,16 @@ We explore two ways of building word representations: Word2vec and LDA.
 
 \paragraph{Tranformer Representations.}
 
+<<<<<<< HEAD
+=======
+The most popular word-basis techniques to represent sentences are LDA (Latent Dirichlet Allocation) and Word2Vector models. We used their implementation from gensim library in order to build models based on the initial labelled dataset.
+
+Preprocessed tokenized sentences were used to create dictionary and were passed to W2V model as it is and in form of Bag-Of-Word to LDA model.
+
+For selecting the best model we changed space dimension (topics for LDA and features for W2W). Preferred number of features for W2V model is 200. It's the start point for our model.
+
+The good point of using this models is that they can be used for both word and sentence representation since one word can be treated as a small sentence.
+>>>>>>> 1fd91297f0d748d6268bc796f027ba6b4c129a5a
 
 
 
@@ -127,6 +137,7 @@ We explore two ways of building word representations: Word2vec and LDA.
 \item GaussianMixture (GM)
 \end{itemize}
 
+<<<<<<< HEAD
 We set the number of clusters to the number of intents (20)
 which allows using not only purity and Silhouette coefficients to
 evaluate the clusters but also homogeneity and completeness to get the
@@ -137,6 +148,9 @@ to visualize how well clusters separate different intents.
 \subsection{Classifying Sentences}
 
 Train on labelled data
+=======
+The number of clusters was set to the number of intents (20) that allows using not only purity and Silhouette coefficients to evaluate them but also homogeneity and completeness to get the idea how resulting groups correlate with initial intents. Also, for each model, we plotted a confusion matrix with a background gradient to visualize how well clusters separate different intents.
+>>>>>>> 1fd91297f0d748d6268bc796f027ba6b4c129a5a
 
 Test on unlabelled data
 
