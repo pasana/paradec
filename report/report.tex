@@ -70,9 +70,19 @@ The number of clusters was set to the number of intents (20) that allows using n
 
 \subsection{Classification models}
 
-SVC on labelled data
+SVC on labelled data, CV
 
-test on unlabelled data
+Try RF?
+
+
+\subsection{Semi-supervised approach}
+
+First, we find the best clusterization for the forum data, later we classify each item and omit ones with low probability of elements at threshold \Theta. In result some clusters will be empty from the beginning and some of them will be ommited due to small population.
+
+Elements of clusters that are left will be labelled by the majority. Usually, they are pure. Later we select N labelled items for each category and extend train data with them to retrain word embedding and classificatin models.
+
+We repeat this cycle until we won't be able to extend train dataset by additional samples or classifier score will stop to grow.
+
 
 \section{Datasets}
 
@@ -107,13 +117,6 @@ Distribution of labels is show on fig. \ref{figure:name}
  \end{figure}
 
 Total number of sentences is 3305. Found 1882 words after filtering through stopwords list. 
-
-\subsection{Forum data}
-
-To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. No  test  set  is  available was available at the beginning of the project. To  solve this  problem,  we  opted  to  created  our  own  test set following Zhang et al (2015) and Sondhi et al (2010) example.  
-
-Finally, 272552 unique posts
-
 
 \subsection{Preprocessing routine}
 
@@ -178,6 +181,35 @@ NLTK & SpaCy \\ \hline
 
 
 
+\subsection{Forum data}
+
+To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. No  test  set  is  available was available at the beginning of the project. To  solve this  problem,  we  opted  to  created  our  own  test set following Zhang et al (2015) and Sondhi et al (2010) example.  
+
+Finally, 272552 unique posts from 238 categories. Because our intents are not that precise we should select particular boards with relevant information to be able gradually expand their context. Result is in table \ref{cat_freq}
+
+
+\begin{center}
+\begin{table}
+\begin{tabular}{ |p{7cm}|p{7cm}| }
+\hline
+Category of board |  # of posts \\ \hline
+digestive-disorders & 5064 \\ \hline
+addiction-recovery & 3644 \\ \hline
+sleep-disorders & 1748 \\ \hline
+smoking-cessation & 937 \\ \hline
+eating-disorder-recovery & 762 \\ \hline
+chronic-pain & 735 \\ \hline
+chronic-fatigue & 662 \\ \hline
+stress & 415 \\ \hline
+family-friends-addicts-alcoholics & 312 \\ \hline
+pain-management & 25 \\ \hline
+\end{tabular}
+\caption{\label{cat_freq}Selected categories}
+
+\end{table}
+\end{center}
+
+
 HealthBoards is a medical forum web portal that allows patients to discuss their ailments.
 We scraped 272553 unique posts contained in each category. Finally, the corpus consists of N  sentences. Table \ref{visina8} shows the dataset statistics.
 
@@ -194,12 +226,21 @@ We scraped 272553 unique posts contained in each category. Finally, the corpus c
 
 Data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets.
 
+\subsection{Forum datasets generation}
+
+We should start with the most similar data, so we choose categories of boards that are similar to our intents and after tokenizing  posts into sentences we calculate it's length. For the each iteration we should leave sentences with mean+std words in cleaned text.
+
 
 
 \section{Experiment}
 
 \subsection{Clustering}
 \subsubsection{Evoluation metrics}
+
+For every model following metrics and their average were calculated: purity score, Silhouette Coefficient, homogeneity and completeness scores. Later for each parameter average among clustering models calculated for each score in order to get both table and plot.
+
+Also for each model confusion matrix created between cluster labels and initial intents.
+
 \subsubsection{W2V model}
 
 Comparision table
@@ -220,13 +261,88 @@ Forward & FW & & & & &\\ \hline
 \hline
 \end{tabular}
 
+\begin{tabular}{ |c|c|c|c|c|c| }
+\hline
+features num & purity  & silhouette  & homogeneity  & completeness  & AVG\\ \hline 
+10  & 0.192032  & 0.0774036  & 0.108761  & 0.127672  & 0.126467\\ \hline 
+20  & 0.186283  & 0.061294  & 0.108755  & 0.127291  & 0.120906\\ \hline 
+30  & 0.184065  & 0.0630405  & 0.108515  & 0.128856  & 0.121119\\ \hline 
+50  & 0.17761  & 0.0662788  & 0.107623  & 0.128358  & 0.119967\\ \hline 
+100  & 0.184266  & 0.0653807  & 0.109944  & 0.144074  & 0.125916\\ \hline 
+150  & 0.178417  & 0.0566761  & 0.105809  & 0.138289  & 0.119798\\ \hline 
+200  & 0.179929  & 0.0496567  & 0.102913  & 0.139742  & 0.11806\\ \hline 
+300  & 0.176803  & 0.0505959  & 0.105242  & 0.150409  & 0.120762\\ \hline 
+400  & 0.169844  & 0.072453  & 0.0984974  & 0.144132  & 0.121231\\ \hline 
+500  & 0.169541  & 0.0478535  & 0.0982757  & 0.15098  & 0.116663\\ \hline 
+550  & 0.172264  & 0.0620061  & 0.100714  & 0.153673  & 0.122164\\ \hline 
+600  & 0.170045  & 0.0498559  & 0.0988441  & 0.157109  & 0.118964 \\
+\hline
+\end{tabular}
+
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[scale=0.7]{w2v_scores.png}
+	\caption{LDA scores}
+ \label{words_freq}
+ \end{figure}
+
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[scale=0.7]{best_w2v_cm.png}
+	\caption{LDA confusion matrix}
+ \label{words_freq}
+ \end{figure}
+
+
 
 \subsubsection{LDA model}
+
+
+\begin{tabular}{ |c|c|c|c|c|c| }
+\hline
+num & purity  & silhouette  & homogeneity  & completeness  & AVG\\ \hline 
+10  & 0.253656  & 0.461589  & 0.157498  & 0.178928  & 0.262918\\ \hline 
+20  & 0.259203  & 0.378276  & 0.168191  & 0.182203  & 0.246968\\ \hline 
+30  & 0.251538  & 0.331069  & 0.157755  & 0.168448  & 0.227202\\ \hline 
+50  & 0.240545  & 0.287032  & 0.147430  & 0.166824  & 0.210458\\ \hline 
+100  & 0.266465  & 0.187596  & 0.168647  & 0.189221  & 0.202982\\ \hline 
+150  & 0.256077  & 0.167888  & 0.161589  & 0.185054  & 0.192652\\ \hline 
+200  & 0.263843  & 0.149212  & 0.175117  & 0.194913  & 0.195771\\ \hline 
+300  & 0.250025  & 0.151526  & 0.165607  & 0.184314  & 0.187868\\ \hline 
+400  & 0.272718  & 0.192777  & 0.177547  & 0.192270  & 0.208828\\ \hline 
+500  & 0.259506  & 0.203725  & 0.174925  & 0.192831  & 0.207747\\ \hline 
+550  & 0.229450  & 0.166200  & 0.149270  & 0.158548  & 0.175867\\ \hline 
+600  & 0.254261  & 0.191729  & 0.171744  & 0.186001  & 0.200934\\
+\hline 
+\end{tabular}
+
+
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[scale=0.7]{lda_scores.png}
+	\caption{LDA scores}
+ \label{words_freq}
+ \end{figure}
+
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[scale=0.7]{best_lda_cm.png}
+	\caption{LDA confusion matrix}
+ \label{words_freq}
+ \end{figure}
+
+
+Best model - 500 topics.
 
 
 \subsubsection{GloVe pretrained}
 
 \subsubsection{Google News W2V pretrained}
+
+We used word2vec google-news model with 300 dimensional feature space.
+
+
+CV 0.418 + 0.057%
 
 \subsubsection{CNN by word}
 
@@ -240,8 +356,11 @@ From simple encoder, w2v, lda, w2v + lda
 
 \subsection{Classifier}
 \subsubsection{Evoluation metrics}
+
+
 \subsubsection{Results for each model}
 
+\subsection{Semi-supervised learning}
 
 \section{Conclusion}
 
