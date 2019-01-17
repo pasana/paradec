@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.12)  16 JAN 2019 01:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.12)  17 JAN 2019 16:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -79,6 +79,14 @@ Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
 \multirow@dima=\skip44
 \bigstrutjot=\dimen109
 )
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2018/02/14 3.18 The Babel package
 
@@ -99,37 +107,28 @@ File: babel.def 2018/02/14 3.18 Babel common definitions
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
-)) (./report.aux
-
-LaTeX Warning: Label `words_freq' multiply defined.
-
-
-LaTeX Warning: Label `words_freq' multiply defined.
-
-
-LaTeX Warning: Label `words_freq' multiply defined.
-
-
-LaTeX Warning: Label `words_freq' multiply defined.
-
+))
+(/usr/share/texlive/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+) (./report.aux
 
 LaTeX Warning: Label `words_freq' multiply defined.
 
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count98
@@ -200,201 +199,148 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \c@lstlisting=\count104
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 27.
 
-Overfull \hbox (3.11469pt too wide) in paragraph at lines 28--29
-\OT1/cmr/m/n/10.95 In their ar-ti-cle they de-scribe the ap-proach of au-to-mat
--i-cally ex-pand-ing dataset
- []
+(./report.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 5.
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+\tf@toc=\write3
+\openout3 = `report.toc'.
+
+ [2]
+
+LaTeX Warning: Citation `N18-2058' on page 3 undefined on input line 71.
 
 
-Overfull \hbox (69.14926pt too wide) in paragraph at lines 30--31
-\OT1/cmr/m/n/10.95 Supervised Event Ex-trac-tion with Para-phrase Clus-ters: ht
-tp://aclweb.org/anthology/N18-
- []
+LaTeX Warning: Citation `zhang2015' on page 3 undefined on input line 71.
 
-[1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 64.
+LaTeX Warning: Citation `N18-2058' on page 3 undefined on input line 75.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+
+LaTeX Warning: Citation `zhang2015' on page 3 undefined on input line 75.
+
+[3
+
+]
+
+LaTeX Warning: Citation `vaswani2017attention' on page 4 undefined on input lin
+e 107.
+
+[4]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 121.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 64.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 121.
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ˜ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [2]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 84.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 84.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 84.
-<report1.png, id=13, 427.5975pt x 243.91125pt>
+ [5]
+<report1.png, id=24, 427.5975pt x 243.91125pt>
 File: report1.png Graphic file (type png)
 <use report1.png>
-Package pdftex.def Info: report1.png  used on input line 94.
+Package pdftex.def Info: report1.png  used on input line 171.
 (pdftex.def)             Requested size: 213.79822pt x 121.95532pt.
-<report4.png, id=15, 311.1625pt x 212.795pt>
+<report4.png, id=26, 311.1625pt x 212.795pt>
 File: report4.png Graphic file (type png)
 <use report4.png>
-Package pdftex.def Info: report4.png  used on input line 104.
+Package pdftex.def Info: report4.png  used on input line 181.
 (pdftex.def)             Requested size: 124.46278pt x 85.11649pt.
- [3 <./report1.png> <./report4.png>]
-
-LaTeX Warning: Reference `cat_freq' on page 4 undefined on input line 115.
-
-! You can't use `macro parameter character #' in horizontal mode.
-l.122 Category of board |  #
-                             of posts \\ \hline
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
-
-
-Overfull \hbox (62.33856pt too wide) in paragraph at lines 120--134
-[][] 
- []
-
-[4]
-<report2.png, id=24, 883.3pt x 306.14375pt>
+ [6 <./report1.png> <./report4.png>]
+<report2.png, id=32, 883.3pt x 306.14375pt>
 File: report2.png Graphic file (type png)
 <use report2.png>
-Package pdftex.def Info: report2.png  used on input line 152.
+Package pdftex.def Info: report2.png  used on input line 207.
 (pdftex.def)             Requested size: 353.31374pt x 122.45532pt.
-
-Underfull \hbox (badness 2213) in paragraph at lines 192--192
+ [7 <./report2.png>]
+Underfull \hbox (badness 2213) in paragraph at lines 248--248
 []\OT1/cmr/m/n/10.95 ['i', 'm', 'sup-posed', 'to', 'take', '6',
  []
 
 
-Underfull \hbox (badness 1226) in paragraph at lines 192--192
+Underfull \hbox (badness 1226) in paragraph at lines 248--248
 \OT1/cmr/m/n/10.95 '35mg', 'tablets', 'a', 'day', 'but', 'i',
  []
 
 
-Overfull \hbox (62.33856pt too wide) in paragraph at lines 179--196
+Overfull \hbox (62.33856pt too wide) in paragraph at lines 235--252
 [][] 
  []
 
 
-Overfull \hbox (20.66211pt too wide) in paragraph at lines 206--208
+Overfull \hbox (20.66211pt too wide) in paragraph at lines 266--268
 []\OT1/cmr/m/n/10.95 'min': 0, 'max': 2027, 'mean': 10.932588521491454, 'std': 
 8.964716092053479
  []
 
 
-Overfull \hbox (41.68298pt too wide) in paragraph at lines 206--208
+Overfull \hbox (41.68298pt too wide) in paragraph at lines 266--268
 \OT1/cmr/m/n/10.95 'min': 3.2580388329566468, 'max': 35.23600634007455, 'mean':
  11.224462266261876,
  []
 
-[5 <./report2.png>]
-<report3.png, id=29, 944.52875pt x 325.215pt>
+[8]
+<report3.png, id=41, 944.52875pt x 325.215pt>
 File: report3.png Graphic file (type png)
 <use report3.png>
-Package pdftex.def Info: report3.png  used on input line 212.
+Package pdftex.def Info: report3.png  used on input line 283.
 (pdftex.def)             Requested size: 472.26321pt x 162.6071pt.
 
-Overfull \hbox (112.26321pt too wide) in paragraph at lines 212--213
+Overfull \hbox (112.26321pt too wide) in paragraph at lines 283--284
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[6]
-Overfull \hbox (6.31355pt too wide) in paragraph at lines 235--235
-[]\OT1/cmr/m/n/10.95 Cluster| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 235--235
-[]\OT1/cmr/m/n/10.95 Clf
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 235--235
-\OT1/cmr/m/n/10.95 CV
- []
-
-
-Overfull \hbox (34.90834pt too wide) in paragraph at lines 233--248
-[][] 
- []
-
-
-Overfull \hbox (43.11328pt too wide) in paragraph at lines 249--266
-[][] 
- []
-
-<w2v_scores.png, id=33, 379.4175pt x 278.03876pt>
+[9 <./report3.png>] [10]
+<w2v_scores.png, id=49, 433.62pt x 289.08pt>
 File: w2v_scores.png Graphic file (type png)
 <use w2v_scores.png>
-Package pdftex.def Info: w2v_scores.png  used on input line 269.
-(pdftex.def)             Requested size: 265.59042pt x 194.6258pt.
-[7 <./report3.png>]
-<best_w2v_cm.png, id=39, 400.49625pt x 494.84875pt>
+Package pdftex.def Info: w2v_scores.png  used on input line 351.
+(pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
+<best_w2v_cm.png, id=50, 400.49625pt x 494.84875pt>
 File: best_w2v_cm.png Graphic file (type png)
 <use best_w2v_cm.png>
-Package pdftex.def Info: best_w2v_cm.png  used on input line 276.
+Package pdftex.def Info: best_w2v_cm.png  used on input line 361.
 (pdftex.def)             Requested size: 280.34546pt x 346.39177pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<lda_scores.png, id=40, 433.62pt x 289.08pt>
-File: lda_scores.png Graphic file (type png)
-<use lda_scores.png>
-Package pdftex.def Info: lda_scores.png  used on input line 307.
-(pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
-[8 <./w2v_scores.png>]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
+[11 <./w2v_scores.png>]
 Overfull \vbox (42.69235pt too high) has occurred while \output is active []
 
 
-[9 <./best_w2v_cm.png>]
-<best_lda_cm.png, id=49, 423.5825pt x 487.8225pt>
-File: best_lda_cm.png Graphic file (type png)
-<use best_lda_cm.png>
-Package pdftex.def Info: best_lda_cm.png  used on input line 314.
-(pdftex.def)             Requested size: 296.50572pt x 341.47342pt.
+[12 <./best_w2v_cm.png>]
+<lda_scores.png, id=59, 433.62pt x 289.08pt>
+File: lda_scores.png Graphic file (type png)
+<use lda_scores.png>
+Package pdftex.def Info: lda_scores.png  used on input line 392.
+(pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
+<lda_gm_cm.png, id=60, 410.53375pt x 488.82625pt>
+File: lda_gm_cm.png Graphic file (type png)
+<use lda_gm_cm.png>
+Package pdftex.def Info: lda_gm_cm.png  used on input line 405.
+(pdftex.def)             Requested size: 287.37166pt x 342.17603pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Overfull \hbox (3.93591pt too wide) in paragraph at lines 355--368
-\OT1/cmr/m/n/10.95 tional Lin-guis-tics", pages = "359--364", lo-ca-tion = "New
- Or-leans, Louisiana",
- []
-
-[10 <./lda_scores.png>]
-Overfull \vbox (28.24869pt too high) has occurred while \output is active []
-
-
-[11 <./best_lda_cm.png>]
-Overfull \hbox (37.70853pt too wide) in paragraph at lines 396--397
-\OT1/cmr/m/n/10.95 for-mat-ics, 19(4), 1392-1398. [7066225]. https://doi.org/10
-.1109/JBHI.2015.2416252 
- []
-
-
-Overfull \hbox (87.26744pt too wide) in paragraph at lines 400--401
-\OT1/cmr/m/n/10.95 for-mat-ics, vol. 19, no. 4, 7066225, pp. 1392-1398. https:/
-/doi.org/10.1109/JBHI.2015.2416252 
- []
-
-[12] (./report.aux)
+[13 <./lda_scores.png>] [14 <./lda_gm_cm.png>]
+No file report.bbl.
+[15] (./report.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -403,21 +349,23 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3242 strings out of 494880
- 46613 string characters out of 6179600
- 117773 words of memory out of 5000000
- 6532 multiletter control sequences out of 15000+600000
- 7897 words of font info for 28 fonts, out of 8000000 for 9000
+ 3325 strings out of 494880
+ 47864 string characters out of 6179600
+ 114014 words of memory out of 5000000
+ 6601 multiletter control sequences out of 15000+600000
+ 8811 words of font info for 31 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 41i,9n,32p,611b,897s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,10n,32p,541b,258s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on report.pdf (12 pages, 278689 bytes).
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on report.pdf (15 pages, 295983 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
- 41 compressed objects within 1 object stream
+ 94 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

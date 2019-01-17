@@ -3,8 +3,20 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{multirow}
+\usepackage{color}
 \usepackage[english]{babel}
+\usepackage{placeins}
+%\usepackage{mylingmacros}
+
+\newcommand\add[1]{{\textcolor{blue}{ADD: #1}}}
+\newcommand\mod[1]{{\textcolor{green}{MODIFIED: #1}}}
+\newcommand\remove[1]{{\textcolor{red}{REMOVE: #1}}}
+\newcommand\expand[1]{{\textcolor{blue}{EXPAND: #1}}}
+\newcommand\rewrite[1]{{\textcolor{green}{REWRITE: #1}}}
+
 % Titre complet
+
+
 \title{Report}
 
 \author{Anna Liednikova}
@@ -12,36 +24,76 @@
 
 \begin{document}
 
+\maketitle
+
+\tableofcontents
+
+\clearpage
 
 \section{Introduction}
 
  
-This project was set within the framework of a collaboration with the ALIAE startup where the aim is to develop a chatbot to collect information from clinical patients. The main idea is to replace strictly defined surveys by a more natural conversation in order to let users express themselves freely so that more information could be collected. First, we should be able to analyse the user utterances (does the user speaks about pain, physical activity etc. ?) and detect at least one most probable intent of user message so that chatbot could choose the right strategy for fulfilling information.
+This project was set within the framework of a collaboration with the
+ALIAE startup where the aim is to develop a chatbot to collect
+information from clinical patients. The main idea is to replace
+strictly defined surveys by a more natural conversation in order to
+let users express themselves freely so that more information could be
+collected.
 
 
-A small manually annotated dataset (roughly 100 sentences for each category) was available. So the purpose of the project is to find word embeddings that will allow to expand it by external data using the existing dataset with labelled intents.
+\add{The chatbot consists of three main modules: NLU (Natural
+  Language Understanding: interpreting the user input), Dialog
+  Managment (Deciding on how to respond to the user input) and NLG
+  (Generating the system response).}
 
-We have tried models for sentence representation by word and the whole context in order to use semi-supervised learning by gradually increasing train data by labelling external sources.
+\add{In this project, we focus on the NLU step which consists in}
+analysing the user utterance (does the user speaks about pain,
+physical activity etc. ?) and detecting at least one most probable
+intent of user message so that the chatbot can choose the right
+strategy for fulfilling information.
+
+\add{ADD an example showing a user input and the expected representation ie intent + entity}
+
+
+A small manually annotated dataset (roughly 100 sentences for each
+category) was available.
+
+\add{say that this dataset is not enough for learning a good NLU models. Hence your work focuses on exploring automatic ways of extending the training data and 
+  learning NLU models from these extended data.}
+
+\add{Explain report structure: which section focuses on what?}
+
+
+\remove{We have tried models for sentence representation by word and the whole context in order to use semi-supervised learning by gradually increasing train data by labelling external sources.}
 
 \section{Literature review}
 
-James Ferguson et al faced a similar problem with a small labelled dataset. In their article they describe the approach of automatically expanding dataset and improving the performance of baseline models, that was event trigger identification system in their case.
-
-First, they trained a baseline classifier on available data. Then they identified clusters of additional data to obtain grouped paraphrases inspired by the NewsSpike idea introduced in Zhang et al. (2015). After they labelled clusters with baseline model trained fully-supervised. Combining new labelled data and original one they retrained the event extractor. (Semi-Supervised Event Extraction with Paraphrase Clusters: http://aclweb.org/anthology/N18-2058)
-
-
+\cite{N18-2058} \mod{present an approach for automatically generating additional training data for event extraction systems}. First, they trained a baseline classifier on available data. Then, they cluster external data to obtain cluster of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor.
 
 \section{Methodology}
 
-sentence representation, clustering , classification
+\add{We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. }
+
+%% irst
+%% group together paraphrases of event mentions.
+
+%% then use the simple examples in each cluster to as-
+%% sign a label to the entire cluster
+
+%% com-
+%% bine the new examples with the original training
+%% set and retrain
 
 
+\subsection{Building Sentence Representations}
 
-\subsection{Sentence representation models}
+We create sentence representations in two steps using machine and deep learning techniques. First, we map words to continuous representations. Second, we combine these word representations into sentence representations. 
 
-\subsubsection{By Word representation}
+\subsubsection{Word Representations}
 
-The most popular word-basis techniques to represent sentences are LDA (Latent Dirichlet Allocation) and Word2Vector models. We used their implementation from gensim library in order to build models based on the initial labelled dataset.
+We explore two ways of building word representations: Word2vec and LDA.
+
+\add{You need to explain what LDA and Word2Vec are and how they represent word/sentences}
 
 Preprocessed tokenized sentences were used to create dictionary and were passed to W2V model as it is and in form of Bag-Of-Word to LDA model.
 
@@ -49,55 +101,70 @@ For selecting the best model we changed space dimension (topics for LDA and feat
 
 The good point of using this models is that they can be used for both word and sentence representation since one word can be treated as a small sentence.
 
-\subsubsection{By Sentence representation}
 
-In order to use context of words more PositionwiseFeedForward and BiLSTM neural networks were implemenent on Pytorch.
+\subsubsection{Sentence Representations}
+
+\mod{We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}}.
+
+\add{Here you need to explain the theory behind it. Explain how LSTM and the PositionwiseFeedForward  build a sentence representation out of word embeddings.}
+
+\paragraph{Bi-LSTM Representations.}
 
 
+\subsection{Clustering Sentences}
 
-\subsection{Clustering models}
+\mod{Using the sentence representations described in the previous
+  section, we apply clustering to group together sentences that are
+  similar. We compare three clustering algorithms:}
 
-The main idea behind using clustering models for evaluating sentence representations is to detect whatever sentences with the same intent populate the same clusters.
-
-For these purposes following clustering models were used: 
 \begin{itemize}
 \item K-Means (KM)
 \item AgglomerativeClustering(‘ward’) (AG)
 \item GaussianMixture (GM)
 \end{itemize}
 
-The number of clusters was set to the number of intents (20) that allows using not only purity and Silhouette coefficients to evaluate them but also homogeneity and completeness to get the idea how resulting groups correlate with initial intents. Also, for each model, we plotted a confusion matrix with a background gradient to visualize how well clusters separate different intents.
+\add{Briefly explain the key feature of each clustering algorithm}
 
-\subsection{Classification models}
+We set the number of clusters to the number of intents (20)
+which allows using not only purity and Silhouette coefficients to
+evaluate the clusters but also homogeneity and completeness to get the
+idea how resulting groups correlate with initial intents. Also, for
+each model, we plot a confusion matrix with a background gradient
+to visualize how well clusters separate different intents.
 
-SVC on labelled data, CV
+\subsection{Classifying Sentences}
 
-Try RF?
+After choosing the best model for word embedding we train classifier to 
+label data with intents. The most common approach in similar task is to use
+SVC. So, we create balanced train and test dataset and validate model by 
+cross validation score.
+
+Another classical approach for classification is Random Forest Classifier.
 
 
 \subsection{Semi-supervised approach}
 
-First, we find the best clusterization for the forum data, later we classify each item and omit ones with low probability of elements at threshold \Theta. In result some clusters will be empty from the beginning and some of them will be ommited due to small population.
+First, we find the best clusterization for the forum data, later we classify each item and omit ones with low probability of elements at threshold Theta. In result some clusters will be empty from the beginning and some of them will be ommited due to small population.
 
 Elements of clusters that are left will be labelled by the majority. Usually, they are pure. Later we select N labelled items for each category and extend train data with them to retrain word embedding and classificatin models.
 
 We repeat this cycle until we won't be able to extend train dataset by additional samples or classifier score will stop to grow.
 
-
 \section{Datasets}
 
-\subsection{Dataset with intents}
+\subsection{Labelled Data}
 
 The initial dataset is created manually covering 20 main possible users intents. Each sentence represents one intent. For, example,
 
-\begin{lstlisting}
-{'text': 'After sleep, for 2-3 hours, 
-I am better and then start feeling tired again',
- 'intent': 'sleep',
-}
-\end{lstlisting}
+%\enumsentence{
+\textbf{Text:} After sleep, for 2-3 hours, I am better and then start feeling tired again\\
+\textbf{Intent:} sleep
+%}
 
-Distribution of labels is show on fig. \ref{figure:name}
+The distribution of labels is shown in Figure~\ref{figure:name}. There
+are in average, 3.4 words per sentence (min: 0, max: 12, std:
+2.16367).  The total number of sentences is 3305 and the vocabulary
+consists of 1882 content words (after removing stopwords).
 
  \begin{figure}[h]
  	\centering
@@ -105,9 +172,9 @@ Distribution of labels is show on fig. \ref{figure:name}
 	\caption{Label distribution in dataset}
  \label{figure:name}
  \end{figure}
+\FloatBarrier
 
 
-{'min': 0, 'max': 12, 'mean': 3.438, 'std': 2.16367}
 
  \begin{figure}[h]
  	\centering
@@ -115,15 +182,21 @@ Distribution of labels is show on fig. \ref{figure:name}
 	\caption{Sentence dist}
  \label{words_freq}
  \end{figure}
+ \FloatBarrier
 
 Total number of sentences is 3305. Found 1882 words after filtering through stopwords list. 
 
 \subsection{Preprocessing routine}
 
-Some proprocessing routine should be covered. This routine includes sentence tokenization, word tokenization, stop words removing and lemmatization. 
+To create additional training data, we extracted textual data from
+HealthBoards \add{URL}, a medical forum web portal that allows
+patients to discuss their ailments.
 
-Most popular and common tools for nlp are NLTK and SpaCy but they differ in behaviour.
+We scraped 272,553 unique posts contained in each category.  The post
+were then segmented into sentences, tokenized and lemmatized using NLP
+libraries. Stop words were removed.
 
+We compared two libraries, NLTK and SpaCy.
 
 For example, in word tokenization they give different results that can influence not only simple statistics but meaning too. Some example of different tokenization can be seen in table \ref{token_dif}. Though concating words to ones like 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning in case of big dataset, in our case it seems better to stay with spacy way of tokenization in order to have smaller and more simple vocabualary.
 
@@ -135,6 +208,7 @@ For stopwords removing there were three options: nltk, spacy and the longest one
 	\caption{Words frequency}
  \label{words_freq}
  \end{figure}
+\FloatBarrier
 
 Length < 30.
 
@@ -175,24 +249,51 @@ NLTK & SpaCy \\ \hline
 ['i', 'm', 'supposed', 'to', 'take', '6', '35', 'mg', 'tablets', 'a', 'day', 'but', 'i', 'have', 'taken', '20', 'today'] \\ 
 \hline
 \end{tabular}	
-\caption{\label{token_dif}Tokenization comparision}
+\caption{\label{token_dif}Tokenization comparison}
 \end{table}
 \end{center}
-
+\FloatBarrier
 
 
 \subsection{Forum data}
 
 To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. No  test  set  is  available was available at the beginning of the project. To  solve this  problem,  we  opted  to  created  our  own  test set following Zhang et al (2015) and Sondhi et al (2010) example.  
 
-Finally, 272552 unique posts from 238 categories. Because our intents are not that precise we should select particular boards with relevant information to be able gradually expand their context. Result is in table \ref{cat_freq}
+HealthBoards is a medical forum web portal that allows patients to discuss their ailments.
+We scraped 272553 unique posts contained in each of 238 categories. Finally, the corpus consists of N  sentences. Table \ref{tab:datastats} and Figure~\ref{visina8} show the dataset statistics.
 
 
-\begin{center}
+{'min': 0, 'max': 2027, 'mean': 10.932588521491454, 'std': 8.964716092053479}
+{'min': 3.2580388329566468, 'max': 35.23600634007455, 'mean': 11.224462266261876, 'std': 6.963225985041148}
+
 \begin{table}
-\begin{tabular}{ |p{7cm}|p{7cm}| }
+\begin{tabular}{ |l|rrr| }
+  \hline
+   & \# Sentence & Avg Stce Size (min/max) & Vocab. Size\\\hline
+  Unlabelled Data & 3305 & 3.4 (0/12) & 1882 \\
+  Labelled Data & & 10.93 (0/2027) & \\\hline
+\end{tabular}
+\caption{Labelled and Unlabelled Data}
+\label{tab:datastats}
+\end{table}
+\FloatBarrier
+
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[scale=0.5]{report3.png}
+	\caption{Text stat}\label{visina8}
+ \end{figure}
+\FloatBarrier
+
+
+Because our intents are not that precise as forum ones we should select particular boards with relevant information to be able gradually expand their context. Result is in table \ref{cat_freq} 
+We should start with the data that is most similar to the initial one, so we choose categories of boards that are similar to our intents. 
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{ |r|c| }
 \hline
-Category of board |  # of posts \\ \hline
+Category of board &  \# of posts \\ \hline
 digestive-disorders & 5064 \\ \hline
 addiction-recovery & 3644 \\ \hline
 sleep-disorders & 1748 \\ \hline
@@ -205,134 +306,108 @@ family-friends-addicts-alcoholics & 312 \\ \hline
 pain-management & 25 \\ \hline
 \end{tabular}
 \caption{\label{cat_freq}Selected categories}
-
 \end{table}
-\end{center}
+\FloatBarrier
 
-
-HealthBoards is a medical forum web portal that allows patients to discuss their ailments.
-We scraped 272553 unique posts contained in each category. Finally, the corpus consists of N  sentences. Table \ref{visina8} shows the dataset statistics.
-
-
-{'min': 0, 'max': 2027, 'mean': 10.932588521491454, 'std': 8.964716092053479}
-{'min': 3.2580388329566468, 'max': 35.23600634007455, 'mean': 11.224462266261876, 'std': 6.963225985041148}
-
-
- \begin{figure}[h]
- 	\centering
- 	\includegraphics[scale=0.5]{report3.png}
-	\caption{Text stat}\label{visina8}
- \end{figure}
-
-Data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets.
-
-\subsection{Forum datasets generation}
-
-We should start with the most similar data, so we choose categories of boards that are similar to our intents and after tokenizing  posts into sentences we calculate it's length. For the each iteration we should leave sentences with mean+std words in cleaned text.
-
+Also, data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets. So after tokenizing posts into sentences we calculate it's length. For the each iteration we should leave sentences with mean+std words in cleaned text.
 
 
 \section{Experiment}
 
 \subsection{Clustering}
+
 \subsubsection{Evoluation metrics}
 
 For every model following metrics and their average were calculated: purity score, Silhouette Coefficient, homogeneity and completeness scores. Later for each parameter average among clustering models calculated for each score in order to get both table and plot.
 
 Also for each model confusion matrix created between cluster labels and initial intents.
 
+
 \subsubsection{W2V model}
 
-Comparision table
+Comparison table
 
-\begin{tabular}{ |p{2cm}|p{1cm}|c|c|c|c|p{1cm}| }
-\hline
-WE & Cluster & purity & Silhouette & homogeneity & complete & Clf CV score \\ \hline
-\multirow{3}{*}{Defenders} & KM & & & & &\\
- & AC & & & & &\\
- & GM & & & & &\\ \hline
-\multirow{3}{*}{M} & KM & & & & &\\
- & AC & & & & &\\
- & GM & & & & &\\ \hline
-Forward & FW & & & & &\\ \hline
-\multirow{3}{*}{S} & KM & & & & &\\
- & AC & & & & &\\
- & GM & & & & &\\
-\hline
-\end{tabular}
-
+\begin{center}
 \begin{tabular}{ |c|c|c|c|c|c| }
 \hline
-features num & purity  & silhouette  & homogeneity  & completeness  & AVG\\ \hline 
-10  & 0.192032  & 0.0774036  & 0.108761  & 0.127672  & 0.126467\\ \hline 
-20  & 0.186283  & 0.061294  & 0.108755  & 0.127291  & 0.120906\\ \hline 
-30  & 0.184065  & 0.0630405  & 0.108515  & 0.128856  & 0.121119\\ \hline 
-50  & 0.17761  & 0.0662788  & 0.107623  & 0.128358  & 0.119967\\ \hline 
-100  & 0.184266  & 0.0653807  & 0.109944  & 0.144074  & 0.125916\\ \hline 
-150  & 0.178417  & 0.0566761  & 0.105809  & 0.138289  & 0.119798\\ \hline 
-200  & 0.179929  & 0.0496567  & 0.102913  & 0.139742  & 0.11806\\ \hline 
-300  & 0.176803  & 0.0505959  & 0.105242  & 0.150409  & 0.120762\\ \hline 
-400  & 0.169844  & 0.072453  & 0.0984974  & 0.144132  & 0.121231\\ \hline 
-500  & 0.169541  & 0.0478535  & 0.0982757  & 0.15098  & 0.116663\\ \hline 
-550  & 0.172264  & 0.0620061  & 0.100714  & 0.153673  & 0.122164\\ \hline 
-600  & 0.170045  & 0.0498559  & 0.0988441  & 0.157109  & 0.118964 \\
-\hline
-\end{tabular}
+features num & purity  & silhouette  & homogeneity  & completeness\\ \hline 
+10  & 0.183157  & 0.0680834  & 0.108901  & 0.12661\\ \hline 
+20  & 0.182854  & 0.0506986  & 0.111099  & 0.124805\\ \hline 
+30  & \textbf{0.185477}  & 0.0683824  & 0.110799  & 0.132563\\ \hline 
+50  & 0.184569  & 0.0647393  & \textbf{0.111876}  & 0.131964\\ \hline 
+100  & 0.182148  & \textbf{0.0813837}  & 0.108022  & 0.138329\\ \hline 
+150  & 0.183661  & 0.0298524  & 0.106401  & 0.141179\\ \hline 
+200  & 0.176803  & 0.0581627  & 0.103708  & 0.141973\\ \hline 
+300  & 0.176097  & 0.0432732  & 0.106379  & 0.151118\\ \hline 
+400  & 0.169642  & 0.0626822  & 0.100455  & 0.148768\\ \hline 
+500  & 0.168533  & 0.0653733  & 0.0976706  & 0.146799\\ \hline 
+550  & 0.17176  & 0.0584935  & 0.0994422  & \textbf{0.151185}\\ \hline 
+600  & 0.169138  & 0.0574187  & 0.0980455  & 0.150695\\ \hline \end{tabular}
+\end{center}
+\FloatBarrier
 
- \begin{figure}[h]
- 	\centering
+\begin{figure}[h]
+\centering
  	\includegraphics[scale=0.7]{w2v_scores.png}
 	\caption{LDA scores}
- \label{words_freq}
- \end{figure}
+\label{w2v_scores}
+\end{figure}
+\FloatBarrier
 
- \begin{figure}[h]
- 	\centering
+Later we will try both 10 and 100 features.
+
+\begin{figure}[h]
+	\centering
  	\includegraphics[scale=0.7]{best_w2v_cm.png}
-	\caption{LDA confusion matrix}
- \label{words_freq}
+	\caption{W2V confusion matrix}
+ \label{w2v_cm_mat}
  \end{figure}
-
-
+\FloatBarrier
 
 \subsubsection{LDA model}
 
-
-\begin{tabular}{ |c|c|c|c|c|c| }
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| }
 \hline
-num & purity  & silhouette  & homogeneity  & completeness  & AVG\\ \hline 
-10  & 0.253656  & 0.461589  & 0.157498  & 0.178928  & 0.262918\\ \hline 
-20  & 0.259203  & 0.378276  & 0.168191  & 0.182203  & 0.246968\\ \hline 
-30  & 0.251538  & 0.331069  & 0.157755  & 0.168448  & 0.227202\\ \hline 
-50  & 0.240545  & 0.287032  & 0.147430  & 0.166824  & 0.210458\\ \hline 
-100  & 0.266465  & 0.187596  & 0.168647  & 0.189221  & 0.202982\\ \hline 
-150  & 0.256077  & 0.167888  & 0.161589  & 0.185054  & 0.192652\\ \hline 
-200  & 0.263843  & 0.149212  & 0.175117  & 0.194913  & 0.195771\\ \hline 
-300  & 0.250025  & 0.151526  & 0.165607  & 0.184314  & 0.187868\\ \hline 
-400  & 0.272718  & 0.192777  & 0.177547  & 0.192270  & 0.208828\\ \hline 
-500  & 0.259506  & 0.203725  & 0.174925  & 0.192831  & 0.207747\\ \hline 
-550  & 0.229450  & 0.166200  & 0.149270  & 0.158548  & 0.175867\\ \hline 
-600  & 0.254261  & 0.191729  & 0.171744  & 0.186001  & 0.200934\\
+num & purity  & silhouette  & homogeneity  & completeness \\ \hline 
+10  & 0.253656  & 0.461589  & 0.157498  & 0.178928  \\ \hline 
+20  & 0.259203  & 0.378276  & 0.168191  & 0.182203  \\ \hline 
+30  & 0.251538  & 0.331069  & 0.157755  & 0.168448  \\ \hline 
+50  & 0.240545  & 0.287032  & 0.147430  & 0.166824  \\ \hline 
+100  & 0.266465  & 0.187596  & 0.168647  & 0.189221 \\ \hline 
+150  & 0.256077  & 0.167888  & 0.161589  & 0.185054 \\ \hline 
+200  & 0.263843  & 0.149212  & 0.175117  & \textbf{0.194913} \\ \hline 
+300  & 0.250025  & 0.151526  & 0.165607  & 0.184314 \\ \hline 
+400  & \textbf{0.272718}  & 0.192777  & \textbf{0.177547}  & 0.192270 \\ \hline 
+500  & 0.259506  & \textbf{0.203725}  & 0.174925  & 0.192831 \\ \hline 
+550  & 0.229450  & 0.166200  & 0.149270  & 0.158548 \\ \hline 
+600  & 0.254261  & 0.191729  & 0.171744  & 0.186001 \\
 \hline 
 \end{tabular}
+\end{center}
+\FloatBarrier
 
-
- \begin{figure}[h]
+\begin{figure}[h]
  	\centering
  	\includegraphics[scale=0.7]{lda_scores.png}
 	\caption{LDA scores}
- \label{words_freq}
- \end{figure}
+\label{lda_scores}
+\end{figure}
+\FloatBarrier
 
- \begin{figure}[h]
- 	\centering
- 	\includegraphics[scale=0.7]{best_lda_cm.png}
-	\caption{LDA confusion matrix}
- \label{words_freq}
- \end{figure}
+The best model - is LDA with 400 topics according to scores and with priority to purity and homogeneity ones.
+
+Thanks to confusion matrix that is constructed based on cluster and intent labels we can make assumpsions about possible errors and difficulties and figure out what connections our model distinguish well. Though different clustering algorithms still captures different connection between intents, there are some common groups for all of them: fallback and hello; alcohol, drugAddiction and risk; social and emotions.
 
 
-Best model - 500 topics.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{lda_gm_cm.png}
+	\caption{LDA confusion matrix for gaussian mixture}
+\label{lda_gm_cm}
+\end{figure}
+\FloatBarrier
+
 
 
 \subsubsection{GloVe pretrained}
@@ -352,10 +427,24 @@ From simple encoder, w2v, lda, w2v + lda
 
 From simple encoder, w2v, lda, w2v + lda
 
-\subsubsection{Overall comparision}
+\subsubsection{Overall comparison}
+
+\centering
+\begin{tabular}{ |r|c|c|c|c|c| }
+\hline
+model & features & purity  & silhouette  & homogeneity  & completeness \\ \hline 
+W2V & 10   & 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
+W2V & 100  & 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
+LDA & 400  & 0.272718  & 0.192777  & 0.177547  & 0.192270 \\ \hline 
+\end{tabular}
+\FloatBarrier
+
+
 
 \subsection{Classifier}
+
 \subsubsection{Evoluation metrics}
+
 
 
 \subsubsection{Results for each model}
@@ -366,53 +455,8 @@ From simple encoder, w2v, lda, w2v + lda
 
 
 \section{References}
-
-@InProceedings{N18-2058,
-  author = 	"Ferguson, James
-		and Lockard, Colin
-		and Weld, Daniel
-		and Hajishirzi, Hannaneh",
-  title = 	"Semi-Supervised Event Extraction with Paraphrase Clusters",
-  booktitle = 	"Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 2 (Short Papers)",
-  year = 	"2018",
-  publisher = 	"Association for Computational Linguistics",
-  pages = 	"359--364",
-  location = 	"New Orleans, Louisiana",
-  url = 	"http://aclweb.org/anthology/N18-2058"
-}
-
-@InProceedings{sondhi-EtAl:2010:POSTERS,
-  author    = {Sondhi, Parikshit  and  Gupta, Manish  and  Zhai, ChengXiang  and  Hockenmaier, Julia},
-  title     = {Shallow Information Extraction from Medical Forum Data},
-  booktitle = {Coling 2010: Posters},
-  month     = {August},
-  year      = {2010},
-  address   = {Beijing, China},
-  publisher = {Coling 2010 Organizing Committee},
-  pages     = {1158--1166},
-  url       = {http://www.aclweb.org/anthology/C10-2133}
-}
-
-
-@article{article,
-author = {Zhang, Thomas and H D Cho, Jason and Zhai, Chengxiang},
-year = {2015},
-month = {03},
-pages = {},
-title = {Understanding User Intents in Online Health Forums},
-volume = {19},
-journal = {IEEE journal of biomedical and health informatics},
-doi = {10.1109/JBHI.2015.2416252}
-
-}
-
-\paragraph{APA}
-
-Zhang, T., Cho, J. H. D., \& Zhai, C. (2015). Understanding User Intents in Online Health Forums. IEEE Journal of Biomedical and Health Informatics, 19(4), 1392-1398. [7066225]. https://doi.org/10.1109/JBHI.2015.2416252
-
-\paragraph{Harvard}
-
-Zhang, T, Cho, JHD \& Zhai, C 2015, 'Understanding User Intents in Online Health Forums' IEEE Journal of Biomedical and Health Informatics, vol. 19, no. 4, 7066225, pp. 1392-1398. https://doi.org/10.1109/JBHI.2015.2416252
+\bibliographystyle{alpha}
+\bibliography{biblio}
 
 
 \end{document}
