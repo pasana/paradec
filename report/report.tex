@@ -17,9 +17,9 @@
 % Titre complet
 
 
-\title{Report}
+\title{Data expansion for semantic classification}
 
-\author{Anna Liednikova}
+\author{Anna Liednikova, Claire Gardent}
 
 
 \begin{document}
@@ -40,31 +40,26 @@ strictly defined surveys by a more natural conversation in order to
 let users express themselves freely so that more information could be
 collected.
 
+The chatbot consists of three main modules: 
+\begin{itemize}
+\item NLU (Natura Language Understanding): interpreting the user input
+\item Dialog Managment: deciding on how to respond to the user input
+\item NLG: generating the system response
+\end{itemize}
 
-\add{The chatbot consists of three main modules: NLU (Natural
-  Language Understanding: interpreting the user input), Dialog
-  Managment (Deciding on how to respond to the user input) and NLG
-  (Generating the system response).}
-
-\add{In this project, we focus on the NLU step which consists in}
+In this project, we focus on the NLU step which consists in
 analysing the user utterance (does the user speaks about pain,
-physical activity etc. ?) and detecting at least one most probable
-intent of user message so that the chatbot can choose the right
+physical activity etc. ) and detecting at least one most probable
+intent of user message so that later the chatbot can choose the right
 strategy for fulfilling information.
 
 \add{ADD an example showing a user input and the expected representation ie intent + entity}
 
-
-A small manually annotated dataset (roughly 100 sentences for each
-category) was available.
-
-\add{say that this dataset is not enough for learning a good NLU models. Hence your work focuses on exploring automatic ways of extending the training data and 
-  learning NLU models from these extended data.}
+A small manually annotated dataset (roughly 100 sentences for each category) was available. But that's not enough for learning a good NLU model and meet the variety of users possible inputs. Annotating sentence takes plenty of time, so some automated or semi-automated way should be chosen. So this project focuses on exploring automatic ways of extending the training data and learning NLU models from these extended data.
 
 \add{Explain report structure: which section focuses on what?}
 
-
-\remove{We have tried models for sentence representation by word and the whole context in order to use semi-supervised learning by gradually increasing train data by labelling external sources.}
+First, we do the literature review of approaches applied to similar problems. Later in the methodology part, we will cover four parts: building sentence representation model, evaluate it by clusterisation, train a classifier for labelling the data and application semi-supervised learning for extending the dataset. Next two our datasets and preprocessing routine will be described. Experiment part contains a quantitative and qualitative description of the models and final results. In the end, we will sum up the work have been done and give some assumption for future improvements.
 
 \section{Literature review}
 
@@ -94,6 +89,20 @@ We create sentence representations in two steps using machine and deep learning 
 We explore two ways of building word representations: Word2vec and LDA.
 
 \add{You need to explain what LDA and Word2Vec are and how they represent word/sentences}
+
+\mod{Latent Dirichlet allocation (LDA) is a generative probabilistic model of a corpus. The basic idea is
+that documents are represented as random mixtures over latent topics, where each topic is charac-
+terized by a distribution over words. }
+
+LDA assumes the following generative process for each document \textbf{w} in a corpus \textbf{D}:
+\begin{itemize}
+
+\item 1.Choose N $\sim$ Poisson($\xi$).
+\item 2.  Choose $\theta \sim$ Dir($\alpha$).
+\item 3.  For each of the N words $w_{n}$ :
+\item (a)  Choose a topic $z_{n}$ $\sim$ Multinomial($\theta$).
+\item (b)  Choose a word $w_{n}$ from $p(w_{n} | z_{n}, \beta)$, a multinomial probability conditioned on the topic $z_{n}$.
+\end{itemize}
 
 Preprocessed tokenized sentences were used to create dictionary and were passed to W2V model as it is and in form of Bag-Of-Word to LDA model.
 
