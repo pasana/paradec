@@ -6,10 +6,12 @@
 \usepackage{color}
 \usepackage[english]{babel}
 \usepackage{placeins}
+ \usepackage{url}
+ \usepackage{mathtools}
 %\usepackage{mylingmacros}
 
 \newcommand\add[1]{{\textcolor{blue}{ADD: #1}}}
-\newcommand\mod[1]{{\textcolor{green}{MODIFIED: #1}}}
+\newcommand\modi[1]{{\textcolor{green}{MODIFIED: #1}}}
 \newcommand\remove[1]{{\textcolor{red}{REMOVE: #1}}}
 \newcommand\expand[1]{{\textcolor{blue}{EXPAND: #1}}}
 \newcommand\rewrite[1]{{\textcolor{green}{REWRITE: #1}}}
@@ -17,9 +19,9 @@
 % Titre complet
 
 
-\title{Report}
+\title{Data expansion for semantic classification}
 
-\author{Anna Liednikova}
+\author{Anna Liednikova, Claire Gardent}
 
 
 \begin{document}
@@ -40,39 +42,32 @@ strictly defined surveys by a more natural conversation in order to
 let users express themselves freely so that more information could be
 collected.
 
+The chatbot consists of three main modules: 
+\begin{itemize}
+\item NLU (Natura Language Understanding): interpreting the user input
+\item Dialog Managment: deciding on how to respond to the user input
+\item NLG: generating the system response
+\end{itemize}
 
-\add{The chatbot consists of three main modules: NLU (Natural
-  Language Understanding: interpreting the user input), Dialog
-  Managment (Deciding on how to respond to the user input) and NLG
-  (Generating the system response).}
-
-\add{In this project, we focus on the NLU step which consists in}
+In this project, we focus on the NLU step which consists in
 analysing the user utterance (does the user speaks about pain,
-physical activity etc. ?) and detecting at least one most probable
-intent of user message so that the chatbot can choose the right
+physical activity etc. ) and detecting at least one most probable
+intent of user message so that later the chatbot can choose the right
 strategy for fulfilling information.
 
 \add{ADD an example showing a user input and the expected representation ie intent + entity}
 
+A small manually annotated dataset (roughly 100 sentences for each category) was available. But that's not enough for learning a good NLU model and meet the variety of users possible inputs. Annotating sentence takes plenty of time, so some automated or semi-automated way should be chosen. So this project focuses on exploring automatic ways of extending the training data and learning NLU models from these extended data.
 
-A small manually annotated dataset (roughly 100 sentences for each
-category) was available.
-
-\add{say that this dataset is not enough for learning a good NLU models. Hence your work focuses on exploring automatic ways of extending the training data and 
-  learning NLU models from these extended data.}
-
-\add{Explain report structure: which section focuses on what?}
-
-
-\remove{We have tried models for sentence representation by word and the whole context in order to use semi-supervised learning by gradually increasing train data by labelling external sources.}
+First, we do the literature review of approaches applied to similar problems. Later in the methodology part, we will cover four parts: building sentence representation model, evaluate it by clusterisation, train a classifier for labelling the data and application semi-supervised learning for extending the dataset. Next two our datasets and preprocessing routine will be described. Experiment part contains a quantitative and qualitative description of the models and final results. In the end, we will sum up the work have been done and give some assumption for future improvements.
 
 \section{Literature review}
 
-\cite{N18-2058} \mod{present an approach for automatically generating additional training data for event extraction systems}. First, they trained a baseline classifier on available data. Then, they cluster external data to obtain cluster of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor.
+\cite{N18-2058} \modi{present an approach for automatically generating additional training data for event extraction systems}. First, they trained a baseline classifier on available data. Then, they cluster external data to obtain cluster of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor.
 
 \section{Methodology}
 
-\add{We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. }
+We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. 
 
 %% irst
 %% group together paraphrases of event mentions.
@@ -93,7 +88,51 @@ We create sentence representations in two steps using machine and deep learning 
 
 We explore two ways of building word representations: Word2vec and LDA.
 
-\add{You need to explain what LDA and Word2Vec are and how they represent word/sentences}
+
+\paragraph{LDA.} One of the most common methods for constructing thematic models is the Latent Dirichlet Allocation (LDA) $\cite{lda_def}$. This algorithm is based on the Dirichlet prior distribution and uses in its work the bag-of-words model - a model for analyzing texts that takes into account only the frequency of words, but not their order. This model is well suited for thematic modeling, since it allows you to detect implicit relationships between words based on polysemy. The LDA method performs soft clustering and assumes that each word in the document is generated by some latent topic, which is determined by a probability distribution on the set of all words of the text.
+
+LDA assumes the following generative process for each document \textbf{w} in a corpus \textbf{D}\cite{lda_def}:
+\begin{itemize}
+
+\item 1.Choose N $\sim$ Poisson($\xi$).
+\item 2.  Choose $\theta \sim$ Dir($\alpha$).
+\item 3.  For each of the N words $w_{n}$ :
+\item (a)  Choose a topic $z_{n}$ $\sim$ Multinomial($\theta$).
+\item (b)  Choose a word $w_{n}$ from $p(w_{n} | z_{n}, \beta)$, a multinomial probability conditioned on the topic $z_{n}$.
+\end{itemize}
+
+
+So finally each document with distribution vector over the topics while each topic is characterized by a distribution over words. For example,
+
+([(0.13819554, 'sleep'),
+  (0.10817484, 'morning'),
+  (0.10187448, 'sometimes'),
+  (0.09861754, 'help'),
+  (0.060275868, 'able'),
+  (0.060111083, 'nap'),
+  (0.044312898, 'every'),
+  (0.044219665, 'day'),
+  (0.041991115, 'catch'),
+  (0.04174149, 'different'),
+  (0.041275226, 'many'),
+  (0.041261088, 'kind'),
+  (0.029845418, 'fruit'),
+  (0.024193266, 'little'),
+  (0.024049524, 'large'),
+  (0.015836818, 'would'),
+  (0.0121815335, 'bowl'),
+  (0.0121815335, 'fill'),
+  (0.012178916, 'salad'),
+  (0.0061811106, 'hour')],
+ -13.670438745757512)
+
+
+
+\paragraph{Word2Vec.} This technology works in the following manner: word2vec takes a large text corpus as input and matches each vector with a word, producing the coordinates of the output words. First, he creates a dictionary, “learning” on the input text data, and then calculates a vector representation of the words. A vector representation is based on contextual intimacy: words that appear in the text next to identical words (and therefore, have a similar meaning) will have close coordinates of word vectors in a vector representation. The resulting word vectors can be used for natural language processing and machine learning.
+
+$https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf$
+
+\add{example of w2v representation}
 
 Preprocessed tokenized sentences were used to create dictionary and were passed to W2V model as it is and in form of Bag-Of-Word to LDA model.
 
@@ -104,26 +143,22 @@ The good point of using this models is that they can be used for both word and s
 
 \subsubsection{Sentence Representations}
 
-\mod{We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}}.
+We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}.
 
-\add{Here you need to explain the theory behind it. Explain how LSTM and the PositionwiseFeedForward  build a sentence representation out of word embeddings.}
+Here you need to explain the theory behind it. Explain how LSTM and the PositionwiseFeedForward  build a sentence representation out of word embeddings.
 
 \paragraph{Bi-LSTM Representations.}
 
 
 \subsection{Clustering Sentences}
 
-\mod{Using the sentence representations described in the previous
-  section, we apply clustering to group together sentences that are
-  similar. We compare three clustering algorithms:}
+Using the sentence representations described in the previous section, we apply clustering to group together sentences that are similar. We compare three clustering algorithms:
 
 \begin{itemize}
 \item K-Means (KM)
-\item AgglomerativeClustering(‘ward’) (AG)
-\item GaussianMixture (GM)
+\item Agglomerative Clustering (AG)
+\item Gaussian Mixture (GM)
 \end{itemize}
-
-\add{Briefly explain the key feature of each clustering algorithm}
 
 We set the number of clusters to the number of intents (20)
 which allows using not only purity and Silhouette coefficients to
@@ -131,6 +166,59 @@ evaluate the clusters but also homogeneity and completeness to get the
 idea how resulting groups correlate with initial intents. Also, for
 each model, we plot a confusion matrix with a background gradient
 to visualize how well clusters separate different intents.
+
+
+\paragraph{K-Means.} The basic idea is to define K centroides one for each cluster. It is best to place them as far apart as possible. The next step will be to accept each point belonging to this data set and associate it with the precision of the centroid. If no point is under consideration, the first stage is completed. At the moment, we need to re-calculate K's new centroids, as the cluster barytsentera that stems from the previous step. After these new centroids appear on us, a new binding must be made between the same points of the data set and the nearest new center of gravity. A loop is created. As a result of this cycle, we can see that k centroids change their location step by step until any changes are made. In other words, centroids are no longer moving.
+
+The algorithm is aimed at minimizing the target function, in this case, the quadratic error function. Target function:
+\begin{equation}
+J = \sum_{j=1}^{k} \sum_{i=1}^{n} (\Vert x_{i}^{(j)} - c_{j} \Vert)^{2}
+\end{equation}
+
+where $(\Vert x_{i}^{(j)} - c_{j} \Vert)^{2}$ is the chosen distance between the data point $x_{i}^{(j)}$ and center $c_{j}$, it is an indicator of the distance n of the data points from their respective cluster centers.
+
+Centroid is defined as follows:
+
+\begin{equation}
+c_{j} = \dfrac{1}{N} \sum_{i=1}^{N} x_{i}^{(j)}
+\end{equation}
+
+where $x_{i}^{(j)}$ is the point belonging to the cluster $J$, $N$ - total number of points in the cluster.
+
+\paragraph{Agglomerative Clustering.} is a kind of hierarchical clustering with 'bottom-up' approach when new clusters are created by combining smaller clusters and, thus, a tree is created from leaves to trunk. The main feature of the agglomerative hierarchical clustering method is that if we want to get a different number of clusters, we will not need to restart the algorithm, because the whole tree is calculated, and then we say that we want to cut it in some place.
+
+
+Different linkage criterions can be used to calculate distance between sets of observation. Ward’s method minimizes the variance of the clusters being merged. This method is used for tasks with closely spaced clusters. The euclidian distance between clusters is taken as the increment of the sum of squares of the distances of objects to the center of the cluster, obtained as a result of their combination: 
+
+\begin{equation}
+\Delta = \sum_{i} {(x_{i} - {\bar {x}})^{2}} - \sum_{x_{i} \in A} (x_{i} - {\bar {a}})^{2} - \sum_{x_{i} \in B} (x_{i} - {\bar {b}})^{2}
+\end{equation}
+
+At each step of the algorithm, these two clusters are combined, which lead to a minimal increase in variance.
+
+ $Ward, Joe H. (1963). "Hierarchical Grouping to Optimize an Objective Function". Journal of the American Statistical Association. 58 (301): 236–244. doi:10.2307/2282967. JSTOR 2282967. MR 0148188.$
+
+\paragraph{Gaussian Mixture.}
+
+\rewrite{In statistics, a mixture model is a probabilistic model for representing the presence of subpopulations within an overall population, without requiring that an observed data set should identify the sub-population to which an individual observation belongs. Formally a mixture model corresponds to the mixture distribution that represents the probability distribution of observations in the overall population without sub-population identity information.}
+
+A Gaussian mixture model represents a weighted sum of M Gaussian densities elements for D-dimensional continuous-valued data vectors:
+
+\begin{equation}
+p(x|\lambda) = \sum_{i=1}^{M} w_{i} g(x|\mu_{i}, \sum_{i})
+\end{equation}
+
+where each Gaussian densities element defined as 
+
+\begin{equation}
+g(x|\mu_{i}, \sum_{i})=\frac{1}{(2\pi)^{\frac{D}{2}}|\sum_{i}|^{\frac{1}{2}}} e^{-\frac{1}{2}(x-\mu_{i})'\sum_{i}(x-\mu_{i})} 
+\end{equation}
+
+with mean vector $\mu_{i}$ and covariance matrix $\sum_{i}$. The mixture weights satisfy the constraint that $\sum_{i=1}^{M} w_{i} = 1$.
+
+GMM parameters are estimated from training data using the iterative Expectation-Maximization (EM) algorithm or Maximum A Posteriori (MAP) estimation from a well-trained prior model.
+
+$https://pdfs.semanticscholar.org/734b/07b53c23f74a3b004d7fe341ae4fce462fc6.pdf$
 
 \subsection{Classifying Sentences}
 
@@ -151,6 +239,8 @@ Elements of clusters that are left will be labelled by the majority. Usually, th
 We repeat this cycle until we won't be able to extend train dataset by additional samples or classifier score will stop to grow.
 
 \section{Datasets}
+
+
 
 \subsection{Labelled Data}
 
@@ -184,51 +274,15 @@ consists of 1882 content words (after removing stopwords).
  \end{figure}
  \FloatBarrier
 
-Total number of sentences is 3305. Found 1882 words after filtering through stopwords list. 
 
 \subsection{Preprocessing routine}
 
-To create additional training data, we extracted textual data from
-HealthBoards \add{URL}, a medical forum web portal that allows
-patients to discuss their ailments.
-
-We scraped 272,553 unique posts contained in each category.  The post
-were then segmented into sentences, tokenized and lemmatized using NLP
+The textual data was segmented into sentences, tokenized and lemmatized using NLP
 libraries. Stop words were removed.
 
 We compared two libraries, NLTK and SpaCy.
 
-For example, in word tokenization they give different results that can influence not only simple statistics but meaning too. Some example of different tokenization can be seen in table \ref{token_dif}. Though concating words to ones like 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning in case of big dataset, in our case it seems better to stay with spacy way of tokenization in order to have smaller and more simple vocabualary.
-
-For stopwords removing there were three options: nltk, spacy and the longest one. The last option was rejected due to containing words like 'want', 'stop', 'successfully' etc. that can be useful for detecting basic intents like positive or negative emotion, social. Finally nltk one was selecting because of containing shorts like 'm' from 'am', 've' from 'have'. Final dictionary contained 1882 words. Also all numbers were changed to num. Chart (\ref{words_freq}) looks fine.
-
- \begin{figure}[h]
- 	\centering
- 	\includegraphics[scale=0.4]{report2.png}
-	\caption{Words frequency}
- \label{words_freq}
- \end{figure}
-\FloatBarrier
-
-Length < 30.
-
-
-Next problem is empty sentences. But they don't change the dataset much.
-
-intent
-fallback           12
-disagree           11
-hello               4
-agree               3
-incomprehension     2
-positiveEmo         1
-
-array(['what?', 'same that again', 'I am up', 'same', 'can you',
-       'do that', 'do this', 'Will do', 'no', 'no i will not',
-       "No i don't", 'no', 'no i will not', "No i don't", "What's up?",
-       "What's up?", 'he', 'a', 'd', 'i', 'm', 'o', 's', 't', 'y',
-       'I will', 'Will do', 'No', 'no', 'No it is not', "No I don't",
-       'No', "I'm here"], dtype=object)
+For example, in word tokenization they give different results that can influence not only simple statistics but meaning too. Some example of different tokenization can be seen in table \ref{token_dif}. Though concating words to ones like 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning in case of big dataset, in our case it seems better to stay with SpaCy way of tokenization in order to have smaller and more simple vocabualary.
 
 \begin{center}
 \begin{table}
@@ -254,34 +308,50 @@ NLTK & SpaCy \\ \hline
 \end{center}
 \FloatBarrier
 
+For stopwords removing there were three options: nltk, spacy and the longest one. The last option was rejected due to containing words like 'want', 'stop', 'successfully' etc. that can be useful for detecting basic intents like positive or negative emotion, social. Finally nltk one was selecting because of containing shorts like 'm' from 'am', 've' from 'have'. Final dictionary contained 1882 words. Also all numbers were changed to num. Chart (\ref{words_freq}) looks fine.
+
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[scale=0.4]{report2.png}
+	\caption{Words frequency}
+ \label{words_freq}
+ \end{figure}
+\FloatBarrier
+
+Next problem we faced is empty sentences. But there is not a lot of occurances, so their dropping don't change the dataset much.
+
+\begin{tabular}{ |r|l| }
+\hline
+intent & items \\ \hline
+fallback          & 12 \\ \hline
+disagree          & 11 \\ \hline
+hello             &  4 \\ \hline
+agree             &  3 \\ \hline
+incomprehension   &  2 \\ \hline
+positiveEmo       &  1 \\ \hline
+\end{tabular}
+
+These sentences are: 'what?', 'same that again', 'I am up', 'same', 'can you',
+       'do that', 'do this', 'Will do', 'no', 'no i will not',
+       "No i don't", 'no', 'no i will not', "No i don't", "What's up?",
+       "What's up?", 'he', 'a', 'd', 'i', 'm', 'o', 's', 't', 'y',
+       'I will', 'Will do', 'No', 'no', 'No it is not', "No I don't",
+       'No', "I'm here"
+
 
 \subsection{Forum data}
 
-To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. No  test  set  is  available was available at the beginning of the project. To  solve this  problem,  we  opted  to  created  our  own  test set following Zhang et al (2015) and Sondhi et al (2010) example.  
+We scraped 272,553 unique posts contained in each category. 
 
-HealthBoards is a medical forum web portal that allows patients to discuss their ailments.
-We scraped 272553 unique posts contained in each of 238 categories. Finally, the corpus consists of N  sentences. Table \ref{tab:datastats} and Figure~\ref{visina8} show the dataset statistics.
+To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. No  test  set was available at the beginning of the project. To solve this  problem,  we  opted  to  created  our  own  test set following Zhang et al (2015) and Sondhi et al (2010) example.  
 
+HealthBoards \ref{healthboards.com} is a medical forum web portal that allows patients to discuss their ailments. We scraped 272553 unique posts contained in each of 238 categories. Figure~\ref{forum_data_stat} show the dataset statistics. In average sentence contains 11+-7 words.
 
-{'min': 0, 'max': 2027, 'mean': 10.932588521491454, 'std': 8.964716092053479}
-{'min': 3.2580388329566468, 'max': 35.23600634007455, 'mean': 11.224462266261876, 'std': 6.963225985041148}
-
-\begin{table}
-\begin{tabular}{ |l|rrr| }
-  \hline
-   & \# Sentence & Avg Stce Size (min/max) & Vocab. Size\\\hline
-  Unlabelled Data & 3305 & 3.4 (0/12) & 1882 \\
-  Labelled Data & & 10.93 (0/2027) & \\\hline
-\end{tabular}
-\caption{Labelled and Unlabelled Data}
-\label{tab:datastats}
-\end{table}
-\FloatBarrier
 
  \begin{figure}[h]
  	\centering
  	\includegraphics[scale=0.5]{report3.png}
-	\caption{Text stat}\label{visina8}
+	\caption{Text stat}\label{forum_data_stat}
  \end{figure}
 \FloatBarrier
 
@@ -308,6 +378,8 @@ pain-management & 25 \\ \hline
 \caption{\label{cat_freq}Selected categories}
 \end{table}
 \FloatBarrier
+
+Finally, the corpus consists of N  sentences. 
 
 Also, data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets. So after tokenizing posts into sentences we calculate it's length. For the each iteration we should leave sentences with mean+std words in cleaned text.
 
@@ -409,7 +481,6 @@ Thanks to confusion matrix that is constructed based on cluster and intent label
 \FloatBarrier
 
 
-
 \subsubsection{GloVe pretrained}
 
 \subsubsection{Google News W2V pretrained}
@@ -427,15 +498,65 @@ From simple encoder, w2v, lda, w2v + lda
 
 From simple encoder, w2v, lda, w2v + lda
 
+\centering
+\begin{tabular}{ |r|c|c|c|c|c| }
+\hline
+layers & purity  & silhouette  & homogeneity  & completeness \\ \hline 
+1  & \textbf{0.286369}  & 0.239979  & \textbf{0.227069}  & \textbf{0.232338}\\ \hline 
+2  & 0.262836  & 0.181804  & 0.211068  & 0.219279\\ \hline 
+3  & 0.238284  & 0.266460  & 0.195002  & 0.206703\\ \hline 
+4  & 0.218623  & \textbf{0.439161}  & 0.164478  & 0.192599
+\end{tabular}
+\FloatBarrier
+
+So it's better to stay with one layer.
+
+\centering
+\begin{tabular}{ |r|c|c|c|c|c| }
+\hline
+layers & purity  & silhouette  & homogeneity  & completeness \\ \hline 
+32  & 0.270273  & 0.244798  & 0.214607  & 0.21474\\ \hline 
+64  & \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline 
+128  & 0.271597  & 0.263519  & \textbf{0.234111}  & \textbf{0.235486}\\ \hline 
+256  & 0.270681  & 0.267634  & 0.229275  & 0.231675\\ \hline 
+512  & 0.277608  & 0.264844  & 0.231268  & 0.235075\\ \hline 
+1024  & 0.266707  & 0.260425  & 0.226291  & 0.229238\\ \hline 
+2048  & 0.268796  & \textbf{0.278391}  & 0.228211  & 0.231041 \\ \hline
+\end{tabular}
+\FloatBarrier
+
+64 output size due to bigger difference in purity score
+
+With maxpool on hidden layer
+\centering
+\begin{tabular}{ |r|c|c|c|c|c| }
+\hline
+layers & purity  & silhouette  & homogeneity  & completeness \\ \hline 
+64 &	0.272616 	& 0.177766 	& 0.218339 	& 0.219109 \\ \hline
+\end{tabular}
+\FloatBarrier
+
+With maxpool on output
+\centering
+\begin{tabular}{ |r|c|c|c|c|c| }
+\hline
+layers & purity  & silhouette  & homogeneity  & completeness \\ \hline 
+64 	& 0.256011 	& 0.183609 	& 0.200849 	& 0.20462 \\ \hline
+\end{tabular}
+\FloatBarrier
+
+BiLSTM model with one 64-dimensional layer without pooling.
+
 \subsubsection{Overall comparison}
 
 \centering
 \begin{tabular}{ |r|c|c|c|c|c| }
 \hline
 model & features & purity  & silhouette  & homogeneity  & completeness \\ \hline 
-W2V & 10   & 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
-W2V & 100  & 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
-LDA & 400  & 0.272718  & 0.192777  & 0.177547  & 0.192270 \\ \hline 
+W2V 	& 10   & 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
+W2V 	& 100  & 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
+LDA 	& 400  & 0.272718  & 0.192777  & 0.177547  & 0.192270 \\ \hline 
+BiLSTM 	& 64  & \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline 
 \end{tabular}
 \FloatBarrier
 
@@ -457,6 +578,6 @@ LDA & 400  & 0.272718  & 0.192777  & 0.177547  & 0.192270 \\ \hline
 \section{References}
 \bibliographystyle{alpha}
 \bibliography{biblio}
-
+$ Ward J.H. Hierarchical grouping to optimize an objective function // J. of the American Statistical Association, 1963. — 236 р. $
 
 \end{document}
