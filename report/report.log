@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.12)  1 FEB 2019 14:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.11.11)  1 FEB 2019 18:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **report.tex
 (./report.tex
-LaTeX2e <2017-04-15>
-Babel <3.18> and hyphenation patterns for 5 language(s) loaded.
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
@@ -24,47 +24,55 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \bibindent=\dimen102
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 99.
+Package graphics Info: Driver file: pdftex.def on input line 95.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count87
+\lst@mode=\count88
 \lst@gtempboxa=\box26
 \lst@token=\toks15
-\lst@length=\count88
+\lst@length=\count89
 \lst@currlwidth=\dimen105
-\lst@column=\count89
-\lst@pos=\count90
+\lst@column=\count90
+\lst@pos=\count91
 \lst@lostspace=\dimen106
 \lst@width=\dimen107
-\lst@newlines=\count91
-\lst@lineno=\count92
+\lst@newlines=\count92
+\lst@lineno=\count93
 \lst@maxwidth=\dimen108
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count93
-\lst@skipnumbers=\count94
+\c@lstnumber=\count94
+\lst@skipnumbers=\count95
 \lst@framebox=\box27
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
@@ -73,37 +81,29 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
-Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
-\multirow@colwidth=\skip43
-\multirow@cntb=\count95
-\multirow@dima=\skip44
 \bigstrutjot=\dimen109
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+Package: color 2016/01/03 v1.1b Standard LaTeX Color (DPC)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 147.
+Package color Info: Driver file: pdftex.def on input line 143.
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2018/02/14 3.18 The Babel package
+Package: babel 2016/02/24 3.9q The Babel package
 
-(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
-File: switch.def 2018/02/14 3.18 Babel switching mechanism
-)
 (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
-Language: english 2017/06/06 v3.3r English support from the babel system
+Language: english 2012/08/20 v3.3p English support from the babel system
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2018/02/14 3.18 Babel common definitions
+File: babel.def 2016/02/24 3.9q Babel common definitions
 \babel@savecnt=\count96
 \U@D=\dimen110
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@dirlevel=\count97
 )
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
@@ -116,27 +116,27 @@ Package: placeins 2005/04/18  v 2.2
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
-Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
+Package: mathtools 2015/11/12 v1.18 mathematical typesetting tools
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count98
-\calc@Bcount=\count99
+\calc@Acount=\count97
+\calc@Bcount=\count98
 \calc@Adimen=\dimen111
 \calc@Bdimen=\dimen112
-\calc@Askip=\skip45
-\calc@Bskip=\skip46
+\calc@Askip=\skip43
+\calc@Bskip=\skip44
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count100
-\calc@Cskip=\skip47
+\calc@Ccount=\count99
+\calc@Cskip=\skip45
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
-Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2017/09/02 v2.17a AMS math features
-\@mathmargin=\skip48
+Package: amsmath 2016/03/03 v2.15a AMS math features
+\@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -152,32 +152,32 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen114
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 2016/03/08 v2.02 operator names
+Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count101
-LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count102
-\leftroot@=\count103
-LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count104
-\DOTSCASE@=\count105
-LaTeX Info: Redefining \ldots on input line 472.
-LaTeX Info: Redefining \dots on input line 475.
-LaTeX Info: Redefining \cdots on input line 596.
+\inf@bad=\count100
+LaTeX Info: Redefining \frac on input line 199.
+\uproot@=\count101
+\leftroot@=\count102
+LaTeX Info: Redefining \overline on input line 297.
+\classnum@=\count103
+\DOTSCASE@=\count104
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
 \Mathstrutbox@=\box28
 \strutbox@=\box29
 \big@size=\dimen115
-LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count106
-\c@MaxMatrixCols=\count107
+LaTeX Font Info:    Redeclaring font encoding OML on input line 630.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
+\macc@depth=\count105
+\c@MaxMatrixCols=\count106
 \dotsspace@=\muskip11
-\c@parentequation=\count108
-\dspbrk@lvl=\count109
+\c@parentequation=\count107
+\dspbrk@lvl=\count108
 \tag@help=\toks17
-\row@=\count110
-\column@=\count111
-\maxfields@=\count112
+\row@=\count109
+\column@=\count110
+\maxfields@=\count111
 \andhelp@=\toks18
 \eqnshift@=\dimen116
 \alignsep@=\dimen117
@@ -186,19 +186,19 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \totwidth@=\dimen120
 \lineht@=\dimen121
 \@envbody=\toks19
-\multlinegap=\skip49
-\multlinetaggap=\skip50
+\multlinegap=\skip47
+\multlinetaggap=\skip48
 \mathdisplay@stack=\toks20
-LaTeX Info: Redefining \[ on input line 2817.
-LaTeX Info: Redefining \] on input line 2818.
+LaTeX Info: Redefining \[ on input line 2735.
+LaTeX Info: Redefining \] on input line 2736.
 )
 LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
-\g_MT_multlinerow_int=\count113
+\g_MT_multlinerow_int=\count112
 \l_MT_multwidth_dim=\dimen122
-\origjot=\skip51
+\origjot=\skip49
 \l_MT_shortvdotswithinadjustabove_dim=\dimen123
 \l_MT_shortvdotswithinadjustbelow_dim=\dimen124
 \l_MT_above_intertext_sep=\dimen125
@@ -242,76 +242,68 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count114
+\scratchcounter=\count113
 \scratchdimen=\dimen129
 \scratchbox=\box30
-\nofMPsegments=\count115
-\nofMParguments=\count116
+\nofMPsegments=\count114
+\nofMParguments=\count115
 \everyMPshowfont=\toks21
-\MPscratchCnt=\count117
+\MPscratchCnt=\count116
 \MPscratchDim=\dimen130
-\MPnumerator=\count118
-\makeMPintoPDFobject=\count119
+\MPnumerator=\count117
+\makeMPintoPDFobject=\count118
 \everyMPtoPDFconversion=\toks22
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)))
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
-)
-
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 456.
+(grfext)             \AppendGraphicsExtensions on input line 452.
 
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count120
+\c@lstlisting=\count119
 
 (./report.toc [1
 
@@ -327,48 +319,27 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 47.
+ [3
 
-
-LaTeX Warning: Citation `N18-2058' on page 3 undefined on input line 66.
-
-
-LaTeX Warning: Citation `zhang2015' on page 3 undefined on input line 66.
-
-[3
-
-]
-
-LaTeX Warning: Citation `N18-2058' on page 4 undefined on input line 70.
-
-
-LaTeX Warning: Citation `zhang2015' on page 4 undefined on input line 70.
-
-
-LaTeX Warning: Citation `lda_def' on page 4 undefined on input line 92.
-
-[4]
+] [4]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ú in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
-
-
-LaTeX Warning: Citation `vaswani2017attention' on page 5 undefined on input lin
-e 122.
-
+ [5]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no à in font cmr10!
 Missing character: There is no à in font cmr10!
-[5]
-Overfull \hbox (4.14407pt too wide) in paragraph at lines 131--132
+
+Overfull \hbox (4.14407pt too wide) in paragraph at lines 135--136
 []\OT1/cmr/m/n/10.95 We ex-per-i-ment with two ways of com-bin-ing a chang-ing 
 num-ber $(\OML/cmm/m/it/10.95 h[]; :::; h[]\OT1/cmr/m/n/10.95 )$
  []
 
 [6]
-Overfull \hbox (18.4679pt too wide) in paragraph at lines 169--170
+Overfull \hbox (18.4679pt too wide) in paragraph at lines 173--174
  \OT1/cmr/bx/n/10.95 Ag-glom-er-a-tive Clus-ter-ing.[] \OT1/cmr/m/n/10.95 is a 
 kind of hi-er-ar-chi-cal clus-ter-ing with 'bottom-
  []
@@ -376,19 +347,20 @@ kind of hi-er-ar-chi-cal clus-ter-ing with 'bottom-
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
+[7]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ì in font cmr10!
 
-Overfull \hbox (309.34549pt too wide) in paragraph at lines 180--181
+Overfull \hbox (309.34549pt too wide) in paragraph at lines 184--185
 []$\OML/cmm/m/it/10.95 Ward; JoeH:\OT1/cmr/m/n/10.95 (1963)\OML/cmm/m/it/10.95 
 :\OT1/cmr/m/n/10.95 "\OML/cmm/m/it/10.95 HierarchicalGroupingtoOptimizeanObject
 iveFunction\OT1/cmr/m/n/10.95 "\OML/cmm/m/it/10.95 :JournaloftheAmericanStatist
 icalAssociation:\OT1/cmr/m/n/10.95 58(301) :
  []
 
-[7]
-Overfull \hbox (73.66647pt too wide) in paragraph at lines 202--203
+
+Overfull \hbox (73.66647pt too wide) in paragraph at lines 206--207
 []$\OML/cmm/m/it/10.95 https \OT1/cmr/m/n/10.95 : \OML/cmm/m/it/10.95 ==pdfs:se
 manticscholar:org=\OT1/cmr/m/n/10.95 734\OML/cmm/m/it/10.95 b=\OT1/cmr/m/n/10.9
 5 07\OML/cmm/m/it/10.95 b\OT1/cmr/m/n/10.95 53\OML/cmm/m/it/10.95 c\OT1/cmr/m/n
@@ -405,199 +377,215 @@ Missing character: There is no ã in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ã in font cmr10!
-[8]
-<report1.png, id=43, 427.5975pt x 243.91125pt>
+[8] [9] <report1.png, id=46, 427.5975pt x 243.91125pt>
 File: report1.png Graphic file (type png)
-<use report1.png>
-Package pdftex.def Info: report1.png  used on input line 244.
+ <use report1.png>
+Package pdftex.def Info: report1.png used on input line 262.
 (pdftex.def)             Requested size: 213.79822pt x 121.95532pt.
+
+<report4.png, id=48, 311.1625pt x 212.795pt>
+File: report4.png Graphic file (type png)
+ <use report4.png>
+Package pdftex.def Info: report4.png used on input line 272.
+(pdftex.def)             Requested size: 124.46278pt x 85.11649pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9]
-<report4.png, id=48, 311.1625pt x 212.795pt>
-File: report4.png Graphic file (type png)
-<use report4.png>
-Package pdftex.def Info: report4.png  used on input line 254.
-(pdftex.def)             Requested size: 124.46278pt x 85.11649pt.
+[10 <./report1.png>]
 
-Underfull \hbox (badness 2213) in paragraph at lines 285--285
+LaTeX Warning: Reference `healthboards.com' on page 11 undefined on input line 
+288.
+
+<report3.png, id=53, 944.52875pt x 325.215pt>
+File: report3.png Graphic file (type png)
+ <use report3.png>
+Package pdftex.def Info: report3.png used on input line 293.
+(pdftex.def)             Requested size: 377.80481pt x 130.0837pt.
+
+Overfull \hbox (17.80481pt too wide) in paragraph at lines 293--294
+ [][] 
+ []
+
+[11 <./report4.png> <./report3.png>] [12]
+Underfull \hbox (badness 2213) in paragraph at lines 370--370
 []\OT1/cmr/m/n/10.95 ['i', 'm', 'sup-posed', 'to', 'take', '6',
  []
 
 
-Underfull \hbox (badness 1226) in paragraph at lines 285--285
+Underfull \hbox (badness 1226) in paragraph at lines 370--370
 \OT1/cmr/m/n/10.95 '35mg', 'tablets', 'a', 'day', 'but', 'i',
  []
 
 
-Overfull \hbox (62.33856pt too wide) in paragraph at lines 272--289
+Overfull \hbox (62.33856pt too wide) in paragraph at lines 357--374
 [][] 
  []
 
-[10 <./report1.png> <./report4.png>]
-<report2.png, id=54, 883.3pt x 306.14375pt>
+<report2.png, id=62, 883.3pt x 306.14375pt>
 File: report2.png Graphic file (type png)
-<use report2.png>
-Package pdftex.def Info: report2.png  used on input line 298.
+ <use report2.png>
+Package pdftex.def Info: report2.png used on input line 383.
 (pdftex.def)             Requested size: 353.31374pt x 122.45532pt.
- [11 <./report2.png>]
 
-LaTeX Warning: Reference `healthboards.com' on page 12 undefined on input line 
-331.
 
-<report3.png, id=59, 944.52875pt x 325.215pt>
-File: report3.png Graphic file (type png)
-<use report3.png>
-Package pdftex.def Info: report3.png  used on input line 336.
-(pdftex.def)             Requested size: 377.80481pt x 130.0837pt.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-Overfull \hbox (17.80481pt too wide) in paragraph at lines 336--337
- [][] 
+[13] [14 <./report2.png>]
+Overfull \hbox (64.92374pt too wide) in paragraph at lines 445--460
+ [] 
  []
 
-[12 <./report3.png>] [13] [14]
-<w2v_scores.png, id=71, 433.62pt x 289.08pt>
+[15] <w2v_scores.png, id=74, 433.62pt x 289.08pt>
 File: w2v_scores.png Graphic file (type png)
-<use w2v_scores.png>
-Package pdftex.def Info: w2v_scores.png  used on input line 427.
+ <use w2v_scores.png>
+Package pdftex.def Info: w2v_scores.png used on input line 465.
 (pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
-<best_w2v_cm.png, id=72, 400.49625pt x 494.84875pt>
+
+<best_w2v_cm.png, id=75, 400.49625pt x 494.84875pt>
 File: best_w2v_cm.png Graphic file (type png)
-<use best_w2v_cm.png>
-Package pdftex.def Info: best_w2v_cm.png  used on input line 437.
+ <use best_w2v_cm.png>
+Package pdftex.def Info: best_w2v_cm.png used on input line 475.
 (pdftex.def)             Requested size: 280.34546pt x 346.39177pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15 <./w2v_scores.png>] [16 <./best_w2v_cm.png>]
-<lda_ac_cm.png, id=81, 417.56pt x 489.83pt>
+[16 <./w2v_scores.png>] [17 <./best_w2v_cm.png>]
+<lda_ac_cm.png, id=84, 417.56pt x 489.83pt>
 File: lda_ac_cm.png Graphic file (type png)
-<use lda_ac_cm.png>
-Package pdftex.def Info: lda_ac_cm.png  used on input line 476.
+ <use lda_ac_cm.png>
+Package pdftex.def Info: lda_ac_cm.png used on input line 514.
 (pdftex.def)             Requested size: 116.91599pt x 137.15146pt.
-<lda_gm_cm.png, id=82, 410.53375pt x 488.82625pt>
+
+<lda_gm_cm.png, id=85, 410.53375pt x 488.82625pt>
 File: lda_gm_cm.png Graphic file (type png)
-<use lda_gm_cm.png>
-Package pdftex.def Info: lda_gm_cm.png  used on input line 477.
+ <use lda_gm_cm.png>
+Package pdftex.def Info: lda_gm_cm.png used on input line 515.
 (pdftex.def)             Requested size: 114.94865pt x 136.8704pt.
-<lda_km_cm.png, id=83, 414.54875pt x 484.81125pt>
+
+<lda_km_cm.png, id=86, 414.54875pt x 484.81125pt>
 File: lda_km_cm.png Graphic file (type png)
-<use lda_km_cm.png>
-Package pdftex.def Info: lda_km_cm.png  used on input line 478.
+ <use lda_km_cm.png>
+Package pdftex.def Info: lda_km_cm.png used on input line 516.
 (pdftex.def)             Requested size: 116.07285pt x 135.74622pt.
- [17 <./lda_ac_cm.png> <./lda_gm_cm.png> <./lda_km_cm.png>]
-<bilstm_ac_cm.png, id=90, 415.5525pt x 490.83376pt>
+ [18 <./lda_ac_cm.png> <./lda_gm_cm.png> <./lda_km_cm.png>] [19]
+<bilstm_ac_cm.png, id=97, 415.5525pt x 490.83376pt>
 File: bilstm_ac_cm.png Graphic file (type png)
-<use bilstm_ac_cm.png>
-Package pdftex.def Info: bilstm_ac_cm.png  used on input line 554.
+ <use bilstm_ac_cm.png>
+Package pdftex.def Info: bilstm_ac_cm.png used on input line 599.
 (pdftex.def)             Requested size: 116.3539pt x 137.43251pt.
-<bilstm_gm_cm.png, id=91, 415.5525pt x 491.8375pt>
+
+<bilstm_gm_cm.png, id=98, 415.5525pt x 491.8375pt>
 File: bilstm_gm_cm.png Graphic file (type png)
-<use bilstm_gm_cm.png>
-Package pdftex.def Info: bilstm_gm_cm.png  used on input line 555.
+ <use bilstm_gm_cm.png>
+Package pdftex.def Info: bilstm_gm_cm.png used on input line 600.
 (pdftex.def)             Requested size: 116.3539pt x 137.71355pt.
-<bilstm_km_cm.png, id=92, 410.53375pt x 490.83376pt>
+
+<bilstm_km_cm.png, id=99, 410.53375pt x 490.83376pt>
 File: bilstm_km_cm.png Graphic file (type png)
-<use bilstm_km_cm.png>
-Package pdftex.def Info: bilstm_km_cm.png  used on input line 556.
+ <use bilstm_km_cm.png>
+Package pdftex.def Info: bilstm_km_cm.png used on input line 601.
 (pdftex.def)             Requested size: 114.94865pt x 137.43251pt.
- [18]
-Overfull \hbox (7.4371pt too wide) in paragraph at lines 571--579
+
+Overfull \hbox (7.4371pt too wide) in paragraph at lines 616--624
  [] 
  []
 
+[20 <./bilstm_ac_cm.png> <./bilstm_gm_cm.png> <./bilstm_km_cm.png>]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
-[19 <./bilstm_ac_cm.png> <./bilstm_gm_cm.png> <./bilstm_km_cm.png>]
-Overfull \hbox (9.3191pt too wide) in paragraph at lines 631--637
+
+Overfull \hbox (9.3191pt too wide) in paragraph at lines 678--684
  [] 
  []
 
-<svc0_cm.png, id=103, 383.4325pt x 498.86375pt>
+[21] <svc0_cm.png, id=109, 383.4325pt x 498.86375pt>
 File: svc0_cm.png Graphic file (type png)
-<use svc0_cm.png>
-Package pdftex.def Info: svc0_cm.png  used on input line 646.
+ <use svc0_cm.png>
+Package pdftex.def Info: svc0_cm.png used on input line 693.
 (pdftex.def)             Requested size: 153.37029pt x 199.54196pt.
-<lsvc_0.png, id=104, 367.3725pt x 359.3425pt>
-File: lsvc_0.png Graphic file (type png)
-<use lsvc_0.png>
-Package pdftex.def Info: lsvc_0.png  used on input line 647.
-(pdftex.def)             Requested size: 146.94638pt x 143.73445pt.
-[20] [21 <./svc0_cm.png> <./lsvc_0.png>] [22] [23
 
-] [24]
+<lsvc_0.png, id=110, 367.3725pt x 359.3425pt>
 File: lsvc_0.png Graphic file (type png)
-<use lsvc_0.png>
-Package pdftex.def Info: lsvc_0.png  used on input line 784.
+ <use lsvc_0.png>
+Package pdftex.def Info: lsvc_0.png used on input line 694.
+(pdftex.def)             Requested size: 146.94638pt x 143.73445pt.
+ [22 <./svc0_cm.png> <./lsvc_0.png>] [23] [24
+
+] [25]
+File: lsvc_0.png Graphic file (type png)
+ <use lsvc_0.png>
+Package pdftex.def Info: lsvc_0.png used on input line 833.
 (pdftex.def)             Requested size: 110.21259pt x 107.80357pt.
-<lsvc_1.png, id=122, 367.3725pt x 363.3575pt>
+
+<lsvc_1.png, id=126, 367.3725pt x 363.3575pt>
 File: lsvc_1.png Graphic file (type png)
-<use lsvc_1.png>
-Package pdftex.def Info: lsvc_1.png  used on input line 785.
+ <use lsvc_1.png>
+Package pdftex.def Info: lsvc_1.png used on input line 834.
 (pdftex.def)             Requested size: 110.21259pt x 109.00809pt.
-<lsvc_2.png, id=123, 366.36874pt x 362.35374pt>
+
+<lsvc_2.png, id=127, 366.36874pt x 362.35374pt>
 File: lsvc_2.png Graphic file (type png)
-<use lsvc_2.png>
-Package pdftex.def Info: lsvc_2.png  used on input line 786.
+ <use lsvc_2.png>
+Package pdftex.def Info: lsvc_2.png used on input line 835.
 (pdftex.def)             Requested size: 109.91147pt x 108.70695pt.
- [25 <./lsvc_1.png> <./lsvc_2.png>] [26]
-<svc1_cm.png, id=133, 481.8pt x 504.88625pt>
+ [26 <./lsvc_1.png> <./lsvc_2.png>] [27] <svc1_cm.png, id=136, 481.8pt x 504.88
+625pt>
 File: svc1_cm.png Graphic file (type png)
+
 <use svc1_cm.png>
-Package pdftex.def Info: svc1_cm.png  used on input line 874.
+Package pdftex.def Info: svc1_cm.png used on input line 923.
 (pdftex.def)             Requested size: 192.71658pt x 201.95091pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[27
+[28
 
-] [28 <./svc1_cm.png>] [29]
-<svc2_cm.png, id=144, 371.3875pt x 504.88625pt>
+] [29 <./svc1_cm.png>] [30] <svc2_cm.png, id=147, 371.3875pt x 504.88625pt>
 File: svc2_cm.png Graphic file (type png)
+
 <use svc2_cm.png>
-Package pdftex.def Info: svc2_cm.png  used on input line 921.
+Package pdftex.def Info: svc2_cm.png used on input line 970.
 (pdftex.def)             Requested size: 148.55235pt x 201.95091pt.
- [30
+ [31
 
  <./svc2_cm.png>]
 File: svc0_cm.png Graphic file (type png)
-<use svc0_cm.png>
-Package pdftex.def Info: svc0_cm.png  used on input line 978.
+ <use svc0_cm.png>
+Package pdftex.def Info: svc0_cm.png used on input line 1027.
 (pdftex.def)             Requested size: 95.85788pt x 124.71562pt.
 File: svc1_cm.png Graphic file (type png)
-<use svc1_cm.png>
-Package pdftex.def Info: svc1_cm.png  used on input line 979.
+ <use svc1_cm.png>
+Package pdftex.def Info: svc1_cm.png used on input line 1028.
 (pdftex.def)             Requested size: 120.44969pt x 126.22124pt.
 File: svc2_cm.png Graphic file (type png)
+
 <use svc2_cm.png>
-Package pdftex.def Info: svc2_cm.png  used on input line 980.
+Package pdftex.def Info: svc2_cm.png used on input line 1029.
 (pdftex.def)             Requested size: 92.84663pt x 126.22124pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[31]
-No file report.bbl.
+[32] (./report.bbl [33
+
+])
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no î in font cmr10!
 Missing character: There is no — in font cmr10!
 Missing character: There is no Ä in font cmr10!
 
-Overfull \hbox (204.10286pt too wide) in paragraph at lines 998--999
+Overfull \hbox (204.10286pt too wide) in paragraph at lines 1047--1048
 $\OML/cmm/m/it/10.95 WardJ:H:Hierarchicalgroupingtooptimizeanobjectivefunction=
 =J:oftheAmericanStatisticalAssociation; \OT1/cmr/m/n/10.95 1963\OML/cmm/m/it/10
 .95 :\OT1/cmr/m/n/10.95 236\OML/cmm/m/it/10.95 :$ 
  []
 
-[32
-
-] (./report.aux)
+[34] (./report.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -606,13 +594,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4607 strings out of 494880
- 66208 string characters out of 6179600
- 142006 words of memory out of 5000000
- 7840 multiletter control sequences out of 15000+600000
- 9709 words of font info for 35 fonts, out of 8000000 for 9000
- 36 hyphenation exceptions out of 8191
- 41i,10n,32p,807b,1397s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 4522 strings out of 494953
+ 64525 string characters out of 6180976
+ 140639 words of memory out of 5000000
+ 7720 multiletter control sequences out of 15000+600000
+ 10055 words of font info for 36 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 38i,10n,32p,805b,839s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -626,11 +614,12 @@ sfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on report.pdf (32 pages, 707245 bytes).
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on report.pdf (34 pages, 746269 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 118 compressed objects within 2 object streams
+ 215 PDF objects out of 1000 (max. 8388607)
+ 125 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
