@@ -7,30 +7,39 @@
 \contentsline {paragraph}{LDA.}{4}
 \contentsline {paragraph}{Word2Vec.}{5}
 \contentsline {subsubsection}{\numberline {3.1.2}Sentence Representations}{5}
-\contentsline {paragraph}{Bi-LSTM Representations.}{6}
+\contentsline {paragraph}{Bi-LSTM Representations.}{5}
 \contentsline {subsection}{\numberline {3.2}Clustering Sentences}{6}
 \contentsline {paragraph}{K-Means.}{6}
 \contentsline {paragraph}{Agglomerative Clustering.}{7}
-\contentsline {paragraph}{Gaussian Mixture.}{7}
+\contentsline {paragraph}{Gaussian Mixture.}{8}
 \contentsline {subsection}{\numberline {3.3}Classifying Sentences}{8}
-\contentsline {subsection}{\numberline {3.4}Semi-supervised approach}{8}
+\contentsline {paragraph}{SVC.}{8}
+\contentsline {subsection}{\numberline {3.4}Semi-supervised approach}{9}
 \contentsline {section}{\numberline {4}Datasets}{9}
 \contentsline {subsection}{\numberline {4.1}Labelled Data}{9}
-\contentsline {subsection}{\numberline {4.2}Preprocessing routine}{9}
-\contentsline {subsection}{\numberline {4.3}Forum data}{11}
+\contentsline {subsection}{\numberline {4.2}Preprocessing routine}{10}
+\contentsline {subsection}{\numberline {4.3}Forum data}{12}
 \contentsline {section}{\numberline {5}Experiment}{13}
 \contentsline {subsection}{\numberline {5.1}Clustering}{13}
 \contentsline {subsubsection}{\numberline {5.1.1}Evoluation metrics}{13}
-\contentsline {subsubsection}{\numberline {5.1.2}W2V model}{13}
-\contentsline {subsubsection}{\numberline {5.1.3}LDA model}{15}
-\contentsline {subsubsection}{\numberline {5.1.4}GloVe pretrained}{17}
-\contentsline {subsubsection}{\numberline {5.1.5}Google News W2V pretrained}{17}
-\contentsline {subsubsection}{\numberline {5.1.6}CNN by word}{17}
-\contentsline {subsubsection}{\numberline {5.1.7}BiLSTM by word}{18}
-\contentsline {subsubsection}{\numberline {5.1.8}Overall comparison}{18}
+\contentsline {paragraph}{Purity}{14}
+\contentsline {paragraph}{Silhouette Coefficient}{14}
+\contentsline {paragraph}{Homogeneity and completeness.}{14}
+\contentsline {subsubsection}{\numberline {5.1.2}W2V model}{14}
+\contentsline {subsubsection}{\numberline {5.1.3}LDA model}{16}
+\contentsline {subsubsection}{\numberline {5.1.4}BiLSTM by word}{18}
+\contentsline {subsubsection}{\numberline {5.1.5}Overall comparison}{19}
 \contentsline {subsection}{\numberline {5.2}Classifier}{19}
 \contentsline {subsubsection}{\numberline {5.2.1}Evoluation metrics}{19}
-\contentsline {subsubsection}{\numberline {5.2.2}Results for each model}{19}
-\contentsline {subsection}{\numberline {5.3}Semi-supervised learning}{19}
-\contentsline {section}{\numberline {6}Conclusion}{19}
-\contentsline {section}{\numberline {7}References}{19}
+\contentsline {subsubsection}{\numberline {5.2.2}Results}{20}
+\contentsline {subsection}{\numberline {5.3}Semi Supervised Learning with linear kernel}{21}
+\contentsline {paragraph}{Iteration 0}{21}
+\contentsline {paragraph}{Iteration 1}{23}
+\contentsline {paragraph}{Iteration 2}{23}
+\contentsline {subsection}{\numberline {5.4}Semi-supervised learning with rbf kernel}{25}
+\contentsline {paragraph}{Iteration 0.}{25}
+\contentsline {paragraph}{Iteration 1}{27}
+\contentsline {paragraph}{Iteration 2.}{28}
+\contentsline {paragraph}{Overall comparision}{30}
+\contentsline {section}{\numberline {6}Conclusion and future work}{32}
+\contentsline {section}{\numberline {7}References}{32}
