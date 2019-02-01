@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.12)  31 JAN 2019 11:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.12)  1 FEB 2019 14:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -212,6 +212,21 @@ LaTeX Warning: Label `words_freq' multiply defined.
 
 LaTeX Warning: Label `lda_gm_cm' multiply defined.
 
+
+LaTeX Warning: Label `lda_gm_cm' multiply defined.
+
+
+LaTeX Warning: Label `lda_gm_cm' multiply defined.
+
+
+LaTeX Warning: Label `lda_gm_cm' multiply defined.
+
+
+LaTeX Warning: Label `lda_gm_cm' multiply defined.
+
+
+LaTeX Warning: Label `lda_gm_cm' multiply defined.
+
 )
 \openout1 = `report.aux'.
 
@@ -394,7 +409,7 @@ Missing character: There is no ‹ in font cmr10!
 <report1.png, id=43, 427.5975pt x 243.91125pt>
 File: report1.png Graphic file (type png)
 <use report1.png>
-Package pdftex.def Info: report1.png  used on input line 246.
+Package pdftex.def Info: report1.png  used on input line 244.
 (pdftex.def)             Requested size: 213.79822pt x 121.95532pt.
 
 
@@ -404,20 +419,20 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <report4.png, id=48, 311.1625pt x 212.795pt>
 File: report4.png Graphic file (type png)
 <use report4.png>
-Package pdftex.def Info: report4.png  used on input line 256.
+Package pdftex.def Info: report4.png  used on input line 254.
 (pdftex.def)             Requested size: 124.46278pt x 85.11649pt.
 
-Underfull \hbox (badness 2213) in paragraph at lines 287--287
+Underfull \hbox (badness 2213) in paragraph at lines 285--285
 []\OT1/cmr/m/n/10.95 ['i', 'm', 'sup-posed', 'to', 'take', '6',
  []
 
 
-Underfull \hbox (badness 1226) in paragraph at lines 287--287
+Underfull \hbox (badness 1226) in paragraph at lines 285--285
 \OT1/cmr/m/n/10.95 '35mg', 'tablets', 'a', 'day', 'but', 'i',
  []
 
 
-Overfull \hbox (62.33856pt too wide) in paragraph at lines 274--291
+Overfull \hbox (62.33856pt too wide) in paragraph at lines 272--289
 [][] 
  []
 
@@ -425,20 +440,20 @@ Overfull \hbox (62.33856pt too wide) in paragraph at lines 274--291
 <report2.png, id=54, 883.3pt x 306.14375pt>
 File: report2.png Graphic file (type png)
 <use report2.png>
-Package pdftex.def Info: report2.png  used on input line 300.
+Package pdftex.def Info: report2.png  used on input line 298.
 (pdftex.def)             Requested size: 353.31374pt x 122.45532pt.
  [11 <./report2.png>]
 
 LaTeX Warning: Reference `healthboards.com' on page 12 undefined on input line 
-333.
+331.
 
 <report3.png, id=59, 944.52875pt x 325.215pt>
 File: report3.png Graphic file (type png)
 <use report3.png>
-Package pdftex.def Info: report3.png  used on input line 338.
-(pdftex.def)             Requested size: 472.26321pt x 162.6071pt.
+Package pdftex.def Info: report3.png  used on input line 336.
+(pdftex.def)             Requested size: 377.80481pt x 130.0837pt.
 
-Overfull \hbox (112.26321pt too wide) in paragraph at lines 338--339
+Overfull \hbox (17.80481pt too wide) in paragraph at lines 336--337
  [][] 
  []
 
@@ -446,51 +461,127 @@ Overfull \hbox (112.26321pt too wide) in paragraph at lines 338--339
 <w2v_scores.png, id=71, 433.62pt x 289.08pt>
 File: w2v_scores.png Graphic file (type png)
 <use w2v_scores.png>
-Package pdftex.def Info: w2v_scores.png  used on input line 425.
+Package pdftex.def Info: w2v_scores.png  used on input line 427.
 (pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
 <best_w2v_cm.png, id=72, 400.49625pt x 494.84875pt>
 File: best_w2v_cm.png Graphic file (type png)
 <use best_w2v_cm.png>
-Package pdftex.def Info: best_w2v_cm.png  used on input line 435.
+Package pdftex.def Info: best_w2v_cm.png  used on input line 437.
 (pdftex.def)             Requested size: 280.34546pt x 346.39177pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15 <./w2v_scores.png>]
-Overfull \vbox (42.69235pt too high) has occurred while \output is active []
-
-
-[16 <./best_w2v_cm.png>]
-<lda_scores.png, id=81, 433.62pt x 289.08pt>
-File: lda_scores.png Graphic file (type png)
-<use lda_scores.png>
-Package pdftex.def Info: lda_scores.png  used on input line 466.
-(pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
+[15 <./w2v_scores.png>] [16 <./best_w2v_cm.png>]
+<lda_ac_cm.png, id=81, 417.56pt x 489.83pt>
+File: lda_ac_cm.png Graphic file (type png)
+<use lda_ac_cm.png>
+Package pdftex.def Info: lda_ac_cm.png  used on input line 476.
+(pdftex.def)             Requested size: 116.91599pt x 137.15146pt.
 <lda_gm_cm.png, id=82, 410.53375pt x 488.82625pt>
 File: lda_gm_cm.png Graphic file (type png)
 <use lda_gm_cm.png>
-Package pdftex.def Info: lda_gm_cm.png  used on input line 479.
-(pdftex.def)             Requested size: 287.37166pt x 342.17603pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[17 <./lda_scores.png>] [18 <./lda_gm_cm.png>] [19]
-Overfull \hbox (7.4371pt too wide) in paragraph at lines 574--582
+Package pdftex.def Info: lda_gm_cm.png  used on input line 477.
+(pdftex.def)             Requested size: 114.94865pt x 136.8704pt.
+<lda_km_cm.png, id=83, 414.54875pt x 484.81125pt>
+File: lda_km_cm.png Graphic file (type png)
+<use lda_km_cm.png>
+Package pdftex.def Info: lda_km_cm.png  used on input line 478.
+(pdftex.def)             Requested size: 116.07285pt x 135.74622pt.
+ [17 <./lda_ac_cm.png> <./lda_gm_cm.png> <./lda_km_cm.png>]
+<bilstm_ac_cm.png, id=90, 415.5525pt x 490.83376pt>
+File: bilstm_ac_cm.png Graphic file (type png)
+<use bilstm_ac_cm.png>
+Package pdftex.def Info: bilstm_ac_cm.png  used on input line 554.
+(pdftex.def)             Requested size: 116.3539pt x 137.43251pt.
+<bilstm_gm_cm.png, id=91, 415.5525pt x 491.8375pt>
+File: bilstm_gm_cm.png Graphic file (type png)
+<use bilstm_gm_cm.png>
+Package pdftex.def Info: bilstm_gm_cm.png  used on input line 555.
+(pdftex.def)             Requested size: 116.3539pt x 137.71355pt.
+<bilstm_km_cm.png, id=92, 410.53375pt x 490.83376pt>
+File: bilstm_km_cm.png Graphic file (type png)
+<use bilstm_km_cm.png>
+Package pdftex.def Info: bilstm_km_cm.png  used on input line 556.
+(pdftex.def)             Requested size: 114.94865pt x 137.43251pt.
+ [18]
+Overfull \hbox (7.4371pt too wide) in paragraph at lines 571--579
  [] 
  []
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
-[20]
-<roc_auc.png, id=98, 361.35pt x 329.23pt>
-File: roc_auc.png Graphic file (type png)
-<use roc_auc.png>
-Package pdftex.def Info: roc_auc.png  used on input line 614.
-(pdftex.def)             Requested size: 252.94327pt x 230.45941pt.
+[19 <./bilstm_ac_cm.png> <./bilstm_gm_cm.png> <./bilstm_km_cm.png>]
+Overfull \hbox (9.3191pt too wide) in paragraph at lines 631--637
+ [] 
+ []
 
+<svc0_cm.png, id=103, 383.4325pt x 498.86375pt>
+File: svc0_cm.png Graphic file (type png)
+<use svc0_cm.png>
+Package pdftex.def Info: svc0_cm.png  used on input line 646.
+(pdftex.def)             Requested size: 153.37029pt x 199.54196pt.
+<lsvc_0.png, id=104, 367.3725pt x 359.3425pt>
+File: lsvc_0.png Graphic file (type png)
+<use lsvc_0.png>
+Package pdftex.def Info: lsvc_0.png  used on input line 647.
+(pdftex.def)             Requested size: 146.94638pt x 143.73445pt.
+[20] [21 <./svc0_cm.png> <./lsvc_0.png>] [22] [23
+
+] [24]
+File: lsvc_0.png Graphic file (type png)
+<use lsvc_0.png>
+Package pdftex.def Info: lsvc_0.png  used on input line 784.
+(pdftex.def)             Requested size: 110.21259pt x 107.80357pt.
+<lsvc_1.png, id=122, 367.3725pt x 363.3575pt>
+File: lsvc_1.png Graphic file (type png)
+<use lsvc_1.png>
+Package pdftex.def Info: lsvc_1.png  used on input line 785.
+(pdftex.def)             Requested size: 110.21259pt x 109.00809pt.
+<lsvc_2.png, id=123, 366.36874pt x 362.35374pt>
+File: lsvc_2.png Graphic file (type png)
+<use lsvc_2.png>
+Package pdftex.def Info: lsvc_2.png  used on input line 786.
+(pdftex.def)             Requested size: 109.91147pt x 108.70695pt.
+ [25 <./lsvc_1.png> <./lsvc_2.png>] [26]
+<svc1_cm.png, id=133, 481.8pt x 504.88625pt>
+File: svc1_cm.png Graphic file (type png)
+<use svc1_cm.png>
+Package pdftex.def Info: svc1_cm.png  used on input line 874.
+(pdftex.def)             Requested size: 192.71658pt x 201.95091pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[27
+
+] [28 <./svc1_cm.png>] [29]
+<svc2_cm.png, id=144, 371.3875pt x 504.88625pt>
+File: svc2_cm.png Graphic file (type png)
+<use svc2_cm.png>
+Package pdftex.def Info: svc2_cm.png  used on input line 921.
+(pdftex.def)             Requested size: 148.55235pt x 201.95091pt.
+ [30
+
+ <./svc2_cm.png>]
+File: svc0_cm.png Graphic file (type png)
+<use svc0_cm.png>
+Package pdftex.def Info: svc0_cm.png  used on input line 978.
+(pdftex.def)             Requested size: 95.85788pt x 124.71562pt.
+File: svc1_cm.png Graphic file (type png)
+<use svc1_cm.png>
+Package pdftex.def Info: svc1_cm.png  used on input line 979.
+(pdftex.def)             Requested size: 120.44969pt x 126.22124pt.
+File: svc2_cm.png Graphic file (type png)
+<use svc2_cm.png>
+Package pdftex.def Info: svc2_cm.png  used on input line 980.
+(pdftex.def)             Requested size: 92.84663pt x 126.22124pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[31]
 No file report.bbl.
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
@@ -498,13 +589,15 @@ Missing character: There is no ” in font cmr10!
 Missing character: There is no Ñ in font cmr10!
 Missing character: There is no € in font cmr10!
 
-Overfull \hbox (204.10286pt too wide) in paragraph at lines 645--646
+Overfull \hbox (204.10286pt too wide) in paragraph at lines 998--999
 $\OML/cmm/m/it/10.95 WardJ:H:Hierarchicalgroupingtooptimizeanobjectivefunction=
 =J:oftheAmericanStatisticalAssociation; \OT1/cmr/m/n/10.95 1963\OML/cmm/m/it/10
 .95 :\OT1/cmr/m/n/10.95 236\OML/cmm/m/it/10.95 :$ 
  []
 
-[21 <./roc_auc.png>] [22] (./report.aux)
+[32
+
+] (./report.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -513,10 +606,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4562 strings out of 494880
- 65474 string characters out of 6179600
- 138005 words of memory out of 5000000
- 7804 multiletter control sequences out of 15000+600000
+ 4607 strings out of 494880
+ 66208 string characters out of 6179600
+ 142006 words of memory out of 5000000
+ 7840 multiletter control sequences out of 15000+600000
  9709 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  41i,10n,32p,807b,1397s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -534,10 +627,10 @@ cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on report.pdf (22 pages, 401058 bytes).
+Output written on report.pdf (32 pages, 707245 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
+ 205 PDF objects out of 1000 (max. 8388607)
+ 118 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

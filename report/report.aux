@@ -21,7 +21,6 @@
 \@writefile{toc}{\contentsline {paragraph}{Gaussian Mixture.}{8}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Classifying Sentences}{8}}
 \@writefile{toc}{\contentsline {paragraph}{SVC.}{8}}
-\@writefile{toc}{\contentsline {paragraph}{Random Forest}{9}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Semi-supervised approach}{9}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Datasets}{9}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Labelled Data}{9}}
@@ -42,7 +41,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {5}Experiment}{13}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Clustering}{13}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Evoluation metrics}{13}}
-\@writefile{toc}{\contentsline {paragraph}{Purity}{13}}
+\@writefile{toc}{\contentsline {paragraph}{Purity}{14}}
 \@writefile{toc}{\contentsline {paragraph}{Silhouette Coefficient}{14}}
 \@writefile{toc}{\contentsline {paragraph}{Homogeneity and completeness.}{14}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}W2V model}{14}}
@@ -51,28 +50,52 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces W2V confusion matrix}}{16}}
 \newlabel{w2v_cm_mat}{{6}{16}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}LDA model}{16}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces LDA scores}}{17}}
-\newlabel{lda_scores}{{7}{17}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces LDA confusion matrix for gaussian mixture}}{18}}
-\newlabel{lda_gm_cm}{{8}{18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.4}GloVe pretrained}{18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.5}Google News W2V pretrained}{18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.6}CNN by word}{18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.7}BiLSTM by word}{19}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Layer choosing}}{19}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Dimension choosing}}{19}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces With maxpool on hidden layer}}{19}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces With maxpool on output}}{20}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.8}Overall comparison}{20}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Overall comparision}}{20}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Classifier}{20}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Evoluation metrics}{20}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Comparision of LDA with different number of topics}}{17}}
+\newlabel{LDA_num_topic}{{3}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces LDA confusion matrixes: agglomerative clustering, gaussian mixture, Kmeans}}{17}}
+\newlabel{lda_gm_cm}{{7}{17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.4}BiLSTM by word}{18}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparision of models with different number of layers}}{18}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Dimension choosing}}{18}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Choosing pooling}}{18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces BiLSTM confusion matrixes: : agglomerative clustering, gaussian mixture, Kmeans}}{19}}
+\newlabel{lda_gm_cm}{{8}{19}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.5}Overall comparison}{19}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Overall comparision}}{19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Classifier}{19}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Evoluation metrics}{19}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Confusion matrix template}}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Results}{20}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces CV score comparision}}{20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces SVC confusion matrix}}{21}}
+\newlabel{lda_gm_cm}{{9}{21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Semi Supervised Learning with linear kernel}{21}}
+\@writefile{toc}{\contentsline {paragraph}{Iteration 0}{21}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Classifier 0}}{22}}
+\@writefile{toc}{\contentsline {paragraph}{Iteration 1}{23}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Classifier 1}}{23}}
+\@writefile{toc}{\contentsline {paragraph}{Iteration 2}{23}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Classifier 1}}{24}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Classifier scores comparision}}{25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces SVC confusion matrix}}{25}}
+\newlabel{lda_gm_cm}{{10}{25}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Semi-supervised learning with rbf kernel}{25}}
+\@writefile{toc}{\contentsline {paragraph}{Iteration 0.}{25}}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Intention mean probability}}{26}}
+\@writefile{toc}{\contentsline {paragraph}{Iteration 1}{27}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Classification report for first iteration}}{27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces SVC confusion matrix}}{28}}
+\newlabel{lda_gm_cm}{{11}{28}}
+\@writefile{toc}{\contentsline {paragraph}{Iteration 2.}{28}}
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces Classification report for the second iteration}}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces SVC confusion matrix}}{30}}
+\newlabel{lda_gm_cm}{{12}{30}}
+\@writefile{toc}{\contentsline {paragraph}{Overall comparision}{30}}
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces Classifier scores comparision}}{30}}
+\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces Intention mean probability}}{31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces SVC confusion matrix}}{31}}
+\newlabel{lda_gm_cm}{{13}{31}}
 \bibstyle{alpha}
 \bibdata{biblio}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces AUC-ROC curve}}{21}}
-\newlabel{lda_gm_cm}{{9}{21}}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Confusion matrix template}}{21}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Results for each model}{22}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Semi-supervised learning}{22}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{22}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}References}{22}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion and future work}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}References}{32}}

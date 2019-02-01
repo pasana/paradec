@@ -205,27 +205,25 @@ $https://pdfs.semanticscholar.org/734b/07b53c23f74a3b004d7fe341ae4fce462fc6.pdf$
 
 After choosing the best model for word embedding we train classifier to 
 label data with intents. The most common approach in similar task is to use
-SVC. Also we test another classical approach for classification is Random Forest Classifier. 
-So, we create balanced train and test dataset and validate model by 
-cross validation score.
+SVC. Due to the small size for dataset it's essensial to create balanced train and test ones.
 
 \paragraph{SVC.} The main idea of ​​the method is transfering the initial vectors into a space of higher dimension and searching for a separating hyperplane with the maximum gap in this space. Two parallel hyperplanes are built on both sides of the hyperplane separating the classes. The separating hyperplane will be the one that maximizes the distance to two parallel hyperplanes. The algorithm works under the assumption that the greater the difference or the distance between these parallel hyperplanes, the less will be the average classifier error.
 
-
-\paragraph{Random Forest} is an ensemble of Decision trees that comes to substitute a big and complex one. The weaknesses of Decision tree model is bad generalization and overfitting on small amounts on data. It became possible to deal with it by training every tree on a random subset of data and features in order to obtain decorrelated ones. The final prediction is provided as a voting result of the whole ensemble that helps to reduce the variance of the model.
-
-
 \subsection{Semi-supervised approach}
 
-First, we find the best clusterization for the forum data, later we classify each item and omit ones with low probability of elements at threshold Theta. In result some clusters will be empty from the beginning and some of them will be ommited due to small population.
+First, we need to clean our external dataset to make it look more similar to our initial one: choose the relative categories of the boards and filter out long sentences that with high probability will be ambiguous.
 
-Elements of clusters that are left will be labelled by the majority. Usually, they are pure. Later we select N labelled items for each category and extend train data with them to retrain word embedding and classificatin models.
+We apply our sentence representation model to obtain features for each sentence of the forum data. Later we classify each item and take top $N$ items with the highest probability score for each predicted intent. It helps us to reduce working dataset and computation time, though $N$ should be high enough to extract neccesary number of new items.
+
+For our subset we find the best clusterization by elbow rule. Later, having both labels for intent and cluster, we leave just that clusters that populated by items with maximum probability that allows us to cover all intent with new examples.
+
+For each cluster we calculate number of intent representators and their overall distribution. Later we leave just that clusters where some intent is represented more than in average. Elements of clusters that are left will be labelled by the majority. Usually, they are pure. Later we select N labelled items for each category and extend train data with them to retrain word embedding and classificatin models.
 
 We repeat this cycle until we won't be able to extend train dataset by additional samples or classifier score will stop to grow.
 
 \section{Datasets}
 
-
+For out task we have two dataset. The first one is labelled by human and the second one was parsed to extend the previous one.
 
 \subsection{Labelled Data}
 
@@ -335,7 +333,7 @@ HealthBoards \ref{healthboards.com} is a medical forum web portal that allows pa
 
  \begin{figure}[h]
  	\centering
- 	\includegraphics[scale=0.5]{report3.png}
+ 	\includegraphics[scale=0.4]{report3.png}
 	\caption{Text stat}\label{forum_data_stat}
  \end{figure}
 \FloatBarrier
@@ -371,7 +369,11 @@ Also, data should be divided in subsets by increasing sentence length because of
 
 \section{Experiment}
 
+Experiment consists of the main stages: choosing word embedding model by analysing clustering scores, training a classifier and conducting  iterative semi-supervised approach.
+
 \subsection{Clustering}
+
+Forum data is splitted into 20 (number of intents) cluster to be able to see how current representation can reflect desirable labels. Also, it can provide us with information which classes will be easier to identify and which can mix with others.
 
 \subsubsection{Evoluation metrics}
 
@@ -440,6 +442,9 @@ Later we will try both 10 and 100 features.
 
 \subsubsection{LDA model}
 
+We iterated though different number of topics for LDA model to see which one should be used to represent our dataset. In table \ref{LDA_num_topic} we can see thier comparision. 
+
+\begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c| }
 \hline
@@ -458,47 +463,36 @@ num & purity  & silhouette  & homogeneity  & completeness \\ \hline
 600  & 0.254261  & 0.191729  & 0.171744  & 0.186001 \\
 \hline 
 \end{tabular}
+\caption{Comparision of LDA with different number of topics}
+\label{LDA_num_topic}
 \end{center}
-\FloatBarrier
-
-\begin{figure}[h]
- 	\centering
- 	\includegraphics[scale=0.7]{lda_scores.png}
-	\caption{LDA scores}
-\label{lda_scores}
-\end{figure}
+\end{table}
 \FloatBarrier
 
 The best model - is LDA with 400 topics according to scores and with priority to purity and homogeneity ones.
 
-Thanks to confusion matrix that is constructed based on cluster and intent labels we can make assumpsions about possible errors and difficulties and figure out what connections our model distinguish well. Though different clustering algorithms still captures different connection between intents, there are some common groups for all of them: fallback and hello; alcohol, drugAddiction and risk; social and emotions.
-
-
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.7]{lda_gm_cm.png}
-	\caption{LDA confusion matrix for gaussian mixture}
+	\includegraphics[scale=0.28]{lda_ac_cm.png}
+	\includegraphics[scale=0.28]{lda_gm_cm.png}
+	\includegraphics[scale=0.28]{lda_km_cm.png}
+	\caption{LDA confusion matrixes: agglomerative clustering, gaussian mixture, Kmeans}
 \label{lda_gm_cm}
 \end{figure}
 \FloatBarrier
 
+Thanks to confusion matrix that is constructed based on cluster and intent labels we can make assumpsions about possible errors and difficulties and figure out what connections our model distinguish well. Though different clustering algorithms still captures different connection between intents, there are some common groups for all of them: fallback and hello; alcohol, drugAddiction and risk; social and emotions.
 
-\subsubsection{GloVe pretrained}
-
-\subsubsection{Google News W2V pretrained}
-
-We used word2vec google-news model with 300 dimensional feature space.
-
-
-CV 0.418 + 0.057%
-
-\subsubsection{CNN by word}
-
-From simple encoder, w2v, lda, w2v + lda
+%\subsubsection{GloVe pretrained}
+%\subsubsection{Google News W2V pretrained}
+%We used word2vec google-news model with 300 dimensional feature space.
+%CV 0.418 + 0.057%
+%\subsubsection{CNN by word}
+%From simple encoder, w2v, lda, w2v + lda
 
 \subsubsection{BiLSTM by word}
 
-From simple encoder, w2v, lda, w2v + lda
+Following ( et al.) we trained BiLSTM encoder model verifying the best params. So we iterated through the number of layres, it's dimention and type of pooling.
 
 \begin{table}[htb]
 \begin{center}
@@ -511,11 +505,11 @@ layers & purity  & silhouette  & homogeneity  & completeness \\ \hline
 4  & 0.218623  & \textbf{0.439161}  & 0.164478  & 0.192599
 \end{tabular}
 \end{center}
-\caption{Layer choosing}
+\caption{Comparision of models with different number of layers}
 \end{table}
 \FloatBarrier
 
-So it's better to stay with one layer.
+So it's better to stay with one layer. Now for one layer we test its dimension.
 
 \begin{table}[htb]
 \begin{center}
@@ -535,39 +529,42 @@ layers & purity  & silhouette  & homogeneity  & completeness \\ \hline
 \end{table}
 \FloatBarrier
 
-64 output size due to bigger difference in purity score
+Finally, we chose 64 output size due to bigger difference in purity score.
 
-With maxpool on hidden layer
-
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{ |r|c|c|c|c|c| }
-\hline
-layers & purity  & silhouette  & homogeneity  & completeness \\ \hline 
-64 &	0.272616 	& 0.177766 	& 0.218339 	& 0.219109 \\ \hline
-\end{tabular}
-\end{center}
-\caption{With maxpool on hidden layer}
-\end{table}
-\FloatBarrier
-
-With maxpool on output
+Next step is chose what encoder should we use: last hiiden layer or mean-pooling or max pool on them?
 
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c|c| }
 \hline
-layers & purity  & silhouette  & homogeneity  & completeness \\ \hline 
-64 	& 0.256011 	& 0.183609 	& 0.200849 	& 0.20462 \\ \hline
+last layer & purity  & silhouette  & homogeneity  & completeness \\ \hline 
+last hidden & 0.281683  & 0.22728  & 0.231666  & 0.232176\\ \hline 
+mean hidden & 0.255399 &	0.170045 	& 0.194848 	& 0.196056 \\ \hline
+max hidden  &	0.272616 	& 0.177766 	& 0.218339 	& 0.219109 \\ \hline
 \end{tabular}
 \end{center}
-\caption{With maxpool on output}
+\caption{Choosing pooling}
 \end{table}
 \FloatBarrier
 
-BiLSTM model with one 64-dimensional layer without pooling.
+Finally we got BiLSTM model with one 64-dimensional layer without pooling.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.28]{bilstm_ac_cm.png}
+	\includegraphics[scale=0.28]{bilstm_gm_cm.png}
+	\includegraphics[scale=0.28]{bilstm_km_cm.png}
+	\caption{BiLSTM confusion matrixes: : agglomerative clustering, gaussian mixture, Kmeans}
+\label{lda_gm_cm}
+\end{figure}
+\FloatBarrier
+
+This model shows really good separatation for treatment and pain labels, 
+tends to group together (agree, fallback and hello) and (bye and disagree).
 
 \subsubsection{Overall comparison}
+
+
 
 \begin{table}[htb]
 \begin{center}
@@ -607,16 +604,6 @@ If we want to get an idea how our classifier deals with both classes (in simple 
 F1 = \frac{2*P*R}{P+R}
 \end{equation}
 
-Another approach is counting AUC (Area Under the Curve) there the curve is the ROC one that shows trade-off between precision and recall having False Positive Rate on X-axis and True Positive Rate (Recall /Sensitivity) in Y-axis. It represents the capability of the model to distinguish classes.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.7]{roc_auc.png}
-	\caption{AUC-ROC curve}
-\label{lda_gm_cm}
-\end{figure}
-\FloatBarrier
-
     There is a more clean and unambiguous way to describe the model behaviour that is a confusion matrix. The bigger values on the main diagonal the better as well as the more balanced small values on antidiagonal.
 
 \begin{table}[htb]
@@ -632,12 +619,380 @@ Predicted negative & False negative & True negative \\ \hline
 \end{table}
 \FloatBarrier
 
-\subsubsection{Results for each model}
+\subsubsection{Results}
 
-\subsection{Semi-supervised learning}
+For training train and test dataset were created with 65 and 43 items respectfully that makes 60/40 ratio. Both are balanced. 
 
-\section{Conclusion}
+SVC model was chosen with the best parameters by using GridSearch technique. We are comparing two kernels - rbf (C=10, gamma=1) and linear (C=10, gamma=0.001). For each model cross validation score computed with 5 folds.
+%5-folds Cross Validation error on train set 0.401 + 0.0115 and on test set 0.371 + 0.0338. Small %difference in score indicates good performance and absence of overfitting. 
 
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |p{2cm}|c|c|c|c|c| }
+\hline
+Kernel 	& Train & Test & precision & recall & F1 \\ \hline
+rbf		& 0.524 + 0.00717 & 0.387 + 0.0341 & 0.308 & 0.316 & 0.287 \\ \hline
+linear	& 0.371 + 0.00787 & 0.338 + 0.0431 & 0.238 & 0.241 & 0.215 \\ \hline
+\end{tabular}
+\caption{CV score comparision}
+\end{center}
+\end{table}
+\FloatBarrier
+
+Though model with rbf model has higher scores, the linear one seems to be more stable due to small difference between train and test errors. It was decided to try both and observe their behavior.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.40]{svc0_cm.png}
+	\includegraphics[scale=0.40]{lsvc_0.png}
+	\caption{SVC confusion matrix}
+\label{lda_gm_cm}
+\end{figure}
+\FloatBarrier
+
+
+\subsection{Semi Supervised Learning with linear kernel}
+
+\paragraph{Iteration 0.} 
+
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+\hline
+label & precision    & recall  & f1-score   & support\\ \hline 
+\\ \hline 
+activity &  0.56 & 0.36 & 0.44 &   66\\ \hline 
+agree &  0.23 & 0.19 & 0.21 &   54\\ \hline 
+alcohol &  0.35 & 0.34 & 0.34 &   44\\ \hline 
+bye &  0.14 & 0.24 & 0.18 &   25\\ \hline 
+disagree &  0.14 & 0.40 & 0.21 &   15\\ \hline 
+drugAddiction &  0.21 & 0.12 & 0.15 &   75\\ \hline 
+eatingDisorders &  0.26 & 0.61 & 0.36 &   18\\ \hline 
+fallback &  0.05 & 0.09 & 0.06 &   22\\ \hline 
+hello &  0.05 & 0.17 & 0.07 &   12\\ \hline 
+incomprehension &  0.49 & 0.20 & 0.29 &  103\\ \hline 
+infoPatient &  0.33 & 0.25 & 0.29 &   55\\ \hline 
+negativeEmo &  0.12 & 0.21 & 0.15 &   24\\ \hline 
+pain &  0.70 & 0.81 & 0.75 &   37\\ \hline 
+pathology &  0.02 & 0.50 & 0.04 &    2\\ \hline 
+positiveEmo &  0.28 & 0.07 & 0.11 &  178\\ \hline 
+risk &  0.02 & 0.08 & 0.04 &   12\\ \hline 
+sleep &  0.44 & 0.47 & 0.46 &   40\\ \hline 
+smoking &  0.60 & 0.68 & 0.64 &   38\\ \hline 
+social &  0.14 & 0.20 & 0.16 &   30\\ \hline 
+treatment &  0.19 & 0.80 & 0.30 &   10\\ \hline 
+\\ \hline 
+micro avg &  0.27 & 0.27 & 0.27 &  860\\ \hline 
+macro avg &  0.27 & 0.34 & 0.26 &  860\\ \hline 
+weighted avg &  0.33 & 0.27 & 0.27 &  860\\ \hline 
+\end{tabular}
+\caption{Classifier 0}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\paragraph{Iteration 1} For the first iteration we created subset of external data with $N=200$ sentences for each predicted intent, then splitted data into 200 clusters, majoiry threshold=, hreshold for probability was chosen pretty low(0.12) in order to be able to extend all 20 categories. In result, we achived 15 new items.
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+label & precision    recall  f1-score   support\\ \hline 
+\\ \hline 
+activity &  0.30 & 0.27 & 0.28 &   49\\ \hline 
+agree &  0.16 & 0.28 & 0.21 &   25\\ \hline 
+alcohol &  0.53 & 0.44 & 0.48 &   52\\ \hline 
+bye &  0.33 & 0.41 & 0.36 &   34\\ \hline 
+disagree &  0.14 & 0.08 & 0.10 &   78\\ \hline 
+drugAddiction &  0.21 & 0.29 & 0.24 &   31\\ \hline 
+eatingDisorders &  0.37 & 0.73 & 0.49 &   22\\ \hline 
+fallback &  0.12 & 0.31 & 0.17 &   16\\ \hline 
+hello &  0.00 & 0.00 & 0.00 &   19\\ \hline 
+incomprehension &  0.37 & 0.26 & 0.31 &   61\\ \hline 
+infoPatient &  0.49 & 0.34 & 0.40 &   61\\ \hline 
+negativeEmo &  0.05 & 0.06 & 0.05 &   31\\ \hline 
+pain &  0.60 & 0.46 & 0.53 &   56\\ \hline 
+pathology &  0.05 & 0.09 & 0.06 &   23\\ \hline 
+positiveEmo &  0.37 & 0.11 & 0.17 &  142\\ \hline 
+risk &  0.12 & 0.16 & 0.13 &   32\\ \hline 
+sleep &  0.42 & 0.50 & 0.46 &   36\\ \hline 
+smoking &  0.44 & 0.59 & 0.51 &   32\\ \hline 
+social &  0.14 & 0.21 & 0.17 &   28\\ \hline 
+treatment &  0.58 & 0.78 & 0.67 &   32\\ \hline 
+\\ \hline 
+micro avg &  0.29 & 0.29 & 0.29 &  860\\ \hline 
+macro avg &  0.29 & 0.32 & 0.29 &  860\\ \hline 
+weighted avg &  0.33 & 0.29 & 0.29 &  860\\ \hline
+\end{tabular}
+\caption{Classifier 1}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\paragraph{Iteration 2} For the second iteration we created subset of external data with $N=200$ sentences for each predicted intent, then splitted data into 200 clusters, majoiry threshold=, hreshold for probability was chosen pretty low(0.1) in order to be able to extend all 20 categories. In result, we achived 13 new items.
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+label  &    precision    recall  f1-score   support\\ \hline 
+\\ \hline 
+activity &  0.42 & 0.29 & 0.34 &   63\\ \hline 
+agree &  0.05 & 0.12 & 0.07 &   17\\ \hline 
+alcohol &  0.56 & 0.49 & 0.52 &   49\\ \hline 
+bye &  0.53 & 0.38 & 0.44 &   61\\ \hline 
+disagree &  0.37 & 0.38 & 0.38 &   42\\ \hline 
+drugAddiction &  0.23 & 0.23 & 0.23 &   43\\ \hline 
+eatingDisorders &  0.28 & 0.34 & 0.31 &   35\\ \hline 
+fallback &  0.00 & 0.00 & 0.00 &    6\\ \hline 
+hello &  0.21 & 0.43 & 0.28 &   21\\ \hline 
+incomprehension &  0.35 & 0.20 & 0.25 &   76\\ \hline 
+infoPatient &  0.49 & 0.44 & 0.46 &   48\\ \hline 
+negativeEmo &  0.16 & 0.21 & 0.18 &   34\\ \hline 
+pain &  0.70 & 0.81 & 0.75 &   37\\ \hline 
+pathology &  0.05 & 0.29 & 0.08 &    7\\ \hline 
+positiveEmo &  0.09 & 0.14 & 0.11 &   29\\ \hline 
+risk &  0.07 & 0.11 & 0.08 &   28\\ \hline 
+sleep &  0.49 & 0.54 & 0.51 &   39\\ \hline 
+smoking &  0.49 & 0.66 & 0.56 &   32\\ \hline 
+social &  0.26 & 0.31 & 0.28 &   36\\ \hline 
+treatment &  0.56 & 0.15 & 0.24 &  157\\ \hline 
+\\ \hline 
+micro avg &  0.32 & 0.32 & 0.32 &  860\\ \hline 
+macro avg &  0.32 & 0.32 & 0.30 &  860\\ \hline 
+weighted avg &  0.40 & 0.32 & 0.33 &  860\\ \hline 
+\end{tabular}
+\caption{Classifier 1}
+\end{center}
+\end{table}
+\FloatBarrier
+
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+\hline
+Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
+0			& 0.2651 & 0.337   & 0.0503 & 0.265 	& 0.340  & 0.262 \\ \hline
+1			& 0.2895 & 0.323   & 0.0212 & 0.289 	& 0.319  & 0.290 \\ \hline
+2 			& 0.3174 & 0.333   & 0.0118 & 0.317 	& 0.325  & 0.304 \\ \hline
+\end{tabular}
+\caption{Classifier scores comparision}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{lsvc_0.png}
+	\includegraphics[scale=0.3]{lsvc_1.png}
+	\includegraphics[scale=0.3]{lsvc_2.png}
+	\caption{SVC confusion matrix}
+\label{lda_gm_cm}
+\end{figure}
+\FloatBarrier
+
+
+\subsection{Semi-supervised learning with rbf kernel}
+
+
+\paragraph{Iteration 0.}
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c| }
+\hline
+intent &precision & recall & f1-score & support\\ \hline 
+activity & 0.44 & 0.40 & 0.42 &  47\\ \hline 
+agree & 0.72 & 0.20 & 0.32 & 152\\ \hline 
+alcohol & 0.51 & 0.44 & 0.47 &  50\\ \hline 
+bye & 0.35 & 0.29 & 0.32 &  51\\ \hline 
+disagree & 0.33 & 0.38 & 0.35 &  37\\ \hline 
+drugAddiction & 0.09 & 0.13 & 0.11 &  30\\ \hline 
+eatingDisorders & 0.33 & 0.45 & 0.38 &  31\\ \hline 
+fallback & 0.00 & 0.00 & 0.00 &   8\\ \hline 
+hello & 0.23 & 0.25 & 0.24 &  40\\ \hline 
+incomprehension & 0.51 & 0.29 & 0.37 &  76\\ \hline 
+infoPatient & 0.30 & 0.54 & 0.39 &  24\\ \hline 
+negativeEmo & 0.12 & 0.19 & 0.14 &  26\\ \hline 
+pain & 0.30 & 0.22 & 0.25 &  59\\ \hline 
+pathology & 0.09 & 0.16 & 0.12 &  25\\ \hline 
+positiveEmo & 0.09 & 0.17 & 0.12 &  24\\ \hline 
+risk & 0.05 & 0.17 & 0.07 &  12\\ \hline 
+sleep & 0.42 & 0.58 & 0.49 &  31\\ \hline 
+smoking & 0.65 & 0.61 & 0.63 &  46\\ \hline 
+social & 0.33 & 0.50 & 0.39 &  28\\ \hline 
+treatment & 0.51 & 0.35 & 0.42 &  63\\ \hline 
+\\ \hline 
+micro avg & 0.32 & 0.32 & 0.32 & 860\\ \hline 
+macro avg & 0.32 & 0.32 & 0.30 & 860\\ \hline 
+weighted avg & 0.42 & 0.32 & 0.34 & 860\\ \hline 
+\end{tabular}
+\caption{Intention mean probability}
+\end{center}
+\end{table}
+\FloatBarrier
+
+
+\paragraph{Iteration 1} For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 1000 clusters, majoiry threshold=, hreshold for probability was chosen pretty low(0.15) in order to be able to extend all 20 categories. In result, we achived 6 new items.
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c| }
+\hline
+label & precision & recall & f1-score &  support\\ \hline 
+\\ \hline 
+activity &  0.49 & 0.54 & 0.51 &   39\\ \hline 
+agree &  0.23 & 0.31 & 0.27 &   32\\ \hline 
+alcohol &  0.56 & 0.41 & 0.47 &   59\\ \hline 
+bye &  0.28 & 0.67 & 0.39 &   18\\ \hline 
+disagree &  0.33 & 0.31 & 0.32 &   45\\ \hline 
+drugAddiction &  0.26 & 0.39 & 0.31 &   28\\ \hline 
+eatingDisorders &  0.47 & 0.67 & 0.55 &   30\\ \hline 
+fallback &  0.26 & 0.12 & 0.17 &   88\\ \hline 
+hello &  0.51 & 0.25 & 0.34 &   88\\ \hline 
+incomprehension &  0.30 & 0.29 & 0.30 &   45\\ \hline 
+infoPatient &  0.42 & 0.35 & 0.38 &   52\\ \hline 
+negativeEmo &  0.05 & 0.06 & 0.05 &   36\\ \hline 
+pain &  0.65 & 0.49 & 0.56 &   57\\ \hline 
+pathology &  0.14 & 0.35 & 0.20 &   17\\ \hline 
+positiveEmo &  0.14 & 0.20 & 0.16 &   30\\ \hline 
+risk &  0.07 & 0.14 & 0.09 &   21\\ \hline 
+sleep &  0.58 & 0.66 & 0.62 &   38\\ \hline 
+smoking &  0.51 & 0.54 & 0.52 &   41\\ \hline 
+social &  0.19 & 0.29 & 0.23 &   28\\ \hline 
+treatment &  0.63 & 0.40 & 0.49 &   68\\ \hline 
+\\ \hline 
+micro avg &  0.35 & 0.35 & 0.35 &  860\\ \hline 
+macro avg &  0.35 & 0.37 & 0.35 &  860\\ \hline 
+weighted avg &  0.40 & 0.35 & 0.36 &  860\\ \hline 
+\end{tabular}
+\caption{Classification report for first iteration}
+\end{center}
+\end{table}
+\FloatBarrier
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.40]{svc1_cm.png}
+	\caption{SVC confusion matrix}
+\label{lda_gm_cm}
+\end{figure}
+\FloatBarrier
+
+\paragraph{Iteration 2.}
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c| }
+\hline
+label  &    precision & recall & f1-score  & support\\ \hline 
+\\ \hline 
+activity 		& 0.37 &   0.34 &   0.36 & 47\\ \hline 
+agree 			& 0.14 &   0.21 &   0.17 & 29\\ \hline 
+alcohol 		& 0.47 &   0.39 &   0.43 & 51\\ \hline 
+bye 			& 0.33 &   0.30 &   0.31 & 46\\ \hline 
+disagree 		& 0.35 &   0.43 &   0.38 & 35\\ \hline 
+drugAddiction 	& 0.28 &   0.29 &   0.28 & 42\\ \hline 
+eatingDisorders & 0.33 &   0.25 &   0.28 & 57\\ \hline 
+fallback 		& 0.14 &   0.12 &   0.13 & 51\\ \hline 
+hello 			& 0.40 &   0.19 &   0.26 & 90\\ \hline 
+incomprehension & 0.42 &   0.43 &   0.42 & 42\\ \hline 
+infoPatient 	& 0.37 &   0.52 &   0.43 & 31\\ \hline 
+negativeEmo 	& 0.14 &   0.18 &   0.16 & 34\\ \hline 
+pain 			& 0.49 &   0.44 &   0.46 & 48\\ \hline 
+pathology 		& 0.16 &   0.29 &   0.21 & 24\\ \hline 
+positiveEmo 	& 0.16 &   0.20 &   0.18 & 35\\ \hline 
+risk 			& 0.05 &   0.11 &   0.06 & 19\\ \hline 
+sleep 			& 0.56 &   0.63 &   0.59 & 38\\ \hline 
+smoking 		& 0.58 &   0.54 &   0.56 & 46\\ \hline 
+social 			& 0.21 &   0.56 &   0.31 & 16\\ \hline 
+treatment 		& 0.40 &   0.22 &   0.28 & 79\\ \hline 
+\\ \hline 
+micro avg &    0.32 &   0.32 &   0.32 &    860\\ \hline 
+macro avg &    0.32 &   0.33 &   0.31 &    860\\ \hline 
+weighted avg & 0.34 &   0.32 &   0.32 &    860\\ \hline 
+\\ \hline 
+\end{tabular}
+\caption{Classification report for the second iteration}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.40]{svc2_cm.png}
+	\caption{SVC confusion matrix}
+\label{lda_gm_cm}
+\end{figure}
+\FloatBarrier
+
+\paragraph{Overall comparision}
+
+In this section we provide grouped results about classifier scores chaging by iteration. 
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+\hline
+Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
+0			& 0.3186 & 0.371   & 0.0338 & 0.308 	& 0.316  & 0.287 \\ \hline
+1			& 0.3523 & 0.350   & 0.0153 & 0.352 	& 0.371  & 0.346 \\ \hline
+2 			& 0.3167 & 0.332   & 0.0150 & 0.316 	& 0.331  & 0.313 \\ \hline
+\end{tabular}
+\caption{Classifier scores comparision}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c| }
+\hline
+Intent & It 0 & It 1 & It 2 \\ \hline
+activity		& 0.31+0.10 & 0.51+0.02	\\ \hline
+agree 			& 0.17+0.06 & 0.32+0.01	\\ \hline
+alcohol 		& 0.37+0.13 & 0.53+0.03	\\ \hline
+bye 			& 0.17+0.03 & 0.40+0.03	\\ \hline
+disagree 		& 0.19+0.03 & 0.27+0.03	\\ \hline
+drugAddiction 	& 0.22+0.06 & 0.32+0.03 \\ \hline
+eatingDisorders & 0.33+0.13 & 0.66+0.07 \\ \hline
+fallback 		& 0.16+0.03 & 0.19+0.05	\\ \hline
+hello 			& 0.17+0.02 & 0.31+0.14	\\ \hline
+incomprehension & 0.20+0.04 & 0.46+0.02	\\ \hline
+infoPatient 	& 0.39+0.18 & 0.71+0.05 \\ \hline
+negativeEmo 	& 0.17+0.03 & 0.34+0.06 \\ \hline
+pain 			& 0.36+0.14 & 0.67+0.05 \\ \hline
+pathology 		& 0.16+0.04 & 0.39+0.06 \\ \hline
+positiveEmo 	& 0.19+0.04 & 0.27+0.03 \\ \hline
+risk 			& 0.28+0.07 & 0.31+0.03 \\ \hline
+sleep 			& 0.42+0.18 & 0.96+0.01 \\ \hline
+smoking 		& 0.49+0.17 & 0.79+0.02 \\ \hline
+social 			& 0.23+0.07 & 0.38+0.04 \\ \hline
+treatment 		& 0.25+0.04 & 0.43+0.04 \\ \hline
+\end{tabular}
+\caption{Intention mean probability}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.25]{svc0_cm.png}
+	\includegraphics[scale=0.25]{svc1_cm.png}
+	\includegraphics[scale=0.25]{svc2_cm.png}
+	\caption{SVC confusion matrix}
+\label{lda_gm_cm}
+\end{figure}
+\FloatBarrier
+
+
+\section{Conclusion and future work}
+
+In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and W2V models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
+
+Our results shows how high rate of confusion between labels in intial classifier increases this confusion in futher data expansion though in general algorithms tends to converge to be more precise. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually.
+
+Future work will be devoted to improving word embedding model, trying one-shot learning model in order to improve classification score. Transfering from one-intent to multi-intent is preferable due to the fact that sentences are usually ambiguous than not. Another possible direction for development can be creating framework for adding new labels to the existing classifier.
 
 \section{References}
 \bibliographystyle{alpha}
