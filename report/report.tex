@@ -1,4 +1,3 @@
-
 \documentclass[11pt]{article}
 \usepackage{graphicx}
 \usepackage{listings}
@@ -8,9 +7,11 @@
 \usepackage{placeins}
  \usepackage{url}
  \usepackage{mathtools}
+\usepackage{enumerate}
 %\usepackage{mylingmacros}
+
 \begin{document}
-\newcommand\add[1]{{\textcolor{blue}{ #1}}}
+\newcommand\add[1]{{\textcolor{blue}{ADD: #1}}}
 \newcommand\modi[1]{{\textcolor{green}{MODIFIED: #1}}}
 \newcommand\remove[1]{{\textcolor{red}{REMOVE: #1}}}
 \newcommand\expand[1]{{\textcolor{blue}{EXPAND: #1}}}
@@ -55,7 +56,7 @@ physical activity etc. ) and detecting at least one most probable
 intent of user message so that later the chatbot can choose the right
 strategy for fulfilling information.
 
-\add{ADD an example showing a user input and the expected representation ie intent + entity}
+\add{an example showing a user input and the expected representation ie intent + entity}
 
 A small manually annotated dataset (roughly 100 sentences for each category) was available. But that's not enough for learning a good NLU model and meet the variety of users possible inputs. Annotating sentence takes plenty of time, so some automated or semi-automated way should be chosen. So this project focuses on exploring automatic ways of extending the training data and learning NLU models from these extended data.
 
@@ -70,38 +71,29 @@ First, we do the literature review of approaches applied to similar problems. La
 We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. 
 
 %% irst
-%% group together paraphrases of event mentions.
+% group together paraphrases of event mentions.
 
 %% then use the simple examples in each cluster to as-
-%% sign a label to the entire cluster
+% sign a label to the entire cluster
 
 %% com-
-%% bine the new examples with the original training
-%% set and retrain
+% bine the new examples with the original training
+% set and retrain
 
 
 \subsection{Building Sentence Representations}
 
-We create sentence representations in two steps using machine and deep learning techniques. First, we map words to continuous representations. Second, we combine these word representations into sentence representations. 
+We explore two ways of building sentence representations: Word2vec and LDA. The good point of using these models is that they can be used for both word and sentence representation since one word can be treated as a small sentence. That can help us also to create sentence representations in two steps using machine and deep learning techniques. First, we map words to continuous representations. Second, we combine these word representations into sentence representations using BiLSTM encoder. \add{bibref}.
 
-\subsubsection{Sentence Representations}
-
-We explore two ways of building sentence representations: Word2vec and LDA.
-
-Preprocessed tokenized sentences were used to create dictionary and were passed to W2V model as it is and in form of Bag-Of-Word to LDA model.
-
-For selecting the best model we changed space dimension (topics for LDA and features for W2W). Preferred number of features for W2V model is 200. It's the start point for our model.
-
-The good point of using this models is that they can be used for both word and sentence representation since one word can be treated as a small sentence.
+%We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}.
 
 \paragraph{LDA.}
 
-\add{LDA models a document as a distribution of topics and a topic as a distribution of words. First give an example of topics produced by an LDA model. Next give an example of document representation as a distribution over topics. Say that in your work, a document is a sentence and so a sentence is represented by a distribution of topics.}
+One of the most common methods for constructing thematic models is the Latent Dirichlet Allocation (LDA) $\cite{lda_def}$ that models a document as a distribution of topics and a topic as a distribution of words. In our case, we work just with sentences, so this notation will be used further.
 
-One of the most common methods for constructing thematic models is the Latent Dirichlet Allocation (LDA) $\cite{lda_def}$. This algorithm is based on the Dirichlet prior distribution and uses in its work the bag-of-words model - a model for analyzing texts that takes into account only the frequency of words, but not their order. This model is well suited for thematic modeling, since it allows you to detect implicit relationships between words based on polysemy. The LDA method performs soft clustering and assumes that each word in the document is generated by some latent topic, which is determined by a probability distribution on the set of all words of the text.
+Here is example to topics.
 
-Finally each document with distribution vector over the topics while each topic is characterized by a distribution over words. For example, a shortcut for a topic is following
-
+\add{an example of topics produced by an LDA model}
 \begin{lstlisting}
 [(0.13819554, 'sleep'),
   (0.10817484, 'morning'),
@@ -113,22 +105,22 @@ Finally each document with distribution vector over the topics while each topic 
 \end{lstlisting}
 
 
-\paragraph{Word2Vec.} This technology works in the following manner: word2vec takes a large text corpus as input and matches each vector with a word, producing the coordinates of the output words. First, he creates a dictionary, “learning” on the input text data, and then calculates a vector representation of the words. A vector representation is based on contextual intimacy: words that appear in the text next to identical words (and therefore, have a similar meaning) will have close coordinates of word vectors in a vector representation. The resulting word vectors can be used for natural language processing and machine learning.
+And every sentence described by distribution vector over the topics in the following manner:
+
+\add{an example of document representation as a distribution over topics}
+
+If we want represent just one word we can just treat it like a small sentence and have the same output.
+
+This algorithm is based on the Dirichlet prior distribution and uses in its work the bag-of-words model - a model for analyzing texts that takes into account only the frequency of words, but not their order. This model is well suited for thematic modeling, since it allows you to detect implicit relationships between words. The LDA method performs soft clustering and assumes that each word in the sentence is generated by some latent topic, which is determined by a probability distribution on the set of all words of the text.
+
+
+\paragraph{Word2Vec.} This technology works in the following manner: word2vec takes a large text corpus as input and matches each vector with a word, producing the coordinates of the output words. First, he creates a dictionary, “learning” on the input text data, and then calculates a vector representation of the words. A vector representation is based on contextual proximity: words that appear in the text next to identical words (and therefore, have a similar meaning) will have close coordinates of word vectors in a vector representation. The resulting word vectors can be used for natural language processing and machine learning.
 
 $https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf$
 
 \add{To build sentence representations, we simply average the Word2Vec vectors of the content words present in that sentence}.
 
-
-
-\subsubsection{Sentence Representations}
-
-We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}.
-
-Here you need to explain the theory behind it. Explain how LSTM and the PositionwiseFeedForward  build a sentence representation out of word embeddings.
-
-\paragraph{Bi-LSTM Representations.} 
-The general idea of BiLSTM layer is repeating the first recurrent layer in the network so that they are next to each other and then providing the straigh input sequence as input to the first level and an inverse copy of it for the second.
+\paragraph{Bi-LSTM.} The general idea of BiLSTM layer is repeating the first recurrent layer in the network so that they are next to each other and then providing the straigh input sequence as input to the first level and an inverse copy of it for the second.
 
 In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidirectional LSTM computes a set of T vectors $\{h_{t}\}_{t}$. For $t ∈ [1 ,. ,,, T]$, $h_{t}$ is the combination of forward and backward LSTM, that read sentences in two opposite directions. 
 
@@ -220,22 +212,26 @@ essensial to create balanced train and test ones.
 \begin{itemize}
 \item Inspired from \cite{N18-2058}
 \item We have a classifier trained on labelled data (provided by ALIAE)
-\item Apply our sentence representation model to obtain features for each sentence in the unlabelled datat
+\item Apply our sentence representation model to obtain features for each sentence in the unlabelled data
 \item Apply classifier to unlabelled data to label this data ; 
 \item Clusterize unlabelled data (200 clusters)
 \item from classifier, sentences now have probability and label
 \item Eliminate sentences whose prob is below threshold
 \item Eliminate clusters with less than N members
-\item Data expansion: add to training data n labelled items for each intent/category
+\item Data expansion: adding to training data n labelled items for each intent/category
 \end{itemize}
 
-First, we need to clean the forum dataset to make it look more similar to our initial one: choose the relative categories of the boards and filter out long sentences that with high probability will be ambiguous.
+For semi-supervised approach we use two datasets: labelled one that was provided by ALIAE (gold data) and external one that will be used to expanding. We split our gold dataset into train and test sets and keep the last one with the same items for stable evalution.
 
-We apply our sentence representation model to obtain features for each sentence of the forum data. Later we classify each item and take top $N$ items with the highest probability score for each predicted intent. It helps us to reduce working dataset and computation time, though $N$ should be high enough to extract neccesary number of new items.
+Initially, we apply our sentence representation model to the gold data to obtain vectors for them and train our classifier (baseline) on the gold train set.
 
-For our subset we find the best clusterization by elbow rule. Later, having both labels for intent and cluster, we leave just that clusters that populated by items with maximum probability that allows us to cover all intent with new examples.
+Later we should clean our external dataset to make it look more similar to our initial one. For example, filtering out long sentences that with high probability will be ambiguous. This will help us to expand context of intent more gradually not facing our estimator with example it can be difficult to handle with.
 
-For each cluster we calculate number of intent representators and their overall distribution. Later we leave just that clusters where some intent is represented more than in average. Elements of clusters that are left will be labelled by the majority. Usually, they are pure. Later we select N labelled items for each category and extend train data with them to retrain word embedding and classificatin models.
+We apply our sentence representation model to obtain features for each sentence of the extrenal data. Later we classify each item and take top $N$ items with the highest probability score for each predicted intent. It helps us to reduce working dataset and computation time, though $N$ should be high enough to extract neccesary number of new items.
+
+For our subset we find the best clusterization by elbow method \cite{elbow_rule}. Later, having both labels for intent and cluster, we leave just that clusters that populated by items with maximum probability that allows us to cover all intent with new examples.
+
+For each cluster we calculate number of intent representators and their overall distribution. Later we leave just that clusters where some intent is represented more than in average. Elements of clusters that are left will be labelled by the majority. Later we select N labelled items for each category and extend train data with them to update sentence representation and classification models.
 
 We repeat this cycle until we won't be able to extend train dataset by additional samples or classifier score will stop to grow.
 
@@ -245,11 +241,13 @@ For our task we have two dataset. The first one is labelled by human and the sec
 
 \subsection{Labelled Data}
 \label{subsec:labelleddata}
-The initial dataset was created manually \add{aliae} covering 20 main possible users intents. Each sentence represents one intent. For, example,
+The initial dataset was created manually \add{aliae} covering 20 main possible users intents. Each sentence represents one intent. For example,
 
 %\enumsentence{
-\textbf{Text:} After sleep, for 2-3 hours, I am better and then start feeling tired again\\
-\textbf{Intent:} sleep
+\begin{description}
+\item[Text:] After sleep, for 2-3 hours, I am better and then start feeling tired again
+\item[Intent:] sleep
+\end{description}
 %}
 
 The distribution of labels is shown in Figure~\ref{figure:name}. There
@@ -259,33 +257,21 @@ consists of 1882 content words (after removing stopwords).
 
  \begin{figure}[h]
  	\centering
- 	\includegraphics[scale=0.5]{report1.png}
-	\caption{Label distribution in dataset}
+ 	\includegraphics[scale=0.4]{report1.png}
+	\includegraphics[scale=0.45]{report4.png}	
+	\caption{\textit{Left: Label distribution in dataset, Right: Distribution of sentence length}}
  \label{figure:name}
  \end{figure}
 \FloatBarrier
-
-
-
- \begin{figure}[h]
- 	\centering
- 	\includegraphics[scale=0.4]{report4.png}
-	\caption{Sentence dist}
- \label{words_freq}
- \end{figure}
- \FloatBarrier
-
 
 
 \subsection{Forum data}
 
 We scraped 272,553 unique posts contained in each category. 
 
-To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one.
+To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. Looking for open medical dataset that can be used for this purpose we found \cite{zhang2015} and \cite{sondhi-EtAl:2010:POSTERS} works that used forum data for similar tasks.
 
-\add{retrieve forum data following Zhang et al (2015) and Sondhi et al (2010) proposal}
-
-HealthBoards \ref{healthboards.com} is a medical forum web portal that allows patients to discuss their ailments. We scraped 272553 unique posts contained in each of 238 categories. Figure~\ref{forum_data_stat} show the dataset statistics. In average sentence contains 11+-7 words.
+HealthBoards \ref{healthboards.com} is a medical forum web portal that allows patients to discuss their ailments. We scraped 272553 unique posts contained in each of 238 categories. Figure~\ref{forum_data_stat} show the dataset statistics. In average sentence contains $11\pm7$ words after preprocessing.
 
 
  \begin{figure}[h]
@@ -295,9 +281,8 @@ HealthBoards \ref{healthboards.com} is a medical forum web portal that allows pa
  \end{figure}
 \FloatBarrier
 
+This dataset has precise categorization so that some posts are more specialized and some are out of the scope of our intent labels. We should start with the data that is most similar to the initial one, so that's why we choose categories of boards that are similar to our intents. This will help us to be able gradually expand the existing context. So we will keep posts of categories provided in table \ref{cat_freq}.
 
-Because our intents are not that precise as forum ones we should select particular boards with relevant information to be able gradually expand their context. Result is in table \ref{cat_freq} 
-We should start with the data that is most similar to the initial one, so we choose categories of boards that are similar to our intents. 
 
 \add{scrape posts; select categories that are relevant (listed in Table \ref{cat_freq}); keep only these post that have the relevant categories + length constraints}
 
@@ -323,7 +308,7 @@ pain-management & 25 \\ \hline
 
 Finally, the corpus consists of N  sentences. 
 
-Also, data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets. So after tokenizing posts into sentences we calculate it's length. For the each iteration we should leave sentences with mean+std words in cleaned text.
+Also, for big number of iterations data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets. So after tokenizing posts into sentences we calculate it's length. For the each iteration we should leave sentences with mean+std words in cleaned text.
 
 
 \section{Experiment}
@@ -407,11 +392,14 @@ These sentences are: 'what?', 'same that again', 'I am up', 'same', 'can you',
        'No', "I'm here"
 
 
-\subsection{Clustering}
+\subsection{Clustering for sentence representation evaluation}
 
 \add{used to compare different ways of representing sentences}
 
 Forum data is splitted into 20 (number of intents) cluster to be able to see how current representation can reflect desirable labels. Also, it can provide us with information which classes will be easier to identify and which can mix with others.
+
+
+For selecting the best model we changed space dimension (topics for LDA and features for W2W). Preferred number of features for W2V model is 200. It's the start point for our model.
 
 \subsubsection{Evaluation metrics}
 
@@ -444,7 +432,7 @@ We compare results for different embedding size ranging from 10 to 600.
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c|c| }
 \hline
-Embedding Dim. & num & purity  & silhouette  & homogeneity  & completeness\\ \hline 
+Embedding Dim.  & purity  & silhouette  & homogeneity  & completeness\\ \hline 
 10  & 0.183157  & 0.0680834  & 0.108901  & 0.12661\\ \hline 
 20  & 0.182854  & 0.0506986  & 0.111099  & 0.124805\\ \hline 
 30  & \textbf{0.185477}  & 0.0683824  & 0.110799  & 0.132563\\ \hline 
@@ -529,11 +517,11 @@ together: fallback and hello; alcohol, drugAddiction and risk; social
 and emotions.
 
 %\subsubsection{GloVe pretrained}
-%\subsubsection{Google News W2V pretrained}
-%We used word2vec google-news model with 300 dimensional feature space.
-%CV 0.418 + 0.057%
-%\subsubsection{CNN by word}
-%From simple encoder, w2v, lda, w2v + lda
+\subsubsection{Google News W2V pretrained}
+We used word2vec google-news model with 300 dimensional feature space.
+CV 0.418 + 0.057%
+\subsubsection{CNN by word}
+From simple encoder, w2v, lda, w2v + lda
 
 \subsubsection{BiLSTM by word}
 
@@ -671,7 +659,7 @@ Predicted negative & False negative & True negative \\ \hline
 For training train and test dataset were created with 65 and 43 items respectively that makes 60/40 ratio. Both are balanced \add{each category has the same number of items}. 
 
 SVC model was chosen with the best parameters by using Grid Search. We are comparing two kernels - rbf (C=10, gamma=1) and linear (C=10, gamma=0.001). For each model, we use 5 fold cross validation.
-%5-folds Cross Validation error on train set 0.401 + 0.0115 and on test set 0.371 + 0.0338. Small %difference in score indicates good performance and absence of overfitting. 
+5-folds Cross Validation error on train set 0.401 + 0.0115 and on test set 0.371 + 0.0338. Small %difference in score indicates good performance and absence of overfitting. 
 
 \begin{table}[htb]
 \begin{center}
@@ -700,7 +688,7 @@ Though model with rbf model has higher scores, the linear one is less prone to o
 
 \subsection{Semi Supervised Learning with linear kernel}
 
-\add{now give classifier results obtained after each data expansion step (cf. \ref{subsec:dataexpansion}).
+\add{now give classifier results obtained after each data expansion step (cf. \ref{subsec:dataexpansion}}.
   
 \paragraph{Iteration 0 (Baseline).} 
 
@@ -929,7 +917,7 @@ weighted avg &  0.40 & 0.35 & 0.36 &  860\\ \hline
 \end{figure}
 \FloatBarrier
 
-\paragraph{Iteration 2.}
+\paragraph{Iteration 2.} For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 1000 clusters, majoiry threshold=, hreshold for probability was chosen pretty low(0.11) in order to be able to extend all 20 categories. In result, we achived 5 new items.
 
 \begin{table}[htb]
 \begin{center}
