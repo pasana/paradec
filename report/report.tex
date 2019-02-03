@@ -98,11 +98,13 @@ with pointers for further research.
 \section{Literature review}
 \label{sec:relatedwork}
 
+To use supervised text classification methods, it is important to have a dataset of a reasonable size in order to make their training efficient. When only a small set of labelled documents is available, the semi-supervised learning becomes a way-out and helps to resolve tasks by comparing the distributions between labelled and unlabelled specimens.
+
 \cite{N18-2058} presented an approach for automatically generating additional training data for event extraction systems. First, they trained a baseline classifier on available gold data. Then, they split external data to obtain clusters of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor and achieved significant improvement of F1 score.
 
-There are many models that encode sentences into fixed-size representations. LDA and Word2Vec models are the most popular word embedding model\cite{} \cite{Jelodar2017}. \cite{P18-1198} also showed effiency of BiLSTM-max model for capturing word context in encoding sentences.
+There are many models that encode sentences into fixed-size representations. LDA and Word2Vec models are the most popular word embedding model which show their effectiveness on the continuation of a long time and a wide range of tasks\cite{Iacobacci2016EmbeddingsFW} \cite{Jelodar2017}. \cite{P18-1198} also showed the efficiency of BiLSTM-max model for capturing word context in encoding sentences.
 
-SVM is considered to be a hands-on approach in textual classification \cite{SVM}. These classifiers are fast, reliable, work well in both linear and non-linear separation and can effectively deal with sparse data, and have a great ability to generalize knowledge in multidimensional spaces \cite{joachims98a}. Last two advantages especially important due to common use of high dimension in sentence representation task and its sparse nature in case of LDA.
+SVM is considered to be a hands-on approach in textual classification \cite{SVM}. These classifiers are fast, reliable, work well in both linear and non-linear separation and can effectively deal with sparse data, and have a great ability to generalize knowledge in multidimensional spaces \cite{joachims98a}. Last two advantages especially important due to the common use of high dimension in sentence representation task and its sparse nature in case of LDA.
 
 \section{Methodology}
 \label{sec:methodology}
@@ -132,23 +134,38 @@ We explore two ways of building sentence representations: Word2vec and LDA. %% h
 
 One of the most common methods for constructing thematic models is the Latent Dirichlet Allocation (LDA) $\cite{lda_def}$ that models a document as a distribution of topics and a topic as a distribution of words. Here a document is a sentence. Hence a sentence is represented as a distribution of topics. 
 
-\add{an example of topics produced by an LDA model}
+Let's consider a toy LDA model produces following topics:
+
 \begin{lstlisting}
-[(0.13819554, 'sleep'),
-  (0.10817484, 'morning'),
-  (0.10187448, 'sometimes'),
-  (0.09861754, 'help'),
-  (0.060275868, 'able'),
-  (0.060111083, 'nap'),
-...],
+[(0,
+  '0.089*"_num_" + 0.025*"day" + 0.022*"pain" + 0.020*"take" + 
+   0.018*"year" + 0.017*"feel" + 0.015*"smoke" + 0.014*"sleep"'),
+ (1,
+  '0.024*"good" + 0.022*"get" + 0.021*"feel" + 0.021*"blood" + 
+   0.021*"want" + 0.020*"pressure" + 0.014*"understand" '),
+ (2,
+  '0.067*"go" + 0.048*"sleep" + 0.023*"_num_" + 0.021*"bed" + 
+   0.018*"fall" + 0.018*"hour" + 0.017*"wake" + 0.016*"asleep" '),
+ (3,
+  '0.040*"drink" + 0.030*"life" + 0.025*"much" + 0.020*"eat" + 
+   0.017*"end" + 0.016*"go" + 0.013*"time" + 0.012*"body" ')]
 \end{lstlisting}
 
 
 And here is an example representation for a  sentence/ 
 
-\add{an example of document representation as a distribution over topics}
+\begin{lstlisting}
+'I can go for months and at least a year or so without drinking',
+[0.61565   , 0.03821149, 0.32365379, 0.02248472]
+\end{lstlisting}
 
-%If we want represent just one word we can just treat it like a small sentence and have the same output.
+
+If we want represent just one word we can just treat it like a small sentence and have the same output.
+\begin{lstlisting}
+'sleep',
+[(0, 0.21281178), (1, 0.13255174), (2, 0.5765724), (3, 0.07806411)]
+\end{lstlisting}
+
 
 The LDA algorithm is based on the Dirichlet prior distribution and
 assumes a bag-of-words model - a model for analyzing texts
@@ -233,7 +250,7 @@ At each step of the algorithm, these two clusters are combined, which lead to a 
 
 \paragraph{Gaussian Mixture.}
 
-\rewrite{In statistics, a mixture model is a probabilistic model for representing the presence of subpopulations within an overall population, without requiring that an observed data set should identify the sub-population to which an individual observation belongs. Formally a mixture model corresponds to the mixture distribution that represents the probability distribution of observations in the overall population without sub-population identity information.}
+In statistics, a mixed model is a probabilistic model for representing the presence of subpopulations in the general population in accordance with the mixture of distributions, without requiring that a separate observation belong to a specific subgroup.
 
 A Gaussian mixture model \cite{reynolds2015gaussian} represents a weighted sum of M Gaussian densities elements for D-dimensional continuous-valued data vectors:
 
@@ -250,8 +267,6 @@ g(x|\mu_{i}, \sum_{i})=\frac{1}{(2\pi)^{\frac{D}{2}}|\sum_{i}|^{\frac{1}{2}}} e^
 with mean vector $\mu_{i}$ and covariance matrix $\sum_{i}$. The mixture weights satisfy the constraint that $\sum_{i=1}^{M} w_{i} = 1$.
 
 GMM parameters are estimated from training data using the iterative Expectation-Maximization (EM) algorithm or Maximum A Posteriori (MAP) estimation from a well-trained prior model.
-
-%$https://pdfs.semanticscholar.org/734b/07b53c23f74a3b004d7fe341ae4fce462fc6.pdf$
 
 
 \subsection{Semi-Supervised approach to Data Expansion and Classification}
@@ -351,9 +366,6 @@ preprocessing.
 \FloatBarrier
 
 This dataset has precise categorization so that some posts are more specialized and some are out of the scope of our intent labels. We should start with the data that is most similar to the initial one, so that's why we choose categories of boards that are similar to our intents. This will help us to be able gradually expand the existing context. So we will keep posts of categories provided in table \ref{cat_freq}.
-
-
-%\add{scrape posts; select categories that are relevant (listed in Table \ref{cat_freq}); keep only these post that have the relevant categories + length constraints}
 
 \begin{table}[htb]
 \centering
@@ -464,12 +476,11 @@ These sentences are: 'what?', 'same that again', 'I am up', 'same', 'can you',
 
 \subsection{Clustering for sentence representation evaluation}
 \label{subsec:clustering2}
-\add{used to compare different ways of representing sentences}
 
-Forum data is splitted into 20 (number of intents) cluster to be able to see how current representation can reflect desirable labels. Also, it can provide us with information which classes will be easier to identify and which can mix with others.
+Thanks to clustering it is possible to see how current representation can reflect desirable labels. Also, it can provide us with information which classes will be easier to identify and which can mix with others. Using score for evalution clustering models helps us to compare different ways of representing sentences and chosing the best one.
 
 
-For selecting the best model we changed space dimension (topics for LDA and features for W2W). Preferred number of features for W2V model is 200. It's the start point for our model.
+Forum data is splitted into 20 (number of intents). For selecting the best model we changed space dimension (topics for LDA and features for W2W). Preferred number of features for W2V model is 200. It's the start point for our model.
 
 \subsubsection{Evaluation metrics}
 
@@ -688,7 +699,8 @@ BiLSTM 	& 64  & \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline
 
 \subsection{Classifier}
 \label{subsec:classifying2}
-\add{training on labelled data (cf. Section \ref{subsec:labelleddata})}
+
+This section contains details about training classifier on the labelled data (cf. Section \ref{subsec:labelleddata}) and choosing the best parameters as baseline for the further semi-supervised approach.
 
 \subsubsection{Evaluation metrics}
 
@@ -726,18 +738,20 @@ Predicted negative & False negative & True negative \\ \hline
 
 \subsubsection{Results}
 
-For training train and test dataset were created with 65 and 43 items respectively that makes 60/40 ratio. Both are balanced \add{each category has the same number of items}. 
+For training train and test dataset were created with 65 and 43 items per category respectively that makes 60/40 ratio. Both sets are balanced, so that each category is represented by the same number of items. 
 
 SVC model was chosen with the best parameters by using Grid Search. We are comparing two kernels - rbf (C=10, gamma=1) and linear (C=10, gamma=0.001). For each model, we use 5 fold cross validation.
 5-folds Cross Validation error on train set 0.401 + 0.0115 and on test set 0.371 + 0.0338. Small %difference in score indicates good performance and absence of overfitting. 
 
 \begin{table}[htb]
 \begin{center}
-\begin{tabular}{ |p{2cm}|c|c|c|c|c| }
+\begin{tabular}{ |p{1.5cm}|p{1cm}|c|c|c|c|c| }
 \hline
-Kernel 	& Train & Test & precision & recall & F1 \\ \hline
-rbf		& 0.524 + 0.00717 & 0.387 + 0.0341 & 0.308 & 0.316 & 0.287 \\ \hline
-linear	& 0.371 + 0.00787 & 0.338 + 0.0431 & 0.238 & 0.241 & 0.215 \\ \hline
+Model 	& Kernel 	& Train & Test & precision & recall & F1 \\ \hline
+\multirow{2}{*}{LDA} &	rbf		& 0.524 + 0.00717 & 0.387 + 0.0341 & 0.308 & 0.316 & 0.287 \\ 
+& linear	& 0.371 + 0.00787 & 0.338 + 0.0431 & 0.238 & 0.241 & 0.215 \\ \hline
+\multirow{2}{*}{BiLSTM}&	rbf		& 0.418 + 0.0193 & 0.373 + 0.0548 & 0.280 & 0.297 & 0.275 \\ 
+& linear	& 0.376 + 0.0147 & 0.343 + 0.0484 & 0.265 & 0.291 & 0.251 \\ \hline
 \end{tabular}
 \caption{CV score comparison}
 \end{center}
@@ -758,7 +772,14 @@ Though model with rbf model has higher scores, the linear one is less prone to o
 
 \subsection{Semi Supervised Learning}
 \label{subsec:semisupervised}
-\add{now give classifier results obtained after each data expansion step (cf. \ref{subsec:dataexpansion}}.
+
+In this section we provide classifier results obtained after each data expansion step described in  \ref{subsec:dataexpansion}.
+
+BiLSTM model didn't succeded to provide expansion to all categories. 
+
+Rbf just to next ones: sleep, risk, eatingDisorders, drugAddiction, alcohol, social, activity, smoking, infoPatient, pain, negativeEmo, incomprehension, treatment.
+
+Linear just to next ones: sleep, risk, eatingDisorders, drugAddiction, social, activity, smoking, alcohol, pain, infoPatient, negativeEmo.
   
 \subsubsection{SVC with linear kernel}
   
