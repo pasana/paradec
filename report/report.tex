@@ -103,7 +103,7 @@ with pointers for further research.
 \section{Methodology}
 \label{sec:methodology}
 
-Our methodology for data expansion falls into two main steps. First, we compare different methods for representing utterances using both clustering and classification (Sections~\ref{subsec:sentencerepresentations} and ~\ref{subsec:clustering}). Second, we use the best method to gradually increment the size of the labelled data and train a new classifier  (Sections~\ref{subsec:} and ~\ref{subsec:}). 
+Our methodology for data expansion falls into two main steps. First, we compare different methods for representing utterances using both clustering and classification (Sections~\ref{subsec:sentencerepresentations} and ~\ref{subsec:clustering}). Second, based on the best sentence representations, we gradually increment the size of the labelled data and iteratively train new classifiers on the extended data (Section~\ref{subsec:dataexpansion}). 
 
 %% We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. 
 
@@ -259,18 +259,18 @@ classifiers as follows.
 
 
 \begin{itemize}
-\item \textbf{Step 1: Classification.} Apply the classifier trained on labelled data to a set of unlabelled sentences;
-\item \textbf{Step 2: Clustering.} Clusterize unlabelled sentences into 200 clusters
+\item \textbf{Step 1: Classification.} Apply the classifier trained on the currently available labelled data to a set of unlabelled sentences;
+\item \textbf{Step 2: Clustering.} Clusterize these unlabelled sentences into 200 clusters
 \item \textbf{Step 3: Filtering.} Use the probability and the label assigned by the classifier to each unlabelled sentence to :
   \begin{itemize}
-\item Eliminate sentences whose probabiility is below a given threshold
-\item Eliminate clusters with less than M members
+\item Eliminate sentences whose probability is below a given threshold
+\item Eliminate clusters with less than $m$ members
   \end{itemize}
-\item \textbf{Step 4: Data expansion.} Adding to training data the n best labelled items for each intent. 
+\item \textbf{Step 4: Data expansion.} Add to training data the $n$ best labelled items for each intent. 
   \item \textbf{Step 5: Classifier Training.} Train a new classifier using both the previous and the new labelled data. 
 \end{itemize}
 
-\paragraph{Classification}. For classification we use SVC (Support Vector Classifier). The main idea of ​​the method is transfering the initial vectors into a space of higher dimension and searching for a separating hyperplane with the maximum gap in this space. Two parallel hyperplanes are built on both sides of the hyperplane separating the classes. The separating hyperplane will be the one that maximizes the distance to two parallel hyperplanes. The algorithm works under the assumption that the greater the difference or the distance between these parallel hyperplanes, the less will be the average classifier error.  Due to the small size for dataset it's essential to create balanced training and test datasets.
+\paragraph{Classification.} For classification, we use SVC (Support Vector Classifier). The main idea of ​​the method is transfering the initial vectors into a space of higher dimension and searching for a separating hyperplane with the maximum gap in this space. Two parallel hyperplanes are built on both sides of the hyperplane separating the classes. The separating hyperplane will be the one that maximizes the distance to two parallel hyperplanes. The algorithm works under the assumption that the greater the difference or the distance between these parallel hyperplanes, the less will be the average classifier error.  Due to the small size for dataset it's essential to create balanced training and test datasets.
 
 The initial labelled dataset was provided by ALIAE (gold data). We split our gold dataset into train and test sets and systematically use the test set for evaluation and comparison of the classifiers learned on the different datasets produced during data expansion.
 
@@ -298,8 +298,7 @@ For our task we have two dataset. The first one is labelled by human and the sec
 
 \subsection{Labelled Data}
 \label{subsec:labelleddata}
-The initial dataset was created manually \add{aliae} covering 20 main possible users intents. Each sentence represents one intent. For example,
-
+The initial dataset was created manually by the Aliae startup and  covers 20 main possible users intents. Each sentence represents one intent e.g., 
 %\enumsentence{
 \begin{description}
 \item[Text:] After sleep, for 2-3 hours, I am better and then start feeling tired again
@@ -316,7 +315,7 @@ consists of 1882 content words (after removing stopwords).
  	\centering
  	\includegraphics[scale=0.4]{report1.png}
 	\includegraphics[scale=0.45]{report4.png}	
-	\caption{\textit{Left: Label distribution in dataset, Right: Distribution of sentence length}}
+	\caption{Left: Label distribution in dataset, Right: Distribution of sentence length}
  \label{figure:name}
  \end{figure}
 \FloatBarrier
@@ -324,11 +323,20 @@ consists of 1882 content words (after removing stopwords).
 
 \subsection{Forum data}
 \label{subsec:forumdata}
-We scraped 272,553 unique posts contained in each category. 
 
-To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. Looking for open medical dataset that can be used for this purpose we found \cite{zhang2015} and \cite{sondhi-EtAl:2010:POSTERS} works that used forum data for similar tasks.
+To improve the initial classifier, we needed to extend the training
+dataset by much more data and more naturally constracted one. Looking
+for open medical dataset that can be used for this purpose, we found
+\cite{zhang2015} and \cite{sondhi-EtAl:2010:POSTERS} works that used
+the HealthBoards forum data for similar tasks. 
+HealthBoards\footnote{\url{healthboards.com}} is a medical forum web portal that
+allows patients to discuss their ailments.
 
-HealthBoards \ref{healthboards.com} is a medical forum web portal that allows patients to discuss their ailments. We scraped 272553 unique posts contained in each of 238 categories. Figure~\ref{forum_data_stat} show the dataset statistics. In average sentence contains $11\pm7$ words after preprocessing.
+
+We scraped 272553 unique posts labelled with 238 forum
+categories. Figure~\ref{forum_data_stat} shows the dataset
+statistics. In average, sentences contain $11\pm7$ words after
+preprocessing.
 
 
  \begin{figure}[h]
@@ -341,7 +349,7 @@ HealthBoards \ref{healthboards.com} is a medical forum web portal that allows pa
 This dataset has precise categorization so that some posts are more specialized and some are out of the scope of our intent labels. We should start with the data that is most similar to the initial one, so that's why we choose categories of boards that are similar to our intents. This will help us to be able gradually expand the existing context. So we will keep posts of categories provided in table \ref{cat_freq}.
 
 
-\add{scrape posts; select categories that are relevant (listed in Table \ref{cat_freq}); keep only these post that have the relevant categories + length constraints}
+%\add{scrape posts; select categories that are relevant (listed in Table \ref{cat_freq}); keep only these post that have the relevant categories + length constraints}
 
 \begin{table}[htb]
 \centering
@@ -365,7 +373,7 @@ pain-management & 25 \\ \hline
 
 Finally, the corpus consists of N  sentences. 
 
-Also, for big number of iterations data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets. So after tokenizing posts into sentences we calculate it's length. For the each iteration we should leave sentences with mean+std words in cleaned text.
+Also, for big number of iterations data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets. So after tokenizing posts into sentences we calculate it's length. For each iteration, we only leave sentences which have mean+std words after pre-processing (cf. Section~\ref{subsec:preprocessing}).
 
 
 \section{Experiment}

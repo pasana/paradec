@@ -11,21 +11,21 @@
 \contentsline {paragraph}{Agglomerative Clustering}{7}
 \contentsline {paragraph}{Gaussian Mixture.}{7}
 \contentsline {subsection}{\numberline {4.3}Semi-Supervised approach to Data Expansion and Classification}{8}
-\contentsline {paragraph}{Classification}{8}
+\contentsline {paragraph}{Classification.}{9}
 \contentsline {paragraph}{Clustering.}{9}
 \contentsline {paragraph}{Filtering.}{9}
-\contentsline {paragraph}{Data Expansion.}{9}
+\contentsline {paragraph}{Data Expansion.}{10}
 \contentsline {section}{\numberline {5}Datasets}{10}
 \contentsline {subsection}{\numberline {5.1}Labelled Data}{10}
-\contentsline {subsection}{\numberline {5.2}Forum data}{10}
+\contentsline {subsection}{\numberline {5.2}Forum data}{11}
 \contentsline {section}{\numberline {6}Experiment}{12}
-\contentsline {subsection}{\numberline {6.1}Preprocessing routine}{12}
+\contentsline {subsection}{\numberline {6.1}Preprocessing routine}{13}
 \contentsline {subsection}{\numberline {6.2}Clustering for sentence representation evaluation}{14}
-\contentsline {subsubsection}{\numberline {6.2.1}Evaluation metrics}{14}
-\contentsline {paragraph}{Purity}{14}
+\contentsline {subsubsection}{\numberline {6.2.1}Evaluation metrics}{15}
+\contentsline {paragraph}{Purity}{15}
 \contentsline {paragraph}{Silhouette Coefficient}{15}
 \contentsline {paragraph}{Homogeneity and completeness.}{15}
-\contentsline {subsubsection}{\numberline {6.2.2}Word2Vec model}{15}
+\contentsline {subsubsection}{\numberline {6.2.2}Word2Vec model}{16}
 \contentsline {subsubsection}{\numberline {6.2.3}LDA model}{17}
 \contentsline {subsubsection}{\numberline {6.2.4}Google News W2V pretrained}{19}
 \contentsline {subsubsection}{\numberline {6.2.5}CNN by word}{19}
