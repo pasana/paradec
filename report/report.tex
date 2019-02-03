@@ -98,7 +98,11 @@ with pointers for further research.
 \section{Literature review}
 \label{sec:relatedwork}
 
-\cite{N18-2058} \modi{present an approach for automatically generating additional training data for event extraction systems}. First, they trained a baseline classifier on available data. Then, they cluster external data to obtain cluster of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor.
+\cite{N18-2058} presented an approach for automatically generating additional training data for event extraction systems. First, they trained a baseline classifier on available gold data. Then, they split external data to obtain clusters of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor and achieved significant improvement of F1 score.
+
+There are many models that encode sentences into fixed-size representations. LDA and Word2Vec models are the most popular word embedding model\cite{} \cite{Jelodar2017}. \cite{P18-1198} also showed effiency of BiLSTM-max model for capturing word context in encoding sentences.
+
+SVM is considered to be a hands-on approach in textual classification \cite{SVM}. These classifiers are fast, reliable, work well in both linear and non-linear separation and can effectively deal with sparse data, and have a great ability to generalize knowledge in multidimensional spaces \cite{joachims98a}. Last two advantages especially important due to common use of high dimension in sentence representation task and its sparse nature in case of LDA.
 
 \section{Methodology}
 \label{sec:methodology}
@@ -752,123 +756,18 @@ Though model with rbf model has higher scores, the linear one is less prone to o
 \FloatBarrier
 
 
-\subsection{Semi Supervised Learning with linear kernel}
+\subsection{Semi Supervised Learning}
 \label{subsec:semisupervised}
 \add{now give classifier results obtained after each data expansion step (cf. \ref{subsec:dataexpansion}}.
   
-\paragraph{Iteration 0 (Baseline).} 
+\subsubsection{SVC with linear kernel}
+  
+On iteration 0 there is no data expansion and scores are provided for the baseline model trained on gold data.
 
-\add{no data expansion; trained on gold data}
+For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 200 clusters, majority threshold=, hreshold for probability was chosen pretty low(0.12) in order to be able to extend all 20 categories. In result, we achived 15 new items.
 
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{ |r|c|c|c|c|c|c| }
-\hline
-label & precision    & recall  & f1-score   & support\\ \hline 
-\\ \hline 
-activity &  0.56 & 0.36 & 0.44 &   66\\ \hline 
-agree &  0.23 & 0.19 & 0.21 &   54\\ \hline 
-alcohol &  0.35 & 0.34 & 0.34 &   44\\ \hline 
-bye &  0.14 & 0.24 & 0.18 &   25\\ \hline 
-disagree &  0.14 & 0.40 & 0.21 &   15\\ \hline 
-drugAddiction &  0.21 & 0.12 & 0.15 &   75\\ \hline 
-eatingDisorders &  0.26 & 0.61 & 0.36 &   18\\ \hline 
-fallback &  0.05 & 0.09 & 0.06 &   22\\ \hline 
-hello &  0.05 & 0.17 & 0.07 &   12\\ \hline 
-incomprehension &  0.49 & 0.20 & 0.29 &  103\\ \hline 
-infoPatient &  0.33 & 0.25 & 0.29 &   55\\ \hline 
-negativeEmo &  0.12 & 0.21 & 0.15 &   24\\ \hline 
-pain &  0.70 & 0.81 & 0.75 &   37\\ \hline 
-pathology &  0.02 & 0.50 & 0.04 &    2\\ \hline 
-positiveEmo &  0.28 & 0.07 & 0.11 &  178\\ \hline 
-risk &  0.02 & 0.08 & 0.04 &   12\\ \hline 
-sleep &  0.44 & 0.47 & 0.46 &   40\\ \hline 
-smoking &  0.60 & 0.68 & 0.64 &   38\\ \hline 
-social &  0.14 & 0.20 & 0.16 &   30\\ \hline 
-treatment &  0.19 & 0.80 & 0.30 &   10\\ \hline 
-\\ \hline 
-micro avg &  0.27 & 0.27 & 0.27 &  860\\ \hline 
-macro avg &  0.27 & 0.34 & 0.26 &  860\\ \hline 
-weighted avg &  0.33 & 0.27 & 0.27 &  860\\ \hline 
-\end{tabular}
-\caption{Classifier 0}
-\end{center}
-\end{table}
-\FloatBarrier
 
-\paragraph{Iteration 1} For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 200 clusters, majority threshold=, hreshold for probability was chosen pretty low(0.12) in order to be able to extend all 20 categories. In result, we achived 15 new items.
-
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{ |r|c|c|c|c|c|c| }
-label & precision    recall  f1-score   support\\ \hline 
-\\ \hline 
-activity &  0.30 & 0.27 & 0.28 &   49\\ \hline 
-agree &  0.16 & 0.28 & 0.21 &   25\\ \hline 
-alcohol &  0.53 & 0.44 & 0.48 &   52\\ \hline 
-bye &  0.33 & 0.41 & 0.36 &   34\\ \hline 
-disagree &  0.14 & 0.08 & 0.10 &   78\\ \hline 
-drugAddiction &  0.21 & 0.29 & 0.24 &   31\\ \hline 
-eatingDisorders &  0.37 & 0.73 & 0.49 &   22\\ \hline 
-fallback &  0.12 & 0.31 & 0.17 &   16\\ \hline 
-hello &  0.00 & 0.00 & 0.00 &   19\\ \hline 
-incomprehension &  0.37 & 0.26 & 0.31 &   61\\ \hline 
-infoPatient &  0.49 & 0.34 & 0.40 &   61\\ \hline 
-negativeEmo &  0.05 & 0.06 & 0.05 &   31\\ \hline 
-pain &  0.60 & 0.46 & 0.53 &   56\\ \hline 
-pathology &  0.05 & 0.09 & 0.06 &   23\\ \hline 
-positiveEmo &  0.37 & 0.11 & 0.17 &  142\\ \hline 
-risk &  0.12 & 0.16 & 0.13 &   32\\ \hline 
-sleep &  0.42 & 0.50 & 0.46 &   36\\ \hline 
-smoking &  0.44 & 0.59 & 0.51 &   32\\ \hline 
-social &  0.14 & 0.21 & 0.17 &   28\\ \hline 
-treatment &  0.58 & 0.78 & 0.67 &   32\\ \hline 
-\\ \hline 
-micro avg &  0.29 & 0.29 & 0.29 &  860\\ \hline 
-macro avg &  0.29 & 0.32 & 0.29 &  860\\ \hline 
-weighted avg &  0.33 & 0.29 & 0.29 &  860\\ \hline
-\end{tabular}
-\caption{Classifier 1}
-\end{center}
-\end{table}
-\FloatBarrier
-
-\paragraph{Iteration 2} For the second iteration we created subset of external data with $N=200$ sentences for each predicted intent, then splitted data into 200 clusters, majoiry threshold=, hreshold for probability was chosen pretty low(0.1) in order to be able to extend all 20 categories. In result, we achived 13 new items.
-
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{ |r|c|c|c|c|c|c| }
-label  &    precision    recall  f1-score   support\\ \hline 
-\\ \hline 
-activity &  0.42 & 0.29 & 0.34 &   63\\ \hline 
-agree &  0.05 & 0.12 & 0.07 &   17\\ \hline 
-alcohol &  0.56 & 0.49 & 0.52 &   49\\ \hline 
-bye &  0.53 & 0.38 & 0.44 &   61\\ \hline 
-disagree &  0.37 & 0.38 & 0.38 &   42\\ \hline 
-drugAddiction &  0.23 & 0.23 & 0.23 &   43\\ \hline 
-eatingDisorders &  0.28 & 0.34 & 0.31 &   35\\ \hline 
-fallback &  0.00 & 0.00 & 0.00 &    6\\ \hline 
-hello &  0.21 & 0.43 & 0.28 &   21\\ \hline 
-incomprehension &  0.35 & 0.20 & 0.25 &   76\\ \hline 
-infoPatient &  0.49 & 0.44 & 0.46 &   48\\ \hline 
-negativeEmo &  0.16 & 0.21 & 0.18 &   34\\ \hline 
-pain &  0.70 & 0.81 & 0.75 &   37\\ \hline 
-pathology &  0.05 & 0.29 & 0.08 &    7\\ \hline 
-positiveEmo &  0.09 & 0.14 & 0.11 &   29\\ \hline 
-risk &  0.07 & 0.11 & 0.08 &   28\\ \hline 
-sleep &  0.49 & 0.54 & 0.51 &   39\\ \hline 
-smoking &  0.49 & 0.66 & 0.56 &   32\\ \hline 
-social &  0.26 & 0.31 & 0.28 &   36\\ \hline 
-treatment &  0.56 & 0.15 & 0.24 &  157\\ \hline 
-\\ \hline 
-micro avg &  0.32 & 0.32 & 0.32 &  860\\ \hline 
-macro avg &  0.32 & 0.32 & 0.30 &  860\\ \hline 
-weighted avg &  0.40 & 0.32 & 0.33 &  860\\ \hline 
-\end{tabular}
-\caption{Classifier 1}
-\end{center}
-\end{table}
-\FloatBarrier
+For the second iteration we repeated the procedure choosing probability threshold as 0.1 and obtaining 13 new items.
 
 
 \begin{table}[htb]
@@ -885,91 +784,102 @@ Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
 \end{table}
 \FloatBarrier
 
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|l|c|c|c|l|c|c|c| }
+\hline
+label 			& \multicolumn{3}{c|}{precision} && \multicolumn{3}{c|}{recall} && \multicolumn{3}{c|}{f1} \\ \hline 
+activity 		&  0.56 & 0.30 & 0.42 && 0.36 & 0.27 & 0.29 && 0.44 & 0.28 & 0.34 \\ \hline 
+agree 			&  0.23 & 0.16 & 0.05 && 0.19 & 0.28 & 0.12 && 0.21 & 0.21 & 0.07 \\ \hline 
+alcohol 		&  0.35 & 0.53 & 0.56 && 0.34 & 0.44 & 0.49 && 0.34 & 0.48 & 0.52 \\ \hline 
+bye 			&  0.14 & 0.33 & 0.53 && 0.24 & 0.41 & 0.38 && 0.18 & 0.36 & 0.44 \\ \hline 
+disagree 		&  0.14 & 0.14 & 0.37 && 0.40 & 0.08 & 0.38 && 0.21 & 0.10 & 0.38 \\ \hline 
+drugAddiction 	&  0.21 & 0.21 & 0.23 && 0.12 & 0.29 & 0.23 && 0.15 & 0.24 & 0.23 \\ \hline 
+eatingDisorders &  0.26 & 0.37 & 0.28 && 0.61 & 0.73 & 0.34 && 0.36 & 0.49 & 0.31 \\ \hline 
+fallback 		&  0.05 & 0.12 & 0.00 && 0.09 & 0.31 & 0.00 && 0.06 & 0.17 & 0.00 \\ \hline 
+hello 			&  0.05 & 0.00 & 0.21 && 0.17 & 0.00 & 0.43 && 0.07 & 0.00 & 0.28 \\ \hline 
+incomprehension &  0.49 & 0.37 & 0.35 && 0.20 & 0.26 & 0.20 && 0.29 & 0.31 & 0.25 \\ \hline 
+infoPatient 	&  0.33 & 0.49 & 0.49 && 0.25 & 0.34 & 0.44 && 0.29 & 0.40 & 0.46 \\ \hline 
+negativeEmo 	&  0.12 & 0.05 & 0.16 && 0.21 & 0.06 & 0.21 && 0.15 & 0.05 & 0.18 \\ \hline 
+pain 			&  0.70 & 0.60 & 0.70 && 0.81 & 0.46 & 0.81 && 0.75 & 0.53 & 0.75 \\ \hline 
+pathology 		&  0.02 & 0.05 & 0.05 && 0.50 & 0.09 & 0.29 && 0.04 & 0.06 & 0.08 \\ \hline 
+positiveEmo 	&  0.28 & 0.37 & 0.09 && 0.07 & 0.11 & 0.14 && 0.11 & 0.17 & 0.11 \\ \hline 
+risk 			&  0.02 & 0.12 & 0.07 && 0.08 & 0.16 & 0.11 && 0.04 & 0.13 & 0.08 \\ \hline 
+sleep 			&  0.44 & 0.42 & 0.49 && 0.47 & 0.50 & 0.54 && 0.46 & 0.46 & 0.51 \\ \hline 
+smoking 		&  0.60 & 0.44 & 0.49 && 0.68 & 0.59 & 0.66 && 0.64 & 0.51 & 0.56 \\ \hline 
+social 			&  0.14 & 0.14 & 0.26 && 0.20 & 0.21 & 0.31 && 0.16 & 0.17 & 0.28 \\ \hline 
+treatment		&  0.19 & 0.58 & 0.56 && 0.80 & 0.75 & 0.15 && 0.30 & 0.67 & 0.24 \\ \hline 
+\end{tabular}
+\caption{Comparision of classification scores for SVC with linear kernel}
+\end{center}
+\end{table}
+\FloatBarrier
+
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{lsvc_0.png}
 	\includegraphics[scale=0.3]{lsvc_1.png}
 	\includegraphics[scale=0.3]{lsvc_2.png}
-	\caption{SVC confusion matrix}
+	\caption{SVC confusion matrix for iteration 0, 1, 2.}
 \label{lda_gm_cm}
 \end{figure}
 \FloatBarrier
 
 
-\subsection{Semi-supervised learning with rbf kernel}
+\subsubsection{SVC with rbf kernel}
 \label{subsec:semisupervised-rbf}
 
-\paragraph{Iteration 0.}
+Zero iteration stands for the baseline model performance. 
+
+For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 1000 clusters, hreshold for probability was chosen pretty low (0.15) in order to be able to extend all 20 categories. In result, we achived 6 new items.
+
+For the second iteration we  used the same parameters, threshold for probability became lower(0.11) and in result 5 new items were obtained.
+
+Here we provide grouped results about classifier scores chaging by iteration. 
+
 \begin{table}[htb]
 \begin{center}
-\begin{tabular}{ |r|c|c|c|c| }
+\begin{tabular}{ |r|c|c|c|c|c|c| }
 \hline
-intent &precision & recall & f1-score & support\\ \hline 
-activity & 0.44 & 0.40 & 0.42 &  47\\ \hline 
-agree & 0.72 & 0.20 & 0.32 & 152\\ \hline 
-alcohol & 0.51 & 0.44 & 0.47 &  50\\ \hline 
-bye & 0.35 & 0.29 & 0.32 &  51\\ \hline 
-disagree & 0.33 & 0.38 & 0.35 &  37\\ \hline 
-drugAddiction & 0.09 & 0.13 & 0.11 &  30\\ \hline 
-eatingDisorders & 0.33 & 0.45 & 0.38 &  31\\ \hline 
-fallback & 0.00 & 0.00 & 0.00 &   8\\ \hline 
-hello & 0.23 & 0.25 & 0.24 &  40\\ \hline 
-incomprehension & 0.51 & 0.29 & 0.37 &  76\\ \hline 
-infoPatient & 0.30 & 0.54 & 0.39 &  24\\ \hline 
-negativeEmo & 0.12 & 0.19 & 0.14 &  26\\ \hline 
-pain & 0.30 & 0.22 & 0.25 &  59\\ \hline 
-pathology & 0.09 & 0.16 & 0.12 &  25\\ \hline 
-positiveEmo & 0.09 & 0.17 & 0.12 &  24\\ \hline 
-risk & 0.05 & 0.17 & 0.07 &  12\\ \hline 
-sleep & 0.42 & 0.58 & 0.49 &  31\\ \hline 
-smoking & 0.65 & 0.61 & 0.63 &  46\\ \hline 
-social & 0.33 & 0.50 & 0.39 &  28\\ \hline 
-treatment & 0.51 & 0.35 & 0.42 &  63\\ \hline 
-\\ \hline 
-micro avg & 0.32 & 0.32 & 0.32 & 860\\ \hline 
-macro avg & 0.32 & 0.32 & 0.30 & 860\\ \hline 
-weighted avg & 0.42 & 0.32 & 0.34 & 860\\ \hline 
+Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
+0			& 0.3186 & 0.371   & 0.0338 & 0.308 	& 0.316  & 0.287 \\ \hline
+1			& 0.3523 & 0.350   & 0.0153 & 0.352 	& 0.371  & 0.346 \\ \hline
+2 			& 0.3167 & 0.332   & 0.0150 & 0.316 	& 0.331  & 0.313 \\ \hline
 \end{tabular}
-\caption{Intention mean probability}
+\caption{Classifier scores comparison}
 \end{center}
 \end{table}
 \FloatBarrier
 
-
-\paragraph{Iteration 1} For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 1000 clusters, majoiry threshold=, hreshold for probability was chosen pretty low(0.15) in order to be able to extend all 20 categories. In result, we achived 6 new items.
-
 \begin{table}[htb]
 \begin{center}
-\begin{tabular}{ |r|c|c|c|c| }
+\begin{tabular}{ |r|c|c|c|l|c|c|c|l|c|c|c| }
 \hline
-label & precision & recall & f1-score &  support\\ \hline 
-\\ \hline 
-activity &  0.49 & 0.54 & 0.51 &   39\\ \hline 
-agree &  0.23 & 0.31 & 0.27 &   32\\ \hline 
-alcohol &  0.56 & 0.41 & 0.47 &   59\\ \hline 
-bye &  0.28 & 0.67 & 0.39 &   18\\ \hline 
-disagree &  0.33 & 0.31 & 0.32 &   45\\ \hline 
-drugAddiction &  0.26 & 0.39 & 0.31 &   28\\ \hline 
-eatingDisorders &  0.47 & 0.67 & 0.55 &   30\\ \hline 
-fallback &  0.26 & 0.12 & 0.17 &   88\\ \hline 
-hello &  0.51 & 0.25 & 0.34 &   88\\ \hline 
-incomprehension &  0.30 & 0.29 & 0.30 &   45\\ \hline 
-infoPatient &  0.42 & 0.35 & 0.38 &   52\\ \hline 
-negativeEmo &  0.05 & 0.06 & 0.05 &   36\\ \hline 
-pain &  0.65 & 0.49 & 0.56 &   57\\ \hline 
-pathology &  0.14 & 0.35 & 0.20 &   17\\ \hline 
-positiveEmo &  0.14 & 0.20 & 0.16 &   30\\ \hline 
-risk &  0.07 & 0.14 & 0.09 &   21\\ \hline 
-sleep &  0.58 & 0.66 & 0.62 &   38\\ \hline 
-smoking &  0.51 & 0.54 & 0.52 &   41\\ \hline 
-social &  0.19 & 0.29 & 0.23 &   28\\ \hline 
-treatment &  0.63 & 0.40 & 0.49 &   68\\ \hline 
-\\ \hline 
-micro avg &  0.35 & 0.35 & 0.35 &  860\\ \hline 
-macro avg &  0.35 & 0.37 & 0.35 &  860\\ \hline 
-weighted avg &  0.40 & 0.35 & 0.36 &  860\\ \hline 
+label 			& \multicolumn{3}{c|}{precision} && \multicolumn{3}{c|}{recall} && \multicolumn{3}{c|}{f1} \\ \hline 
+				& it 0 &  it 1 & it 2 && it 0 & it 1 & it 2 && it 0 & it 1 & it 2\\ \hline 
+activity 		& 0.44 &  0.49 & 0.37 && 0.40 & 0.54 & 0.34 && 0.42 & 0.51 & 0.36\\ \hline 
+agree 			& 0.72 &  0.23 & 0.14 && 0.20 & 0.31 & 0.21 && 0.32 & 0.27 & 0.17\\ \hline 
+alcohol 		& 0.51 &  0.56 & 0.47 && 0.44 & 0.41 & 0.39 && 0.47 & 0.47 & 0.43\\ \hline 
+bye 			& 0.35 &  0.56 & 0.33 && 0.29 & 0.67 & 0.30 && 0.32 & 0.39 & 0.31\\ \hline 
+disagree 		& 0.33 &  0.33 & 0.35 && 0.38 & 0.31 & 0.43 && 0.35 & 0.32 & 0.38\\ \hline 
+drugAddiction 	& 0.09 &  0.26 & 0.28 && 0.13 & 0.39 & 0.29 && 0.11 & 0.31 & 0.28\\ \hline 
+eatingDisorders & 0.33 &  0.47 & 0.33 && 0.45 & 0.67 & 0.25 && 0.38 & 0.52 & 0.28\\ \hline 
+fallback 		& 0.00 &  0.26 & 0.14 && 0.00 & 0.12 & 0.12 && 0.00 & 0.17 & 0.13\\ \hline 
+hello 			& 0.23 &  0.51 & 0.40 && 0.25 & 0.25 & 0.19 && 0.24 & 0.34 & 0.26\\ \hline 
+incomprehension & 0.51 &  0.30 & 0.42 && 0.29 & 0.29 & 0.43 && 0.37 & 0.30 & 0.42\\ \hline 
+infoPatient 	& 0.30 &  0.42 & 0.37 && 0.54 & 0.35 & 0.52 && 0.39 & 0.38 & 0.43\\ \hline 
+negativeEmo 	& 0.12 &  0.05 & 0.14 && 0.19 & 0.06 & 0.18 && 0.14 & 0.05 & 0.16\\ \hline 
+pain 			& 0.30 &  0.65 & 0.49 && 0.22 & 0.49 & 0.44 && 0.25 & 0.56 & 0.46\\ \hline 
+pathology 		& 0.09 &  0.14 & 0.16 && 0.16 & 0.35 & 0.29 && 0.12 & 0.20 & 0.21\\ \hline 
+positiveEmo 	& 0.09 &  0.14 & 0.16 && 0.17 & 0.20 & 0.20 && 0.12 & 0.16 & 0.18\\ \hline 
+risk 			& 0.05 &  0.07 & 0.05 && 0.17 & 0.14 & 0.11 && 0.07 & 0.09 & 0.06\\ \hline 
+sleep 			& 0.42 &  0.58 & 0.56 && 0.58 & 0.66 & 0.63 && 0.49 & 0.62 & 0.59\\ \hline 
+smoking 		& 0.65 &  0.51 & 0.58 && 0.61 & 0.54 & 0.54 && 0.63 & 0.52 & 0.56\\ \hline 
+social 			& 0.33 &  0.19 & 0.21 && 0.50 & 0.29 & 0.56 && 0.49 & 0.23 & 0.31\\ \hline 
+treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ \hline 
 \end{tabular}
-\caption{Classification report for first iteration}
+\caption{Comparision of classification scores for SVC with rbf kernel}
 \end{center}
 \end{table}
 \FloatBarrier
@@ -977,13 +887,213 @@ weighted avg &  0.40 & 0.35 & 0.36 &  860\\ \hline
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.40]{svc1_cm.png}
-	\caption{SVC confusion matrix}
+	\includegraphics[scale=0.25]{svc0_cm.png}
+	\includegraphics[scale=0.25]{svc1_cm.png}
+	\includegraphics[scale=0.25]{svc2_cm.png}
+	\caption{SVC confusion matrix for iteration 0, 1, 2.}
 \label{lda_gm_cm}
 \end{figure}
 \FloatBarrier
 
-\paragraph{Iteration 2.} For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 1000 clusters, majoiry threshold=, hreshold for probability was chosen pretty low(0.11) in order to be able to extend all 20 categories. In result, we achived 5 new items.
+
+\section{Conclusion and future work}
+\label{sec:conclusion}
+
+In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and W2V models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
+
+Our results shows how high rate of confusion between labels in intial classifier increases this confusion in futher data expansion though in general algorithms tends to converge to be more precise. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually.
+
+Future work will be devoted to improving word embedding model, trying one-shot learning model in order to improve classification score. Transfering from one-intent to multi-intent is preferable due to the fact that sentences are usually ambiguous than not. Another possible direction for development can be creating framework for adding new labels to the existing classifier.
+
+\section{References}
+\bibliographystyle{alpha}
+\bibliography{biblio}
+$ Ward J.H. Hierarchical grouping to optimize an objective function // J. of the American Statistical Association, 1963. — 236 р. $
+
+\section{Annex}
+
+\subsection{Semi linear}
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+\hline
+label 			& precision & recall & f1-score & support\\ \hline 
+\\ \hline 
+activity 		&  0.56 & 0.36 & 0.44 &   66\\ \hline 
+agree 			&  0.23 & 0.19 & 0.21 &   54\\ \hline 
+alcohol 		&  0.35 & 0.34 & 0.34 &   44\\ \hline 
+bye 			&  0.14 & 0.24 & 0.18 &   25\\ \hline 
+disagree 		&  0.14 & 0.40 & 0.21 &   15\\ \hline 
+drugAddiction 	&  0.21 & 0.12 & 0.15 &   75\\ \hline 
+eatingDisorders &  0.26 & 0.61 & 0.36 &   18\\ \hline 
+fallback 		&  0.05 & 0.09 & 0.06 &   22\\ \hline 
+hello 			&  0.05 & 0.17 & 0.07 &   12\\ \hline 
+incomprehension &  0.49 & 0.20 & 0.29 &  103\\ \hline 
+infoPatient 	&  0.33 & 0.25 & 0.29 &   55\\ \hline 
+negativeEmo 	&  0.12 & 0.21 & 0.15 &   24\\ \hline 
+pain 			&  0.70 & 0.81 & 0.75 &   37\\ \hline 
+pathology 		&  0.02 & 0.50 & 0.04 &    2\\ \hline 
+positiveEmo 	&  0.28 & 0.07 & 0.11 &  178\\ \hline 
+risk 			&  0.02 & 0.08 & 0.04 &   12\\ \hline 
+sleep 			&  0.44 & 0.47 & 0.46 &   40\\ \hline 
+smoking 		&  0.60 & 0.68 & 0.64 &   38\\ \hline 
+social 			&  0.14 & 0.20 & 0.16 &   30\\ \hline 
+treatment		&  0.19 & 0.80 & 0.30 &   10\\ \hline 
+\\ \hline 
+micro avg 		&  0.27 & 0.27 & 0.27 &  860\\ \hline 
+macro avg 		&  0.27 & 0.34 & 0.26 &  860\\ \hline 
+weighted avg 	&  0.33 & 0.27 & 0.27 &  860\\ \hline 
+\end{tabular}
+\caption{Classifier 0}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+label 			& precision & recall & f1-score & support\\ \hline 
+\\ \hline 
+activity 		&  0.30 & 0.27 & 0.28 &   49\\ \hline 
+agree 			&  0.16 & 0.28 & 0.21 &   25\\ \hline 
+alcohol 		&  0.53 & 0.44 & 0.48 &   52\\ \hline 
+bye 			&  0.33 & 0.41 & 0.36 &   34\\ \hline 
+disagree 		&  0.14 & 0.08 & 0.10 &   78\\ \hline 
+drugAddiction 	&  0.21 & 0.29 & 0.24 &   31\\ \hline 
+eatingDisorders &  0.37 & 0.73 & 0.49 &   22\\ \hline 
+fallback 		&  0.12 & 0.31 & 0.17 &   16\\ \hline 
+hello 			&  0.00 & 0.00 & 0.00 &   19\\ \hline 
+incomprehension &  0.37 & 0.26 & 0.31 &   61\\ \hline 
+infoPatient 	&  0.49 & 0.34 & 0.40 &   61\\ \hline 
+negativeEmo 	&  0.05 & 0.06 & 0.05 &   31\\ \hline 
+pain 			&  0.60 & 0.46 & 0.53 &   56\\ \hline 
+pathology 		&  0.05 & 0.09 & 0.06 &   23\\ \hline 
+positiveEmo 	&  0.37 & 0.11 & 0.17 &  142\\ \hline 
+risk 			&  0.12 & 0.16 & 0.13 &   32\\ \hline 
+sleep 			&  0.42 & 0.50 & 0.46 &   36\\ \hline 
+smoking 		&  0.44 & 0.59 & 0.51 &   32\\ \hline 
+social 			&  0.14 & 0.21 & 0.17 &   28\\ \hline 
+treatment 		&  0.58 & 0.78 & 0.67 &   32\\ \hline 
+\\ \hline 
+micro avg 		&  0.29 & 0.29 & 0.29 &  860\\ \hline 
+macro avg 		&  0.29 & 0.32 & 0.29 &  860\\ \hline 
+weighted avg 	&  0.33 & 0.29 & 0.29 &  860\\ \hline
+\end{tabular}
+\caption{Classifier 1}
+\end{center}
+\end{table}
+\FloatBarrier
+
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c|c|c| }
+label  			&    precision  &  recall & f1-score &  support\\ \hline 
+\\ \hline 
+activity 		&  0.42 & 0.29 & 0.34 &   63\\ \hline 
+agree 			&  0.05 & 0.12 & 0.07 &   17\\ \hline 
+alcohol 		&  0.56 & 0.49 & 0.52 &   49\\ \hline 
+bye 			&  0.53 & 0.38 & 0.44 &   61\\ \hline 
+disagree 		&  0.37 & 0.38 & 0.38 &   42\\ \hline 
+drugAddiction 	&  0.23 & 0.23 & 0.23 &   43\\ \hline 
+eatingDisorders &  0.28 & 0.34 & 0.31 &   35\\ \hline 
+fallback 		&  0.00 & 0.00 & 0.00 &    6\\ \hline 
+hello 			&  0.21 & 0.43 & 0.28 &   21\\ \hline 
+incomprehension &  0.35 & 0.20 & 0.25 &   76\\ \hline 
+infoPatient 	&  0.49 & 0.44 & 0.46 &   48\\ \hline 
+negativeEmo 	&  0.16 & 0.21 & 0.18 &   34\\ \hline 
+pain 			&  0.70 & 0.81 & 0.75 &   37\\ \hline 
+pathology 		&  0.05 & 0.29 & 0.08 &    7\\ \hline 
+positiveEmo 	&  0.09 & 0.14 & 0.11 &   29\\ \hline 
+risk 			&  0.07 & 0.11 & 0.08 &   28\\ \hline 
+sleep 			&  0.49 & 0.54 & 0.51 &   39\\ \hline 
+smoking 		&  0.49 & 0.66 & 0.56 &   32\\ \hline 
+social 			&  0.26 & 0.31 & 0.28 &   36\\ \hline 
+treatment 		&  0.56 & 0.15 & 0.24 &  157\\ \hline 
+\\ \hline 
+micro avg 		&  0.32 & 0.32 & 0.32 &  860\\ \hline 
+macro avg 		&  0.32 & 0.32 & 0.30 &  860\\ \hline 
+weighted avg 	&  0.40 & 0.32 & 0.33 &  860\\ \hline 
+\end{tabular}
+\caption{Classifier 2}
+\end{center}
+\end{table}
+\FloatBarrier
+
+
+
+\subsection{Semi rbf}
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c| }
+\hline
+label 			& precision & recall & f1-score & support\\ \hline 
+activity 		& 0.44 & 0.40 & 0.42 &  47\\ \hline 
+agree 			& 0.72 & 0.20 & 0.32 & 152\\ \hline 
+alcohol 		& 0.51 & 0.44 & 0.47 &  50\\ \hline 
+bye 			& 0.35 & 0.29 & 0.32 &  51\\ \hline 
+disagree 		& 0.33 & 0.38 & 0.35 &  37\\ \hline 
+drugAddiction 	& 0.09 & 0.13 & 0.11 &  30\\ \hline 
+eatingDisorders & 0.33 & 0.45 & 0.38 &  31\\ \hline 
+fallback 		& 0.00 & 0.00 & 0.00 &   8\\ \hline 
+hello 			& 0.23 & 0.25 & 0.24 &  40\\ \hline 
+incomprehension & 0.51 & 0.29 & 0.37 &  76\\ \hline 
+infoPatient 	& 0.30 & 0.54 & 0.39 &  24\\ \hline 
+negativeEmo 	& 0.12 & 0.19 & 0.14 &  26\\ \hline 
+pain 			& 0.30 & 0.22 & 0.25 &  59\\ \hline 
+pathology 		& 0.09 & 0.16 & 0.12 &  25\\ \hline 
+positiveEmo 	& 0.09 & 0.17 & 0.12 &  24\\ \hline 
+risk 			& 0.05 & 0.17 & 0.07 &  12\\ \hline 
+sleep 			& 0.42 & 0.58 & 0.49 &  31\\ \hline 
+smoking 		& 0.65 & 0.61 & 0.63 &  46\\ \hline 
+social 			& 0.33 & 0.50 & 0.39 &  28\\ \hline 
+treatment 		& 0.51 & 0.35 & 0.42 &  63\\ \hline 
+\\ \hline 
+micro avg 		& 0.32 & 0.32 & 0.32 & 860\\ \hline 
+macro avg 		& 0.32 & 0.32 & 0.30 & 860\\ \hline 
+weighted avg 	& 0.42 & 0.32 & 0.34 & 860\\ \hline 
+\end{tabular}
+\caption{Classification report for 0 iteration}
+\end{center}
+\end{table}
+\FloatBarrier
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{ |r|c|c|c|c| }
+\hline
+label 			& precision & recall & f1-score &  support\\ \hline 
+\\ \hline 
+activity 		&  0.49 & 0.54 & 0.51 &   39\\ \hline 
+agree 			&  0.23 & 0.31 & 0.27 &   32\\ \hline 
+alcohol 		&  0.56 & 0.41 & 0.47 &   59\\ \hline 
+bye 			&  0.28 & 0.67 & 0.39 &   18\\ \hline 
+disagree 		&  0.33 & 0.31 & 0.32 &   45\\ \hline 
+drugAddiction 	&  0.26 & 0.39 & 0.31 &   28\\ \hline 
+eatingDisorders &  0.47 & 0.67 & 0.55 &   30\\ \hline 
+fallback 		&  0.26 & 0.12 & 0.17 &   88\\ \hline 
+hello 			&  0.51 & 0.25 & 0.34 &   88\\ \hline 
+incomprehension &  0.30 & 0.29 & 0.30 &   45\\ \hline 
+infoPatient 	&  0.42 & 0.35 & 0.38 &   52\\ \hline 
+negativeEmo 	&  0.05 & 0.06 & 0.05 &   36\\ \hline 
+pain 			&  0.65 & 0.49 & 0.56 &   57\\ \hline 
+pathology 		&  0.14 & 0.35 & 0.20 &   17\\ \hline 
+positiveEmo 	&  0.14 & 0.20 & 0.16 &   30\\ \hline 
+risk 			&  0.07 & 0.14 & 0.09 &   21\\ \hline 
+sleep 			&  0.58 & 0.66 & 0.62 &   38\\ \hline 
+smoking 		&  0.51 & 0.54 & 0.52 &   41\\ \hline 
+social 			&  0.19 & 0.29 & 0.23 &   28\\ \hline 
+treatment 		&  0.63 & 0.40 & 0.49 &   68\\ \hline 
+\\ \hline 
+micro avg 		&  0.35 & 0.35 & 0.35 &  860\\ \hline 
+macro avg 		&  0.35 & 0.37 & 0.35 &  860\\ \hline 
+weighted avg 	&  0.40 & 0.35 & 0.36 &  860\\ \hline 
+\end{tabular}
+\caption{Classification report for the first iteration}
+\end{center}
+\end{table}
+\FloatBarrier
 
 \begin{table}[htb]
 \begin{center}
@@ -1022,28 +1132,33 @@ weighted avg & 0.34 &   0.32 &   0.32 &    860\\ \hline
 \end{table}
 \FloatBarrier
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.40]{svc2_cm.png}
-	\caption{SVC confusion matrix}
-\label{lda_gm_cm}
-\end{figure}
-\FloatBarrier
-
-\paragraph{Overall comparison}
-
-In this section we provide grouped results about classifier scores chaging by iteration. 
-
 \begin{table}[htb]
 \begin{center}
-\begin{tabular}{ |r|c|c|c|c|c|c| }
+\begin{tabular}{ |r|c|c|c| }
 \hline
-Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
-0			& 0.3186 & 0.371   & 0.0338 & 0.308 	& 0.316  & 0.287 \\ \hline
-1			& 0.3523 & 0.350   & 0.0153 & 0.352 	& 0.371  & 0.346 \\ \hline
-2 			& 0.3167 & 0.332   & 0.0150 & 0.316 	& 0.331  & 0.313 \\ \hline
+Intent & It 0 & It 1 & It 2 \\ \hline
+activity		& 0.31+0.10 & 0.51+0.02	\\ \hline
+agree 			& 0.17+0.06 & 0.32+0.01	\\ \hline
+alcohol 		& 0.37+0.13 & 0.53+0.03	\\ \hline
+bye 			& 0.17+0.03 & 0.40+0.03	\\ \hline
+disagree 		& 0.19+0.03 & 0.27+0.03	\\ \hline
+drugAddiction 	& 0.22+0.06 & 0.32+0.03 \\ \hline
+eatingDisorders & 0.33+0.13 & 0.66+0.07 \\ \hline
+fallback 		& 0.16+0.03 & 0.19+0.05	\\ \hline
+hello 			& 0.17+0.02 & 0.31+0.14	\\ \hline
+incomprehension & 0.20+0.04 & 0.46+0.02	\\ \hline
+infoPatient 	& 0.39+0.18 & 0.71+0.05 \\ \hline
+negativeEmo 	& 0.17+0.03 & 0.34+0.06 \\ \hline
+pain 			& 0.36+0.14 & 0.67+0.05 \\ \hline
+pathology 		& 0.16+0.04 & 0.39+0.06 \\ \hline
+positiveEmo 	& 0.19+0.04 & 0.27+0.03 \\ \hline
+risk 			& 0.28+0.07 & 0.31+0.03 \\ \hline
+sleep 			& 0.42+0.18 & 0.96+0.01 \\ \hline
+smoking 		& 0.49+0.17 & 0.79+0.02 \\ \hline
+social 			& 0.23+0.07 & 0.38+0.04 \\ \hline
+treatment 		& 0.25+0.04 & 0.43+0.04 \\ \hline
 \end{tabular}
-\caption{Classifier scores comparison}
+\caption{Intention mean probability}
 \end{center}
 \end{table}
 \FloatBarrier
@@ -1078,30 +1193,5 @@ treatment 		& 0.25+0.04 & 0.43+0.04 \\ \hline
 \end{center}
 \end{table}
 \FloatBarrier
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.25]{svc0_cm.png}
-	\includegraphics[scale=0.25]{svc1_cm.png}
-	\includegraphics[scale=0.25]{svc2_cm.png}
-	\caption{SVC confusion matrix}
-\label{lda_gm_cm}
-\end{figure}
-\FloatBarrier
-
-
-\section{Conclusion and future work}
-\label{sec:conclusion}
-
-In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and W2V models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
-
-Our results shows how high rate of confusion between labels in intial classifier increases this confusion in futher data expansion though in general algorithms tends to converge to be more precise. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually.
-
-Future work will be devoted to improving word embedding model, trying one-shot learning model in order to improve classification score. Transfering from one-intent to multi-intent is preferable due to the fact that sentences are usually ambiguous than not. Another possible direction for development can be creating framework for adding new labels to the existing classifier.
-
-\section{References}
-\bibliographystyle{alpha}
-\bibliography{biblio}
-$ Ward J.H. Hierarchical grouping to optimize an objective function // J. of the American Statistical Association, 1963. — 236 р. $
 
 \end{document}
