@@ -104,6 +104,8 @@ To use supervised text classification methods, it is important to have a dataset
 
 There are many models that encode sentences into fixed-size representations. LDA and Word2Vec models are the most popular word embedding model which show their effectiveness on the continuation of a long time and a wide range of tasks\cite{Iacobacci2016EmbeddingsFW} \cite{Jelodar2017}. \cite{P18-1198} also showed the efficiency of BiLSTM-max model for capturing word context in encoding sentences.
 
+\add{mention about pretrained embeddings and svc \cite{Li2018ComparisonOW}}
+
 SVM is considered to be a hands-on approach in textual classification \cite{SVM}. These classifiers are fast, reliable, work well in both linear and non-linear separation and can effectively deal with sparse data, and have a great ability to generalize knowledge in multidimensional spaces \cite{joachims98a}. Last two advantages especially important due to the common use of high dimension in sentence representation task and its sparse nature in case of LDA.
 
 \section{Methodology}
@@ -159,13 +161,11 @@ And here is an example representation for a  sentence/
 [0.61565   , 0.03821149, 0.32365379, 0.02248472]
 \end{lstlisting}
 
-
 If we want represent just one word we can just treat it like a small sentence and have the same output.
 \begin{lstlisting}
 'sleep',
 [(0, 0.21281178), (1, 0.13255174), (2, 0.5765724), (3, 0.07806411)]
 \end{lstlisting}
-
 
 The LDA algorithm is based on the Dirichlet prior distribution and
 assumes a bag-of-words model - a model for analyzing texts
@@ -184,16 +184,15 @@ Word2Vec produces a vector space where words that share common
 contexts in the input corpus will be mapped to vectors that are close
 to one another in the vector space.
 
-%x$https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf$
 
 To build sentence representations, we simply average the Word2Vec
 vectors of the content words present in that sentence.
 
-%% \paragraph{Bi-LSTM.} The general idea of BiLSTM layer is repeating the first recurrent layer in the network so that they are next to each other and then providing the straigh input sequence as input to the first level and an inverse copy of it for the second.
+\paragraph{Bi-LSTM.} The general idea of BiLSTM layer is repeating the first recurrent layer in the network so that they are next to each other and then providing the straigh input sequence as input to the first level and an inverse copy of it for the second.
 
-%% In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidirectional LSTM computes a set of T vectors $\{h_{t}\}_{t}$. For $t ∈ [1 ,. ,,, T]$, $h_{t}$ is the combination of forward and backward LSTM, that read sentences in two opposite directions. 
+In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidirectional LSTM computes a set of T vectors $\{h_{t}\}_{t}$. For $t ∈ [1 ,. ,,, T]$, $h_{t}$ is the combination of forward and backward LSTM, that read sentences in two opposite directions. 
 
-%% We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models (Conneau et al., 2018) 
+We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models (Conneau et al., 2018) 
 
 
 \subsection{Clustering Sentences}
@@ -597,10 +596,6 @@ them. In particular, the following intent are incorrectly clustered
 together: fallback and hello; alcohol, drugAddiction and risk; social
 and emotions.
 
-%\subsubsection{GloVe pretrained}
-\subsubsection{Google News W2V pretrained}
-We used word2vec google-news model with 300 dimensional feature space.
-CV 0.418 + 0.057%
 \subsubsection{CNN by word}
 From simple encoder, w2v, lda, w2v + lda
 
@@ -678,20 +673,24 @@ tends to group together (agree, fallback and hello) and (bye and disagree).
 
 \subsubsection{Overall comparison}
 
-
+Here \ref{final_comparision} we provide the comparision of final models taking also in consideration pretrained GloVe and Google News W2V embedding. Among word-base models LDA occured to the best one and was used for word embedding for BiLSTM as described in section \ref{subsec:sentencerepresentations}. Last two models will be used for further steps.
 
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c|c| }
 \hline
-model & features & purity  & silhouette  & homogeneity  & completeness \\ \hline 
-W2V 	& 10   & 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
-W2V 	& 100  & 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
-LDA 	& 400  & 0.272718  & 0.192777  & 0.177547  & 0.192270 \\ \hline 
-BiLSTM 	& 64  & \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline 
+model & features & purity   & silhouette  & homogeneity  & completeness \\ \hline 
+W2V 	& 10   	& 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
+W2V 	& 100  	& 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
+GloVe	& 25	& 0.191125  & 0.003554  & 0.110058  & 0.147367 \\ \hline
+GloVe 	& 200	& 0.186283  & -0.026413 & 0.102103  & 0.137332 \\ \hline
+Google  & 300 	& 0.201614  & -0.016592 & 0.109450  & 0.156423 \\ \hline
+LDA 	& 400  	& 0.272718  & 0.192777  & 0.177547  & 0.192270 \\ \hline 
+BiLSTM 	& 64  	& \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline 
 \end{tabular}
 \end{center}
 \caption{Overall comparison}
+\label{final_comparision}
 \end{table}
 \FloatBarrier
 
@@ -775,11 +774,11 @@ Though model with rbf model has higher scores, the linear one is less prone to o
 
 In this section we provide classifier results obtained after each data expansion step described in  \ref{subsec:dataexpansion}.
 
-BiLSTM model didn't succeded to provide expansion to all categories. 
+BiLSTM model didn't succeded to provide expansion to all categories so result only for LDA model are provided.
 
-Rbf just to next ones: sleep, risk, eatingDisorders, drugAddiction, alcohol, social, activity, smoking, infoPatient, pain, negativeEmo, incomprehension, treatment.
+%Rbf just to next ones: sleep, risk, eatingDisorders, drugAddiction, alcohol, social, activity, smoking, infoPatient, pain, negativeEmo, incomprehension, treatment.
 
-Linear just to next ones: sleep, risk, eatingDisorders, drugAddiction, social, activity, smoking, alcohol, pain, infoPatient, negativeEmo.
+%Linear just to next ones: sleep, risk, eatingDisorders, drugAddiction, social, activity, smoking, alcohol, pain, infoPatient, negativeEmo.
   
 \subsubsection{SVC with linear kernel}
   
