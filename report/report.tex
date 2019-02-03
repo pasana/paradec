@@ -35,10 +35,10 @@ Supervisor: Claire Gardent}
 \clearpage
 
 \section{Introduction}
-
+\label{sec:}
  
 This project was set within the framework of a collaboration with the
-ALIAE startup where the aim is to develop a chatbot to collect
+ALIAE startup whose aim is to develop a chatbot to collect
 information from clinical patients. The main idea is to replace
 strictly defined surveys by a more natural conversation in order to
 let users express themselves freely so that more information could be
@@ -68,37 +68,44 @@ of the NLU module is to assign each user input an intent\footnote{We
   contains a single intent.}. The detected intent is then used, in
 conjunction with additional information extracted from the previous
 dialog interactions, to determine how to
-respond. Figure~\ref{fig:rasa} illustrates this\footnote{The figure
+respond (cf. Figure~\ref{fig:rasa}\footnote{The figure
   actually shows a more complex notion of understanding where the user
   utterance is mapped not only to an intent but also to a set of
   entities. In this work, we focus on how to improve intent detection
-  and leave entity detection for future research.}.
+  and leave entity detection for future research.}).
 
 \section{Goals and Methodology}
+\label{sec:goals}
 
-Aliae manually created a small dataset of user utterances annotated
-with intent which contains roughly 100 sentences for each intent
-category. As this small dataset is insufficient for training a
-classifier, our goal is to devise a methodology for data expansion
-which permits automatically expanding the training data and improving the classifier results.
 
-First, we do the literature review of approaches applied to similar
-problems. Later in the methodology part, we will cover four parts:
-building sentence representation model, evaluate it by clusterisation,
-train a classifier for labelling the data and application
-semi-supervised learning for extending the dataset. Next two our
-datasets and preprocessing routine will be described. Experiment part
-contains a quantitative and qualitative description of the models and
-final results. In the end, we will sum up the work have been done and
-give some assumption for future improvements.
+The NLU module is a classifier which given a user input, predicts the
+corresponding intent. Our goal is to improve this classifier starting
+from a small training set (roughly 100 utterance/intent pair for each
+intent) and automatically expanding this labelled data. To this
+end, we developed a semi-supervised data expansion technique which
+permits expanding the initial data with utterances extracted from a
+medical forum. We show that the expanded data permits improving the
+classifier by \add{ADD NB of improvment points} accuracty points.
+
+This report is structured as follows. Section~\ref{sec:relatedwork}
+briefly reviews the state of the art and situates our proposal with
+respect to related work.  Section~\ref{sec:methodology} presents the
+methodology used for data expansion. Section~\ref{sec:datasets} describes
+the datasets used. Section~\ref{sec:xps} reports on the experimental
+setting and on the results. Section~\ref{sec:conclusion} concludes
+with pointers for further research.
 
 \section{Literature review}
+\label{sec:relatedwork}
 
 \cite{N18-2058} \modi{present an approach for automatically generating additional training data for event extraction systems}. First, they trained a baseline classifier on available data. Then, they cluster external data to obtain cluster of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor.
 
 \section{Methodology}
+\label{sec:methodology}
 
-We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. 
+Our methodology for data expansion falls into two main steps. First, we compare different methods for representing utterances using both clustering and classification (Sections~\ref{subsec:sentencerepresentations} and ~\ref{subsec:clustering}). Second, we use the best method to gradually increment the size of the labelled data and train a new classifier  (Sections~\ref{subsec:} and ~\ref{subsec:}). 
+
+%% We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. 
 
 %% irst
 % group together paraphrases of event mentions.
@@ -112,16 +119,14 @@ We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s metho
 
 
 \subsection{Building Sentence Representations}
-
-We explore two ways of building sentence representations: Word2vec and LDA. The good point of using these models is that they can be used for both word and sentence representation since one word can be treated as a small sentence. That can help us also to create sentence representations in two steps using machine and deep learning techniques. First, we map words to continuous representations. Second, we combine these word representations into sentence representations using BiLSTM encoder. \add{bibref}.
+\label{subsec:sentencerepresentations}
+We explore two ways of building sentence representations: Word2vec and LDA. %% he good point of using these models is that they can be used for both word and sentence representation since one word can be treated as a small sentence. That can help us also to create sentence representations in two steps using machine and deep learning techniques. First, we map words to continuous representations. Second, we combine these word representations into sentence representations using BiLSTM encoder. \add{bibref}.
 
 %We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}.
 
 \paragraph{LDA.}
 
-One of the most common methods for constructing thematic models is the Latent Dirichlet Allocation (LDA) $\cite{lda_def}$ that models a document as a distribution of topics and a topic as a distribution of words. In our case, we work just with sentences, so this notation will be used further.
-
-Here is example to topics.
+One of the most common methods for constructing thematic models is the Latent Dirichlet Allocation (LDA) $\cite{lda_def}$ that models a document as a distribution of topics and a topic as a distribution of words. Here a document is a sentence. Hence a sentence is represented as a distribution of topics. 
 
 \add{an example of topics produced by an LDA model}
 \begin{lstlisting}
@@ -135,44 +140,61 @@ Here is example to topics.
 \end{lstlisting}
 
 
-And every sentence described by distribution vector over the topics in the following manner:
+And here is an example representation for a  sentence/ 
 
 \add{an example of document representation as a distribution over topics}
 
-If we want represent just one word we can just treat it like a small sentence and have the same output.
+%If we want represent just one word we can just treat it like a small sentence and have the same output.
 
-This algorithm is based on the Dirichlet prior distribution and uses in its work the bag-of-words model - a model for analyzing texts that takes into account only the frequency of words, but not their order. This model is well suited for thematic modeling, since it allows you to detect implicit relationships between words. The LDA method performs soft clustering and assumes that each word in the sentence is generated by some latent topic, which is determined by a probability distribution on the set of all words of the text.
+The LDA algorithm is based on the Dirichlet prior distribution and
+assumes a bag-of-words model - a model for analyzing texts
+that takes into account only the frequency of words, but not their
+order. This model is well suited for thematic modeling, since it
+permits detecting implicit relationships between words. The LDA
+method performs soft clustering and assumes that each word in the
+sentence is generated by some latent topic, which is determined by a
+probability distribution on the set of all words of the text.
 
 
-\paragraph{Word2Vec.} This technology works in the following manner: word2vec takes a large text corpus as input and matches each vector with a word, producing the coordinates of the output words. First, he creates a dictionary, “learning” on the input text data, and then calculates a vector representation of the words. A vector representation is based on contextual proximity: words that appear in the text next to identical words (and therefore, have a similar meaning) will have close coordinates of word vectors in a vector representation. The resulting word vectors can be used for natural language processing and machine learning.
+\paragraph{Word2Vec.} Word2Vec representations are low dimensional vectors also called embeddings which are built based on textual
+cooccurences and learned using shallow, two-layer neural networks
+\cite{Mikolov2013EfficientEO}. Given a large corpus of text as input,
+Word2Vec produces a vector space where words that share common
+contexts in the input corpus will be mapped to vectors that are close
+to one another in the vector space.
 
-$https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf$
+%x$https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf$
 
-\add{To build sentence representations, we simply average the Word2Vec vectors of the content words present in that sentence}.
+To build sentence representations, we simply average the Word2Vec
+vectors of the content words present in that sentence.
 
-\paragraph{Bi-LSTM.} The general idea of BiLSTM layer is repeating the first recurrent layer in the network so that they are next to each other and then providing the straigh input sequence as input to the first level and an inverse copy of it for the second.
+%% \paragraph{Bi-LSTM.} The general idea of BiLSTM layer is repeating the first recurrent layer in the network so that they are next to each other and then providing the straigh input sequence as input to the first level and an inverse copy of it for the second.
 
-In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidirectional LSTM computes a set of T vectors $\{h_{t}\}_{t}$. For $t ∈ [1 ,. ,,, T]$, $h_{t}$ is the combination of forward and backward LSTM, that read sentences in two opposite directions. 
+%% In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidirectional LSTM computes a set of T vectors $\{h_{t}\}_{t}$. For $t ∈ [1 ,. ,,, T]$, $h_{t}$ is the combination of forward and backward LSTM, that read sentences in two opposite directions. 
 
-We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models (Conneau et al., 2018) 
+%% We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models (Conneau et al., 2018) 
 
 
 \subsection{Clustering Sentences}
+\label{subsec:clustering}
+Using the sentence representations described in the previous section,
+we apply clustering to group together sentences that are similar.  We
+set the number of clusters to the number of intents (20) and we use
+not only purity and Silhouette coefficients to evaluate the clusters
+but also homogeneity and completeness to better assess how the
+resulting clusters correlate with initial intents. Also, for each
+model, we plot a confusion matrix with a background gradient to
+visualize how well clusters separate different intents. Based on these
+metrics and vizualisation, we determine which method produces
+representations that best support intent detection.
 
-Using the sentence representations described in the previous section, we apply clustering to group together sentences that are similar. We compare three clustering algorithms:
+We compare three clustering algorithms:
 
 \begin{itemize}
 \item K-Means (KM)
 \item Agglomerative Clustering (AG)
 \item Gaussian Mixture (GM)
 \end{itemize}
-
-We set the number of clusters to the number of intents (20)
-which allows using not only purity and Silhouette coefficients to
-evaluate the clusters but also homogeneity and completeness to get the
-idea how resulting groups correlate with initial intents. Also, for
-each model, we plot a confusion matrix with a background gradient
-to visualize how well clusters separate different intents.
 
 
 \paragraph{K-Means.} The basic idea is to define K centroides one for each cluster. It is best to place them as far apart as possible. The next step will be to accept each point belonging to this data set and associate it with the precision of the centroid. If no point is under consideration, the first stage is completed. At the moment, we need to re-calculate K's new centroids, as the cluster barycenter that stems from the previous step. After these new centroids appear on us, a new binding must be made between the same points of the data set and the nearest new center of gravity. A loop is created. As a result of this cycle, we can see that k centroids change their location step by step until any changes are made. In other words, centroids are no longer moving.
@@ -192,7 +214,7 @@ c_{j} = \dfrac{1}{N} \sum_{i=1}^{N} x_{i}^{(j)}
 
 where $x_{i}^{(j)}$ is the point belonging to the cluster $J$, $N$ - total number of points in the cluster.
 
-\paragraph{Agglomerative Clustering.} is a kind of hierarchical clustering with 'bottom-up' approach when new clusters are created by combining smaller clusters and, thus, a tree is created from leaves to trunk. The main feature of the agglomerative hierarchical clustering method is that if we want to get a different number of clusters, we will not need to restart the algorithm, because the whole tree is calculated, and then we say that we want to cut it in some place.
+\paragraph{Agglomerative Clustering} is a kind of hierarchical clustering with 'bottom-up' approach when new clusters are created by combining smaller clusters and, thus, a tree is created from leaves to trunk \cite{ward63:_hierar_group_optim_objec_funct}. The main feature of the agglomerative hierarchical clustering method is that if we want to get a different number of clusters, we will not need to restart the algorithm, because the whole tree is calculated, and then we say that we want to cut it in some place.
 
 
 Different linkage criterions can be used to calculate distance between sets of observation. Ward’s method minimizes the variance of the clusters being merged. This method is used for tasks with closely spaced clusters. The euclidian distance between clusters is taken as the increment of the sum of squares of the distances of objects to the center of the cluster, obtained as a result of their combination: 
@@ -203,13 +225,13 @@ Different linkage criterions can be used to calculate distance between sets of o
 
 At each step of the algorithm, these two clusters are combined, which lead to a minimal increase in variance.
 
- $Ward, Joe H. (1963). "Hierarchical Grouping to Optimize an Objective Function". Journal of the American Statistical Association. 58 (301): 236–244. doi:10.2307/2282967. JSTOR 2282967. MR 0148188.$
+
 
 \paragraph{Gaussian Mixture.}
 
 \rewrite{In statistics, a mixture model is a probabilistic model for representing the presence of subpopulations within an overall population, without requiring that an observed data set should identify the sub-population to which an individual observation belongs. Formally a mixture model corresponds to the mixture distribution that represents the probability distribution of observations in the overall population without sub-population identity information.}
 
-A Gaussian mixture model represents a weighted sum of M Gaussian densities elements for D-dimensional continuous-valued data vectors:
+A Gaussian mixture model \cite{reynolds2015gaussian} represents a weighted sum of M Gaussian densities elements for D-dimensional continuous-valued data vectors:
 
 \begin{equation}
 p(x|\lambda) = \sum_{i=1}^{M} w_{i} g(x|\mu_{i}, \sum_{i})
@@ -225,47 +247,52 @@ with mean vector $\mu_{i}$ and covariance matrix $\sum_{i}$. The mixture weights
 
 GMM parameters are estimated from training data using the iterative Expectation-Maximization (EM) algorithm or Maximum A Posteriori (MAP) estimation from a well-trained prior model.
 
-$https://pdfs.semanticscholar.org/734b/07b53c23f74a3b004d7fe341ae4fce462fc6.pdf$
+%$https://pdfs.semanticscholar.org/734b/07b53c23f74a3b004d7fe341ae4fce462fc6.pdf$
 
-\subsection{Classifying Sentences}
 
-After choosing the best model for representing sentences, we train
-classifier to label data with intents. The most common approach in
-similar task is to use SVC. Due to the small size for dataset it's
-essensial to create balanced train and test ones.
-
-\paragraph{SVC (Support Vector Classifier).} The main idea of ​​the method is transfering the initial vectors into a space of higher dimension and searching for a separating hyperplane with the maximum gap in this space. Two parallel hyperplanes are built on both sides of the hyperplane separating the classes. The separating hyperplane will be the one that maximizes the distance to two parallel hyperplanes. The algorithm works under the assumption that the greater the difference or the distance between these parallel hyperplanes, the less will be the average classifier error.
-
-\subsection{Semi-supervised approach}
+\subsection{Semi-Supervised approach to Data Expansion and Classification}
 \label{subsec:dataexpansion}
 
+After choosing the best model for representing sentences, we
+iteratively expand the training data and train the corresponding
+classifiers as follows.
+
+
 \begin{itemize}
-\item Inspired from \cite{N18-2058}
-\item We have a classifier trained on labelled data (provided by ALIAE)
-\item Apply our sentence representation model to obtain features for each sentence in the unlabelled data
-\item Apply classifier to unlabelled data to label this data ; 
-\item Clusterize unlabelled data (200 clusters)
-\item from classifier, sentences now have probability and label
-\item Eliminate sentences whose prob is below threshold
-\item Eliminate clusters with less than N members
-\item Data expansion: adding to training data n labelled items for each intent/category
+\item \textbf{Step 1: Classification.} Apply the classifier trained on labelled data to a set of unlabelled sentences;
+\item \textbf{Step 2: Clustering.} Clusterize unlabelled sentences into 200 clusters
+\item \textbf{Step 3: Filtering.} Use the probability and the label assigned by the classifier to each unlabelled sentence to :
+  \begin{itemize}
+\item Eliminate sentences whose probabiility is below a given threshold
+\item Eliminate clusters with less than M members
+  \end{itemize}
+\item \textbf{Step 4: Data expansion.} Adding to training data the n best labelled items for each intent. 
+  \item \textbf{Step 5: Classifier Training.} Train a new classifier using both the previous and the new labelled data. 
 \end{itemize}
 
-For semi-supervised approach we use two datasets: labelled one that was provided by ALIAE (gold data) and external one that will be used to expanding. We split our gold dataset into train and test sets and keep the last one with the same items for stable evalution.
+\paragraph{Classification}. For classification we use SVC (Support Vector Classifier). The main idea of ​​the method is transfering the initial vectors into a space of higher dimension and searching for a separating hyperplane with the maximum gap in this space. Two parallel hyperplanes are built on both sides of the hyperplane separating the classes. The separating hyperplane will be the one that maximizes the distance to two parallel hyperplanes. The algorithm works under the assumption that the greater the difference or the distance between these parallel hyperplanes, the less will be the average classifier error.  Due to the small size for dataset it's essential to create balanced training and test datasets.
 
-Initially, we apply our sentence representation model to the gold data to obtain vectors for them and train our classifier (baseline) on the gold train set.
+The initial labelled dataset was provided by ALIAE (gold data). We split our gold dataset into train and test sets and systematically use the test set for evaluation and comparison of the classifiers learned on the different datasets produced during data expansion.
 
-Later we should clean our external dataset to make it look more similar to our initial one. For example, filtering out long sentences that with high probability will be ambiguous. This will help us to expand context of intent more gradually not facing our estimator with example it can be difficult to handle with.
+At each iteration during data expansion, we use the classifier trained
+on the data created at the previous iteration to label unlabelled
+sentences extracted from some external source. 
 
-We apply our sentence representation model to obtain features for each sentence of the extrenal data. Later we classify each item and take top $N$ items with the highest probability score for each predicted intent. It helps us to reduce working dataset and computation time, though $N$ should be high enough to extract neccesary number of new items.
+\paragraph{Clustering.} To expand the training data, we retrieve utterances from a medical forum. The unlabelled data is then built based on these utterances after some filtering is applied to eliminate sentences that are either out of topic or too complex (cf. Section~\ref{sec:}). Next we build representations for these unlabelled sentences using the techniques described in Section~\ref{sec:} and we apply clustering to create 200 clusters. 
+
+\paragraph{Filtering.} The SVC classifier assigns each unlabelled sentence a category (an intent) and a probability. We eliminate from the clusters all those sentences whose probability is below a given threshold. We then eliminate all clusters whose size is less than a set minimum. 
 
 For our subset we find the best clusterization by elbow method \cite{elbow_rule}. Later, having both labels for intent and cluster, we leave just that clusters that populated by items with maximum probability that allows us to cover all intent with new examples.
 
-For each cluster we calculate number of intent representators and their overall distribution. Later we leave just that clusters where some intent is represented more than in average. Elements of clusters that are left will be labelled by the majority. Later we select N labelled items for each category and extend train data with them to update sentence representation and classification models.
+For each cluster we calculate number of intent representators and their overall distribution. We then keep only those clusters where some intent is represented more than in average. Elements of clusters that are left will be labelled by the majority.
+
+
+\paragraph{Data Expansion.} Finally, we select N labelled items for each category/intent and extend the training data with them to update sentence representation and classification models.
 
 We repeat this cycle until we won't be able to extend train dataset by additional samples or classifier score will stop to grow.
 
 \section{Datasets}
+\label{sec:datasets}
 
 For our task we have two dataset. The first one is labelled by human and the second one was retrieved from the web to extend the previous one. Our goal was to use web data to expand the training set and improve the classifier which assigns each sentence an intent. 
 
@@ -296,7 +323,7 @@ consists of 1882 content words (after removing stopwords).
 
 
 \subsection{Forum data}
-
+\label{subsec:forumdata}
 We scraped 272,553 unique posts contained in each category. 
 
 To improve initial classifier we needed to extend dataset by much more data and more naturally constracted one. Looking for open medical dataset that can be used for this purpose we found \cite{zhang2015} and \cite{sondhi-EtAl:2010:POSTERS} works that used forum data for similar tasks.
@@ -342,6 +369,7 @@ Also, for big number of iterations data should be divided in subsets by increasi
 
 
 \section{Experiment}
+\label{sec:xps}
 
 Experiment consists of the main stages:
 
@@ -359,7 +387,7 @@ Experiment consists of the main stages:
 \end{itemize}
 
 \subsection{Preprocessing routine}
-
+\label{subsec:preprocessing}
 The textual data was segmented into sentences, tokenized and lemmatized using NLP
 libraries. Stop words were removed.
 
@@ -423,7 +451,7 @@ These sentences are: 'what?', 'same that again', 'I am up', 'same', 'can you',
 
 
 \subsection{Clustering for sentence representation evaluation}
-
+\label{subsec:clustering2}
 \add{used to compare different ways of representing sentences}
 
 Forum data is splitted into 20 (number of intents) cluster to be able to see how current representation can reflect desirable labels. Also, it can provide us with information which classes will be easier to identify and which can mix with others.
@@ -647,7 +675,7 @@ BiLSTM 	& 64  & \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline
 
 
 \subsection{Classifier}
-
+\label{subsec:classifying2}
 \add{training on labelled data (cf. Section \ref{subsec:labelleddata})}
 
 \subsubsection{Evaluation metrics}
@@ -717,7 +745,7 @@ Though model with rbf model has higher scores, the linear one is less prone to o
 
 
 \subsection{Semi Supervised Learning with linear kernel}
-
+\label{subsec:semisupervised}
 \add{now give classifier results obtained after each data expansion step (cf. \ref{subsec:dataexpansion}}.
   
 \paragraph{Iteration 0 (Baseline).} 
@@ -861,7 +889,7 @@ Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
 
 
 \subsection{Semi-supervised learning with rbf kernel}
-
+\label{subsec:semisupervised-rbf}
 
 \paragraph{Iteration 0.}
 \begin{table}[htb]
@@ -1055,6 +1083,7 @@ treatment 		& 0.25+0.04 & 0.43+0.04 \\ \hline
 
 
 \section{Conclusion and future work}
+\label{sec:conclusion}
 
 In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and W2V models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
 

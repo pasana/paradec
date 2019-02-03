@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.11.11)  3 FEB 2019 13:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.11.11)  3 FEB 2019 15:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -328,260 +328,220 @@ Package pdftex.def Info: img/rasa.pdf used on input line 57.
 (pdftex.def)             Requested size: 323.9978pt x 229.88564pt.
  [3
 
- <./img/rasa.pdf>] [4] [5]
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ú in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ù in font cmr10!
+ <./img/rasa.pdf>]
 
-Overfull \hbox (2.53363pt too wide) in paragraph at lines 138--139
-[][]\OT1/cmr/m/n/10.95 ADD: To build sen-tence rep-re-sen-ta-tions, we sim-ply 
-av-er-age the Word2Vec
+LaTeX Warning: Reference `subsec:' on page 4 undefined on input line 106.
+
+
+LaTeX Warning: Reference `subsec:' on page 4 undefined on input line 106.
+
+[4] [5] [6]
+Overfull \hbox (14.97pt too wide) in paragraph at lines 217--218
+ \OT1/cmr/bx/n/10.95 Ag-glom-er-a-tive Clus-ter-ing[] \OT1/cmr/m/n/10.95 is a k
+ind of hi-er-ar-chi-cal clus-ter-ing with 'bottom-
  []
 
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no à in font cmr10!
-Missing character: There is no à in font cmr10!
-
-Overfull \hbox (4.14407pt too wide) in paragraph at lines 144--145
-[]\OT1/cmr/m/n/10.95 We ex-per-i-ment with two ways of com-bin-ing a chang-ing 
-num-ber $(\OML/cmm/m/it/10.95 h[]; :::; h[]\OT1/cmr/m/n/10.95 )$
- []
-
-[6]
-Overfull \hbox (18.4679pt too wide) in paragraph at lines 182--183
- \OT1/cmr/bx/n/10.95 Ag-glom-er-a-tive Clus-ter-ing.[] \OT1/cmr/m/n/10.95 is a 
-kind of hi-er-ar-chi-cal clus-ter-ing with 'bottom-
- []
-
-[7]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-Missing character: There is no Ä in font cmr10!
-Missing character: There is no ì in font cmr10!
-
-Overfull \hbox (309.34549pt too wide) in paragraph at lines 193--194
-[]$\OML/cmm/m/it/10.95 Ward; JoeH:\OT1/cmr/m/n/10.95 (1963)\OML/cmm/m/it/10.95 
-:\OT1/cmr/m/n/10.95 "\OML/cmm/m/it/10.95 HierarchicalGroupingtoOptimizeanObject
-iveFunction\OT1/cmr/m/n/10.95 "\OML/cmm/m/it/10.95 :JournaloftheAmericanStatist
-icalAssociation:\OT1/cmr/m/n/10.95 58(301) :
- []
-
-[8]
-Overfull \hbox (73.66647pt too wide) in paragraph at lines 215--216
-[]$\OML/cmm/m/it/10.95 https \OT1/cmr/m/n/10.95 : \OML/cmm/m/it/10.95 ==pdfs:se
-manticscholar:org=\OT1/cmr/m/n/10.95 734\OML/cmm/m/it/10.95 b=\OT1/cmr/m/n/10.9
-5 07\OML/cmm/m/it/10.95 b\OT1/cmr/m/n/10.95 53\OML/cmm/m/it/10.95 c\OT1/cmr/m/n
-/10.95 23\OML/cmm/m/it/10.95 f\OT1/cmr/m/n/10.95 74\OML/cmm/m/it/10.95 a\OT1/cm
-r/m/n/10.95 3\OML/cmm/m/it/10.95 b\OT1/cmr/m/n/10.95 004\OML/cmm/m/it/10.95 d\O
-T1/cmr/m/n/10.95 7\OML/cmm/m/it/10.95 fe\OT1/cmr/m/n/10.95 341\OML/cmm/m/it/10.
-95 ae\OT1/cmr/m/n/10.95 4\OML/cmm/m/it/10.95 fce\OT1/cmr/m/n/10.95 462\OML/cmm/
-m/it/10.95 fc\OT1/cmr/m/n/10.95 6\OML/cmm/m/it/10.95 :pdf$ 
- []
-
+[7]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ã in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ã in font cmr10!
-[9] [10] <report1.png, id=57, 427.5975pt x 243.91125pt>
+ [8] [9] <report1.png, id=54, 427.5975pt x 243.91125pt>
 File: report1.png Graphic file (type png)
  <use report1.png>
-Package pdftex.def Info: report1.png used on input line 277.
+Package pdftex.def Info: report1.png used on input line 317.
 (pdftex.def)             Requested size: 171.03596pt x 97.56276pt.
 
-<report4.png, id=59, 311.1625pt x 212.795pt>
+<report4.png, id=56, 311.1625pt x 212.795pt>
 File: report4.png Graphic file (type png)
  <use report4.png>
-Package pdftex.def Info: report4.png used on input line 278.
+Package pdftex.def Info: report4.png used on input line 318.
 (pdftex.def)             Requested size: 140.02182pt x 95.75685pt.
 
 
-LaTeX Warning: Reference `healthboards.com' on page 11 undefined on input line 
-291.
+LaTeX Warning: Reference `healthboards.com' on page 10 undefined on input line 
+331.
 
-<report3.png, id=60, 944.52875pt x 325.215pt>
+[10 <./report1.png> <./report4.png>]
+<report3.png, id=63, 944.52875pt x 325.215pt>
 File: report3.png Graphic file (type png)
  <use report3.png>
-Package pdftex.def Info: report3.png used on input line 296.
+Package pdftex.def Info: report3.png used on input line 336.
 (pdftex.def)             Requested size: 377.80481pt x 130.0837pt.
 
-Overfull \hbox (17.80481pt too wide) in paragraph at lines 296--297
+Overfull \hbox (17.80481pt too wide) in paragraph at lines 336--337
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[11 <./report1.png> <./report4.png>] [12 <./report3.png>]
-Underfull \hbox (badness 2213) in paragraph at lines 372--372
+[11 <./report3.png>]
+Underfull \hbox (badness 2213) in paragraph at lines 413--413
 []\OT1/cmr/m/n/10.95 ['i', 'm', 'sup-posed', 'to', 'take', '6',
  []
 
 
-Underfull \hbox (badness 1226) in paragraph at lines 372--372
+Underfull \hbox (badness 1226) in paragraph at lines 413--413
 \OT1/cmr/m/n/10.95 '35mg', 'tablets', 'a', 'day', 'but', 'i',
  []
 
 
-Overfull \hbox (62.33856pt too wide) in paragraph at lines 359--376
+Overfull \hbox (62.33856pt too wide) in paragraph at lines 400--417
 [][] 
  []
 
-[13] <report2.png, id=75, 883.3pt x 306.14375pt>
+[12] <report2.png, id=71, 883.3pt x 306.14375pt>
 File: report2.png Graphic file (type png)
  <use report2.png>
-Package pdftex.def Info: report2.png used on input line 385.
+Package pdftex.def Info: report2.png used on input line 426.
 (pdftex.def)             Requested size: 353.31374pt x 122.45532pt.
- [14 <./report2.png>] [15]
-Overfull \hbox (5.35242pt too wide) in paragraph at lines 450--465
+ [13 <./report2.png>] [14]
+Overfull \hbox (5.35242pt too wide) in paragraph at lines 491--506
  [] 
  []
 
-[16] <w2v_scores.png, id=86, 433.62pt x 289.08pt>
+[15] <w2v_scores.png, id=83, 433.62pt x 289.08pt>
 File: w2v_scores.png Graphic file (type png)
  <use w2v_scores.png>
-Package pdftex.def Info: w2v_scores.png used on input line 470.
+Package pdftex.def Info: w2v_scores.png used on input line 511.
 (pdftex.def)             Requested size: 303.53192pt x 202.35461pt.
 
-<best_w2v_cm.png, id=87, 400.49625pt x 494.84875pt>
+<best_w2v_cm.png, id=84, 400.49625pt x 494.84875pt>
 File: best_w2v_cm.png Graphic file (type png)
  <use best_w2v_cm.png>
-Package pdftex.def Info: best_w2v_cm.png used on input line 480.
+Package pdftex.def Info: best_w2v_cm.png used on input line 521.
 (pdftex.def)             Requested size: 280.34546pt x 346.39177pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[17 <./w2v_scores.png>] [18 <./best_w2v_cm.png>]
-<lda_ac_cm.png, id=96, 417.56pt x 489.83pt>
+[16 <./w2v_scores.png>] [17 <./best_w2v_cm.png>]
+<lda_ac_cm.png, id=93, 417.56pt x 489.83pt>
 File: lda_ac_cm.png Graphic file (type png)
  <use lda_ac_cm.png>
-Package pdftex.def Info: lda_ac_cm.png used on input line 519.
+Package pdftex.def Info: lda_ac_cm.png used on input line 560.
 (pdftex.def)             Requested size: 116.91599pt x 137.15146pt.
 
-<lda_gm_cm.png, id=97, 410.53375pt x 488.82625pt>
+<lda_gm_cm.png, id=94, 410.53375pt x 488.82625pt>
 File: lda_gm_cm.png Graphic file (type png)
  <use lda_gm_cm.png>
-Package pdftex.def Info: lda_gm_cm.png used on input line 520.
+Package pdftex.def Info: lda_gm_cm.png used on input line 561.
 (pdftex.def)             Requested size: 114.94865pt x 136.8704pt.
 
-<lda_km_cm.png, id=98, 414.54875pt x 484.81125pt>
+<lda_km_cm.png, id=95, 414.54875pt x 484.81125pt>
 File: lda_km_cm.png Graphic file (type png)
  <use lda_km_cm.png>
-Package pdftex.def Info: lda_km_cm.png used on input line 521.
+Package pdftex.def Info: lda_km_cm.png used on input line 562.
 (pdftex.def)             Requested size: 116.07285pt x 135.74622pt.
- [19 <./lda_ac_cm.png> <./lda_gm_cm.png> <./lda_km_cm.png>] [20]
-<bilstm_ac_cm.png, id=109, 415.5525pt x 490.83376pt>
+ [18 <./lda_ac_cm.png> <./lda_gm_cm.png> <./lda_km_cm.png>] [19]
+<bilstm_ac_cm.png, id=106, 415.5525pt x 490.83376pt>
 File: bilstm_ac_cm.png Graphic file (type png)
  <use bilstm_ac_cm.png>
-Package pdftex.def Info: bilstm_ac_cm.png used on input line 604.
+Package pdftex.def Info: bilstm_ac_cm.png used on input line 645.
 (pdftex.def)             Requested size: 116.3539pt x 137.43251pt.
 
-<bilstm_gm_cm.png, id=110, 415.5525pt x 491.8375pt>
+<bilstm_gm_cm.png, id=107, 415.5525pt x 491.8375pt>
 File: bilstm_gm_cm.png Graphic file (type png)
  <use bilstm_gm_cm.png>
-Package pdftex.def Info: bilstm_gm_cm.png used on input line 605.
+Package pdftex.def Info: bilstm_gm_cm.png used on input line 646.
 (pdftex.def)             Requested size: 116.3539pt x 137.71355pt.
 
-<bilstm_km_cm.png, id=111, 410.53375pt x 490.83376pt>
+<bilstm_km_cm.png, id=108, 410.53375pt x 490.83376pt>
 File: bilstm_km_cm.png Graphic file (type png)
  <use bilstm_km_cm.png>
-Package pdftex.def Info: bilstm_km_cm.png used on input line 606.
+Package pdftex.def Info: bilstm_km_cm.png used on input line 647.
 (pdftex.def)             Requested size: 114.94865pt x 137.43251pt.
 
-Overfull \hbox (7.4371pt too wide) in paragraph at lines 621--629
+Overfull \hbox (7.4371pt too wide) in paragraph at lines 662--670
  [] 
  []
 
-[21 <./bilstm_ac_cm.png> <./bilstm_gm_cm.png> <./bilstm_km_cm.png>]
+[20 <./bilstm_ac_cm.png> <./bilstm_gm_cm.png> <./bilstm_km_cm.png>]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ô in font cmr10!
- [22]
-Overfull \hbox (9.3191pt too wide) in paragraph at lines 683--689
+ [21]
+Overfull \hbox (9.3191pt too wide) in paragraph at lines 724--730
  [] 
  []
 
-<svc0_cm.png, id=121, 383.4325pt x 498.86375pt>
+<svc0_cm.png, id=118, 383.4325pt x 498.86375pt>
 File: svc0_cm.png Graphic file (type png)
  <use svc0_cm.png>
-Package pdftex.def Info: svc0_cm.png used on input line 698.
+Package pdftex.def Info: svc0_cm.png used on input line 739.
 (pdftex.def)             Requested size: 153.37029pt x 199.54196pt.
 
-<lsvc_0.png, id=122, 367.3725pt x 359.3425pt>
+<lsvc_0.png, id=119, 367.3725pt x 359.3425pt>
 File: lsvc_0.png Graphic file (type png)
  <use lsvc_0.png>
-Package pdftex.def Info: lsvc_0.png used on input line 699.
+Package pdftex.def Info: lsvc_0.png used on input line 740.
 (pdftex.def)             Requested size: 146.94638pt x 143.73445pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[23] [24 <./svc0_cm.png> <./lsvc_0.png>] [25] [26
+[22] [23 <./svc0_cm.png> <./lsvc_0.png>] [24] [25
 
-] [27]
+] [26]
 File: lsvc_0.png Graphic file (type png)
  <use lsvc_0.png>
-Package pdftex.def Info: lsvc_0.png used on input line 841.
+Package pdftex.def Info: lsvc_0.png used on input line 882.
 (pdftex.def)             Requested size: 110.21259pt x 107.80357pt.
 
-<lsvc_1.png, id=141, 367.3725pt x 363.3575pt>
+<lsvc_1.png, id=138, 367.3725pt x 363.3575pt>
 File: lsvc_1.png Graphic file (type png)
  <use lsvc_1.png>
-Package pdftex.def Info: lsvc_1.png used on input line 842.
+Package pdftex.def Info: lsvc_1.png used on input line 883.
 (pdftex.def)             Requested size: 110.21259pt x 109.00809pt.
 
-<lsvc_2.png, id=142, 366.36874pt x 362.35374pt>
+<lsvc_2.png, id=139, 366.36874pt x 362.35374pt>
 File: lsvc_2.png Graphic file (type png)
  <use lsvc_2.png>
-Package pdftex.def Info: lsvc_2.png used on input line 843.
+Package pdftex.def Info: lsvc_2.png used on input line 884.
 (pdftex.def)             Requested size: 109.91147pt x 108.70695pt.
- [28 <./lsvc_1.png> <./lsvc_2.png>] [29] <svc1_cm.png, id=151, 481.8pt x 504.88
+ [27 <./lsvc_1.png> <./lsvc_2.png>] [28] <svc1_cm.png, id=148, 481.8pt x 504.88
 625pt>
 File: svc1_cm.png Graphic file (type png)
 
 <use svc1_cm.png>
-Package pdftex.def Info: svc1_cm.png used on input line 931.
+Package pdftex.def Info: svc1_cm.png used on input line 972.
 (pdftex.def)             Requested size: 192.71658pt x 201.95091pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[30
+[29
 
-] [31 <./svc1_cm.png>] [32] <svc2_cm.png, id=163, 371.3875pt x 504.88625pt>
+] [30 <./svc1_cm.png>] [31] <svc2_cm.png, id=160, 371.3875pt x 504.88625pt>
 File: svc2_cm.png Graphic file (type png)
 
 <use svc2_cm.png>
-Package pdftex.def Info: svc2_cm.png used on input line 978.
+Package pdftex.def Info: svc2_cm.png used on input line 1019.
 (pdftex.def)             Requested size: 148.55235pt x 201.95091pt.
- [33
+ [32
 
  <./svc2_cm.png>]
 File: svc0_cm.png Graphic file (type png)
  <use svc0_cm.png>
-Package pdftex.def Info: svc0_cm.png used on input line 1035.
+Package pdftex.def Info: svc0_cm.png used on input line 1076.
 (pdftex.def)             Requested size: 95.85788pt x 124.71562pt.
 File: svc1_cm.png Graphic file (type png)
  <use svc1_cm.png>
-Package pdftex.def Info: svc1_cm.png used on input line 1036.
+Package pdftex.def Info: svc1_cm.png used on input line 1077.
 (pdftex.def)             Requested size: 120.44969pt x 126.22124pt.
 File: svc2_cm.png Graphic file (type png)
 
 <use svc2_cm.png>
-Package pdftex.def Info: svc2_cm.png used on input line 1037.
+Package pdftex.def Info: svc2_cm.png used on input line 1078.
 (pdftex.def)             Requested size: 92.84663pt x 126.22124pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[34] (./report.bbl [35
+[33] (./report.bbl [34
 
 ])
 Missing character: There is no ‚ in font cmr10!
@@ -590,13 +550,13 @@ Missing character: There is no î in font cmr10!
 Missing character: There is no — in font cmr10!
 Missing character: There is no Ä in font cmr10!
 
-Overfull \hbox (204.10286pt too wide) in paragraph at lines 1055--1056
+Overfull \hbox (204.10286pt too wide) in paragraph at lines 1097--1098
 $\OML/cmm/m/it/10.95 WardJ:H:Hierarchicalgroupingtooptimizeanobjectivefunction=
 =J:oftheAmericanStatisticalAssociation; \OT1/cmr/m/n/10.95 1963\OML/cmm/m/it/10
 .95 :\OT1/cmr/m/n/10.95 236\OML/cmm/m/it/10.95 :$ 
  []
 
-[36] (./report.aux)
+[35] (./report.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -605,10 +565,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4557 strings out of 494953
- 64982 string characters out of 6180976
- 141029 words of memory out of 5000000
- 7747 multiletter control sequences out of 15000+600000
+ 4576 strings out of 494953
+ 65349 string characters out of 6180976
+ 141199 words of memory out of 5000000
+ 7766 multiletter control sequences out of 15000+600000
  11419 words of font info for 41 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  38i,10n,32p,805b,839s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -628,10 +588,10 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on report.pdf (36 pages, 878457 bytes).
+Output written on report.pdf (35 pages, 876235 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 136 compressed objects within 2 object streams
+ 229 PDF objects out of 1000 (max. 8388607)
+ 134 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  96 words of extra memory for PDF output out of 10000 (max. 10000000)
 
