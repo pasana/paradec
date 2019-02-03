@@ -1,45 +1,45 @@
-\babel@toc {english}{}
+\select@language {english}
 \contentsline {section}{\numberline {1}Introduction}{3}
-\contentsline {section}{\numberline {2}Literature review}{3}
+\contentsline {section}{\numberline {2}Literature review}{4}
 \contentsline {section}{\numberline {3}Methodology}{4}
-\contentsline {subsection}{\numberline {3.1}Building Sentence Representations}{4}
-\contentsline {paragraph}{LDA.}{4}
-\contentsline {paragraph}{Word2Vec.}{5}
-\contentsline {paragraph}{Bi-LSTM.}{5}
+\contentsline {subsection}{\numberline {3.1}Building Sentence Representations}{5}
+\contentsline {paragraph}{LDA.}{5}
+\contentsline {paragraph}{Word2Vec.}{6}
+\contentsline {paragraph}{Bi-LSTM.}{6}
 \contentsline {subsection}{\numberline {3.2}Clustering Sentences}{6}
-\contentsline {paragraph}{K-Means.}{6}
-\contentsline {paragraph}{Agglomerative Clustering.}{7}
-\contentsline {paragraph}{Gaussian Mixture.}{7}
-\contentsline {subsection}{\numberline {3.3}Classifying Sentences}{8}
-\contentsline {paragraph}{SVC (Support Vector Classifier).}{8}
-\contentsline {subsection}{\numberline {3.4}Semi-supervised approach}{8}
+\contentsline {paragraph}{K-Means.}{7}
+\contentsline {paragraph}{Agglomerative Clustering.}{8}
+\contentsline {paragraph}{Gaussian Mixture.}{8}
+\contentsline {subsection}{\numberline {3.3}Classifying Sentences}{9}
+\contentsline {paragraph}{SVC (Support Vector Classifier).}{9}
+\contentsline {subsection}{\numberline {3.4}Semi-supervised approach}{9}
 \contentsline {section}{\numberline {4}Datasets}{10}
-\contentsline {subsection}{\numberline {4.1}Labelled Data}{10}
-\contentsline {subsection}{\numberline {4.2}Forum data}{10}
-\contentsline {section}{\numberline {5}Experiment}{12}
-\contentsline {subsection}{\numberline {5.1}Preprocessing routine}{12}
-\contentsline {subsection}{\numberline {5.2}Clustering for sentence representation evaluation}{14}
-\contentsline {subsubsection}{\numberline {5.2.1}Evaluation metrics}{14}
-\contentsline {paragraph}{Purity}{14}
-\contentsline {paragraph}{Silhouette Coefficient}{15}
-\contentsline {paragraph}{Homogeneity and completeness.}{15}
-\contentsline {subsubsection}{\numberline {5.2.2}Word2Vec model}{15}
-\contentsline {subsubsection}{\numberline {5.2.3}LDA model}{17}
-\contentsline {subsubsection}{\numberline {5.2.4}Google News W2V pretrained}{19}
-\contentsline {subsubsection}{\numberline {5.2.5}CNN by word}{19}
-\contentsline {subsubsection}{\numberline {5.2.6}BiLSTM by word}{19}
-\contentsline {subsubsection}{\numberline {5.2.7}Overall comparison}{20}
-\contentsline {subsection}{\numberline {5.3}Classifier}{21}
-\contentsline {subsubsection}{\numberline {5.3.1}Evaluation metrics}{21}
-\contentsline {subsubsection}{\numberline {5.3.2}Results}{22}
-\contentsline {subsection}{\numberline {5.4}Semi Supervised Learning with linear kernel}{23}
-\contentsline {paragraph}{Iteration 0 (Baseline).}{23}
-\contentsline {paragraph}{Iteration 1}{25}
-\contentsline {paragraph}{Iteration 2}{25}
-\contentsline {subsection}{\numberline {5.5}Semi-supervised learning with rbf kernel}{27}
-\contentsline {paragraph}{Iteration 0.}{27}
-\contentsline {paragraph}{Iteration 1}{29}
-\contentsline {paragraph}{Iteration 2.}{30}
-\contentsline {paragraph}{Overall comparison}{32}
-\contentsline {section}{\numberline {6}Conclusion and future work}{34}
-\contentsline {section}{\numberline {7}References}{34}
+\contentsline {subsection}{\numberline {4.1}Labelled Data}{11}
+\contentsline {subsection}{\numberline {4.2}Forum data}{11}
+\contentsline {section}{\numberline {5}Experiment}{13}
+\contentsline {subsection}{\numberline {5.1}Preprocessing routine}{13}
+\contentsline {subsection}{\numberline {5.2}Clustering for sentence representation evaluation}{15}
+\contentsline {subsubsection}{\numberline {5.2.1}Evaluation metrics}{15}
+\contentsline {paragraph}{Purity}{15}
+\contentsline {paragraph}{Silhouette Coefficient}{16}
+\contentsline {paragraph}{Homogeneity and completeness.}{16}
+\contentsline {subsubsection}{\numberline {5.2.2}Word2Vec model}{16}
+\contentsline {subsubsection}{\numberline {5.2.3}LDA model}{18}
+\contentsline {subsubsection}{\numberline {5.2.4}Google News W2V pretrained}{20}
+\contentsline {subsubsection}{\numberline {5.2.5}CNN by word}{20}
+\contentsline {subsubsection}{\numberline {5.2.6}BiLSTM by word}{20}
+\contentsline {subsubsection}{\numberline {5.2.7}Overall comparison}{21}
+\contentsline {subsection}{\numberline {5.3}Classifier}{22}
+\contentsline {subsubsection}{\numberline {5.3.1}Evaluation metrics}{22}
+\contentsline {subsubsection}{\numberline {5.3.2}Results}{23}
+\contentsline {subsection}{\numberline {5.4}Semi Supervised Learning with linear kernel}{24}
+\contentsline {paragraph}{Iteration 0 (Baseline).}{24}
+\contentsline {paragraph}{Iteration 1}{26}
+\contentsline {paragraph}{Iteration 2}{26}
+\contentsline {subsection}{\numberline {5.5}Semi-supervised learning with rbf kernel}{28}
+\contentsline {paragraph}{Iteration 0.}{28}
+\contentsline {paragraph}{Iteration 1}{30}
+\contentsline {paragraph}{Iteration 2.}{31}
+\contentsline {paragraph}{Overall comparison}{33}
+\contentsline {section}{\numberline {6}Conclusion and future work}{35}
+\contentsline {section}{\numberline {7}References}{35}

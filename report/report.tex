@@ -22,7 +22,8 @@
 
 \title{Data expansion for semantic classification}
 
-\author{Anna Liednikova, Claire Gardent}
+\author{Anna Liednikova\\
+Supervisor: Claire Gardent}
 
 
 
@@ -43,24 +44,53 @@ strictly defined surveys by a more natural conversation in order to
 let users express themselves freely so that more information could be
 collected.
 
-The chatbot consists of three main modules: 
+The chatbot consists of two main modules:
 \begin{itemize}
-\item NLU (Natura Language Understanding): interpreting the user input
-\item Dialog Managment: deciding on how to respond to the user input
-\item NLG: generating the system response
+\item NLU (Natural Language Understanding): interpreting the user input
+\item Dialog Managment: deciding how to respond to the user input and
+  generating the system response
 \end{itemize}
 
-In this project, we focus on the NLU step which consists in
-analysing the user utterance (does the user speaks about pain,
-physical activity etc. ) and detecting at least one most probable
-intent of user message so that later the chatbot can choose the right
-strategy for fulfilling information.
 
-\add{an example showing a user input and the expected representation ie intent + entity}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.9\textwidth]{img/rasa.pdf}
+\end{center}
+\caption{}
+\label{fig:rasa}
+\end{figure}
+In this project, we focus on natural language understanding and
+consider a simplified notion of understanding where each user input is
+mapped to an ``intent''. Given a pre-defined and finite set of intents
+(Does the user speaks about pain, physical activity etc. ?), the aim
+of the NLU module is to assign each user input an intent\footnote{We
+  make the simplifying (and incorrect) assuption that the user input
+  contains a single intent.}. The detected intent is then used, in
+conjunction with additional information extracted from the previous
+dialog interactions, to determine how to
+respond. Figure~\ref{fig:rasa} illustrates this\footnote{The figure
+  actually shows a more complex notion of understanding where the user
+  utterance is mapped not only to an intent but also to a set of
+  entities. In this work, we focus on how to improve intent detection
+  and leave entity detection for future research.}.
 
-A small manually annotated dataset (roughly 100 sentences for each category) was available. But that's not enough for learning a good NLU model and meet the variety of users possible inputs. Annotating sentence takes plenty of time, so some automated or semi-automated way should be chosen. So this project focuses on exploring automatic ways of extending the training data and learning NLU models from these extended data.
+\section{Goals and Methodology}
 
-First, we do the literature review of approaches applied to similar problems. Later in the methodology part, we will cover four parts: building sentence representation model, evaluate it by clusterisation, train a classifier for labelling the data and application semi-supervised learning for extending the dataset. Next two our datasets and preprocessing routine will be described. Experiment part contains a quantitative and qualitative description of the models and final results. In the end, we will sum up the work have been done and give some assumption for future improvements.
+Aliae manually created a small dataset of user utterances annotated
+with intent which contains roughly 100 sentences for each intent
+category. As this small dataset is insufficient for training a
+classifier, our goal is to devise a methodology for data expansion
+which permits automatically expanding the training data and improving the classifier results.
+
+First, we do the literature review of approaches applied to similar
+problems. Later in the methodology part, we will cover four parts:
+building sentence representation model, evaluate it by clusterisation,
+train a classifier for labelling the data and application
+semi-supervised learning for extending the dataset. Next two our
+datasets and preprocessing routine will be described. Experiment part
+contains a quantitative and qualitative description of the models and
+final results. In the end, we will sum up the work have been done and
+give some assumption for future improvements.
 
 \section{Literature review}
 
