@@ -74,7 +74,7 @@ respond (cf. Figure~\ref{fig:rasa}\footnote{The figure
   entities. In this work, we focus on how to improve intent detection
   and leave entity detection for future research.}).
 
-\section{Goals and Methodology}
+\section{Goal and Motivations}
 \label{sec:goals}
 
 
@@ -95,7 +95,7 @@ the datasets used. Section~\ref{sec:xps} reports on the experimental
 setting and on the results. Section~\ref{sec:conclusion} concludes
 with pointers for further research.
 
-\section{Literature review}
+\section{Related Work}
 \label{sec:relatedwork}
 
 To use supervised text classification methods, it is important to have a dataset of a reasonable size in order to make their training efficient. When only a small set of labelled documents is available, the semi-supervised learning becomes a way-out and helps to resolve tasks by comparing the distributions between labelled and unlabelled specimens.
@@ -111,7 +111,7 @@ SVM is considered to be a hands-on approach in textual classification \cite{SVM}
 \section{Methodology}
 \label{sec:methodology}
 
-Our methodology for data expansion falls into two main steps. First, we compare different methods for representing utterances using both clustering and classification (Sections~\ref{subsec:sentencerepresentations} and ~\ref{subsec:clustering}). Second, based on the best sentence representations, we gradually increment the size of the labelled data and iteratively train new classifiers on the extended data (Section~\ref{subsec:dataexpansion}). 
+Our methodology for data expansion falls into two main steps. First, we compare different methods for representing utterances using both clustering and classification (Section~\ref{subsec:sentencerepresentations}). Second, based on the best sentence representations, we devise a semi-supervised approach which relies on clustering and classification to gradually increment the size of the labelled data and iteratively train new classifiers on the extended data (Section~\ref{subsec:dataexpansion}). 
 
 %% We follow \cite{N18-2058} methodology. Instead of using \cite{zhang2015}'s methods for identifying clusters of related sentences however, we explore different ways of representing sentences using deep learning approaches. We then apply clustering to the resulting sentence representations. Finally, we investigate the impact of the extended labeled data on classification. 
 
@@ -126,8 +126,13 @@ Our methodology for data expansion falls into two main steps. First, we compare 
 % set and retrain
 
 
-\subsection{Building Sentence Representations}
+\subsection{Building and Evaluating Sentence Representations}
 \label{subsec:sentencerepresentations}
+
+We investigate different ways of creating continuous representations for sentences and use clustering to determine which representation best support the identification of intents. 
+
+\subsubsection{Creating Continuous Representations of Sentences.}
+
 We explore two ways of building sentence representations: Word2vec and LDA. %% he good point of using these models is that they can be used for both word and sentence representation since one word can be treated as a small sentence. That can help us also to create sentence representations in two steps using machine and deep learning techniques. First, we map words to continuous representations. Second, we combine these word representations into sentence representations using BiLSTM encoder. \add{bibref}.
 
 %We construct sentence representations out of the word representations described in the previous section using two types of neural networks:  PositionwiseFeedForward \cite{vaswani2017attention} and BiLSTM \add{bibref}.
@@ -195,13 +200,13 @@ In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidi
 We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models (Conneau et al., 2018) 
 
 
-\subsection{Clustering Sentences}
-\label{subsec:clustering}
+\subsubsection{Clustering Sentences}
+
 Using the sentence representations described in the previous section,
 we apply clustering to group together sentences that are similar.  We
 set the number of clusters to the number of intents (20) and we use
-not only purity and Silhouette coefficients to evaluate the clusters
-but also homogeneity and completeness to better assess how the
+(i) purity and Silhouette coefficients to evaluate the clusters
+ and (ii) homogeneity and completeness to better assess how the
 resulting clusters correlate with initial intents. Also, for each
 model, we plot a confusion matrix with a background gradient to
 visualize how well clusters separate different intents. Based on these
@@ -271,9 +276,10 @@ GMM parameters are estimated from training data using the iterative Expectation-
 \subsection{Semi-Supervised approach to Data Expansion and Classification}
 \label{subsec:dataexpansion}
 
-After choosing the best model for representing sentences, we
-iteratively expand the training data and train the corresponding
-classifiers as follows.
+Based on experimental results (cf. Section~\ref{sec:xps}), we choose
+the best model for representing sentences. We then use these
+representations to iteratively expand the training data and train the
+corresponding classifiers based on the following procedure:
 
 
 \begin{itemize}
@@ -282,13 +288,13 @@ classifiers as follows.
 \item \textbf{Step 3: Filtering.} Use the probability and the label assigned by the classifier to each unlabelled sentence to :
   \begin{itemize}
 \item Eliminate sentences whose probability is below a given threshold
-\item Eliminate clusters with less than $m$ members
+\item Eliminate clusters with less than a set number of members
   \end{itemize}
-\item \textbf{Step 4: Data expansion.} Add to training data the $n$ best labelled items for each intent. 
-  \item \textbf{Step 5: Classifier Training.} Train a new classifier using both the previous and the new labelled data. 
+\item \textbf{Step 4: Data expansion.} For each intent, add the $n$ best labelled items to the training data.
+  \item \textbf{Step 5: Classifier Training.} Train a new classifier using both the previous and the newly selected, labelled data. 
 \end{itemize}
 
-\paragraph{Classification.} For classification, we use SVC (Support Vector Classifier). The main idea of ​​the method is transfering the initial vectors into a space of higher dimension and searching for a separating hyperplane with the maximum gap in this space. Two parallel hyperplanes are built on both sides of the hyperplane separating the classes. The separating hyperplane will be the one that maximizes the distance to two parallel hyperplanes. The algorithm works under the assumption that the greater the difference or the distance between these parallel hyperplanes, the less will be the average classifier error.  Due to the small size for dataset it's essential to create balanced training and test datasets.
+\subsubsection{Classification.} For classification, we use SVC (Support Vector Classifier). The main idea of ​​the method is transfering the initial vectors into a space of higher dimension and searching for a separating hyperplane with the maximum gap in this space. Two parallel hyperplanes are built on both sides of the hyperplane separating the classes. The separating hyperplane will be the one that maximizes the distance to two parallel hyperplanes. The algorithm works under the assumption that the greater the difference or the distance between these parallel hyperplanes, the less will be the average classifier error.  Due to the small size for dataset it's essential to create balanced training and test datasets.
 
 The initial labelled dataset was provided by ALIAE (gold data). We split our gold dataset into train and test sets and systematically use the test set for evaluation and comparison of the classifiers learned on the different datasets produced during data expansion.
 
@@ -296,23 +302,28 @@ At each iteration during data expansion, we use the classifier trained
 on the data created at the previous iteration to label unlabelled
 sentences extracted from some external source. 
 
-\paragraph{Clustering.} To expand the training data, we retrieve utterances from a medical forum. The unlabelled data is then built based on these utterances after some filtering is applied to eliminate sentences that are either out of topic or too complex (cf. Section~\ref{sec:}). Next we build representations for these unlabelled sentences using the techniques described in Section~\ref{sec:} and we apply clustering to create 200 clusters. 
+\subsubsection{Clustering.} To expand the training data, we retrieve utterances from a medical forum. The unlabelled data is then built based on these utterances after some filtering is applied to eliminate sentences that are either out of topic or too complex (cf. Section~\ref{sec:}). Next we build representations for these unlabelled sentences using the techniques described in Section~\ref{sec:} and we apply clustering to create 200 clusters. 
 
-\paragraph{Filtering.} The SVC classifier assigns each unlabelled sentence a category (an intent) and a probability. We eliminate from the clusters all those sentences whose probability is below a given threshold. We then eliminate all clusters whose size is less than a set minimum. 
+\subsubsection{Filtering.} The SVC classifier assigns each unlabelled sentence a category (an intent) and a probability. We eliminate from the clusters all those sentences whose probability is below a given threshold. We then eliminate all clusters whose size is less than a set minimum. 
 
 For our subset we find the best clusterization by elbow method \cite{elbow_rule}. Later, having both labels for intent and cluster, we leave just that clusters that populated by items with maximum probability that allows us to cover all intent with new examples.
 
 For each cluster we calculate number of intent representators and their overall distribution. We then keep only those clusters where some intent is represented more than in average. Elements of clusters that are left will be labelled by the majority.
 
 
-\paragraph{Data Expansion.} Finally, we select N labelled items for each category/intent and extend the training data with them to update sentence representation and classification models.
+\subsubsection{Data Expansion.} Finally, we select N labelled items for each category/intent and extend the training data with them to update sentence representation and classification models.
 
 We repeat this cycle until we won't be able to extend train dataset by additional samples or classifier score will stop to grow.
 
 \section{Datasets}
 \label{sec:datasets}
 
-For our task we have two dataset. The first one is labelled by human and the second one was retrieved from the web to extend the previous one. Our goal was to use web data to expand the training set and improve the classifier which assigns each sentence an intent. 
+For our task we have two datasets: a small, manually labelled dataset
+where each utterance is associated with a target intent; and a large,
+unlabelled dataset extracted from the web. Our goal is to
+automatically label this web data in order to expand the training set
+and to improve the NLU module of the ALIAE chatbot.
+
 
 \subsection{Labelled Data}
 \label{subsec:labelleddata}
@@ -364,7 +375,7 @@ preprocessing.
  \end{figure}
 \FloatBarrier
 
-This dataset has precise categorization so that some posts are more specialized and some are out of the scope of our intent labels. We should start with the data that is most similar to the initial one, so that's why we choose categories of boards that are similar to our intents. This will help us to be able gradually expand the existing context. So we will keep posts of categories provided in table \ref{cat_freq}.
+This dataset has its own categorization so that some posts are more specialized and some are out of the scope of our intent labels. We should start with the data that is most similar to the initial one, so that's why we choose post categories hich are similar to our intents. This will help us to gradually expand the training data. So we will keep posts of categories provided in table \ref{cat_freq}.
 
 \begin{table}[htb]
 \centering
@@ -382,41 +393,54 @@ stress & 415 \\ \hline
 family-friends-addicts-alcoholics & 312 \\ \hline
 pain-management & 25 \\ \hline
 \end{tabular}
-\caption{Selected categories}\label{cat_freq}
+\caption{Selected Forum categories}\label{cat_freq}
 \end{table}
 \FloatBarrier
 
-Finally, the corpus consists of N  sentences. 
+Finally, the corpus consists of \add{N}  sentences. 
 
-Also, for big number of iterations data should be divided in subsets by increasing sentence length because of the difference in mean values for both datasets. So after tokenizing posts into sentences we calculate it's length. For each iteration, we only leave sentences which have mean+std words after pre-processing (cf. Section~\ref{subsec:preprocessing}).
+Also, for big number of iterations, the data should be divided in
+subsets by increasing sentence length because of the difference in
+mean values for both datasets. So after tokenizing tje posts into
+sentences we calculate their length. For each iteration, we only keep
+those sentences which have mean+std words after pre-processing
+(cf. Section~\ref{subsec:preprocessing}).
 
 
 \section{Experiment}
 \label{sec:xps}
 
-Experiment consists of the main stages:
+We now describe how the steps described in Section~\ref{sec:methodology} were applied to the forum data.
 
-\begin{itemize}
-\item preprocess text of labelled and unlabelled data
-\item use clustering to choose between different ways of representing sentences
-\item training a classifier on the labelled data
-\item iterative semi-supervised learning:
-  \begin{itemize}
-  \item data expansion (cf Section \ref{subsec:dataexpansion}) ; 
-  \item update sentence representations (using new data and old parameters)
-  \item retrain on classifier on gold + new labelled data
-  \item evaluate new classifier on gold test data
-\end{itemize}
-\end{itemize}
+%% Experiment consists of the main stages:
 
-\subsection{Preprocessing routine}
+%% \begin{itemize}
+%% \item preprocess text of labelled and unlabelled data
+%% \item use clustering to choose between different ways of representing sentences
+%% \item training a classifier on the labelled data
+%% \item iterative semi-supervised learning:
+%%   \begin{itemize}
+%%   \item data expansion (cf Section \ref{subsec:dataexpansion}) ; 
+%%   \item update sentence representations (using new data and old parameters)
+%%   \item retrain on classifier on gold + new labelled data
+%%   \item evaluate new classifier on gold test data
+%% \end{itemize}
+%% \end{itemize}
+
+\subsection{Preprocessing }
 \label{subsec:preprocessing}
-The textual data was segmented into sentences, tokenized and lemmatized using NLP
-libraries. Stop words were removed.
+
+To build continuous representations of sentences, we only take into
+account the lemmatized form of the content words they contained. Hence
+a pre-processsing step is applied to segment the forum data into
+sentences, to tokenize and lemmatize the resulting sentences and to
+remove stop words.
+
+\add{Do you actually lemmatize ? If so say which tool you use and show some example of lemmatized sentences}
 
 We compared two libraries, NLTK and SpaCy.
 
-For example, in word tokenization they give different results that can influence not only simple statistics but meaning too. Some example of different tokenization can be seen in table \ref{token_dif}. Though concating words to ones like 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning in case of big dataset, in our case it seems better to stay with SpaCy way of tokenization in order to have smaller and more simple vocabualary.
+For tokenization, they give different results that can influence not only simple statistics but also meaning. Some example of different tokenizations can be seen in table \ref{token_dif}. Although tokenizing  words such as 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning, in our case it seems better to stay with SpaCy way of tokenization in order to have a smaller and simpler vocabulary.
 
 \begin{center}
 \begin{table}
@@ -442,7 +466,15 @@ NLTK & SpaCy \\ \hline
 \end{center}
 \FloatBarrier
 
-For stopwords removing there were three options: nltk, spacy and the longest one. The last option was rejected due to containing words like 'want', 'stop', 'successfully' etc. that can be useful for detecting basic intents like positive or negative emotion, social. Finally nltk one was selecting because of containing shorts like 'm' from 'am', 've' from 'have'. Final dictionary contained 1882 words. Also all numbers were changed to num. Chart (\ref{words_freq}) looks fine.
+For stopwords removal, there were three options: NLTK, SpaCy and the
+longest one. The last option was rejected due to containing words like
+'want', 'stop', 'successfully' etc. that can be useful for detecting
+basic intents such as social (e.g., greetings) and positive or
+negative emotions. In the end, we decided to use NLTK because of
+containing shorts like 'm' from 'am', 've' from 'have'.
+
+The final dictionary contained 1882 words. Also all numbers were
+changed to {\sc{num}}. Figure~\ref{words_freq} shows the distribution of word frequency. 
 
  \begin{figure}[h]
  	\centering
@@ -452,40 +484,47 @@ For stopwords removing there were three options: nltk, spacy and the longest one
  \end{figure}
 \FloatBarrier
 
-Next problem we faced is empty sentences. But there is not a lot of occurances, so their dropping don't change the dataset much.
+%% Next problem we faced is empty sentences. But there is not a lot of occurances, so their dropping don't change the dataset much.
 
-\begin{tabular}{ |r|l| }
-\hline
-intent & items \\ \hline
-fallback          & 12 \\ \hline
-disagree          & 11 \\ \hline
-hello             &  4 \\ \hline
-agree             &  3 \\ \hline
-incomprehension   &  2 \\ \hline
-positiveEmo       &  1 \\ \hline
-\end{tabular}
+%% \begin{tabular}{ |r|l| }
+%% \hline
+%% intent & items \\ \hline
+%% fallback          & 12 \\ \hline
+%% disagree          & 11 \\ \hline
+%% hello             &  4 \\ \hline
+%% agree             &  3 \\ \hline
+%% incomprehension   &  2 \\ \hline
+%% positiveEmo       &  1 \\ \hline
+%% \end{tabular}
 
-These sentences are: 'what?', 'same that again', 'I am up', 'same', 'can you',
-       'do that', 'do this', 'Will do', 'no', 'no i will not',
-       "No i don't", 'no', 'no i will not', "No i don't", "What's up?",
-       "What's up?", 'he', 'a', 'd', 'i', 'm', 'o', 's', 't', 'y',
-       'I will', 'Will do', 'No', 'no', 'No it is not', "No I don't",
-       'No', "I'm here"
+%% These sentences are: 'what?', 'same that again', 'I am up', 'same', 'can you',
+%%        'do that', 'do this', 'Will do', 'no', 'no i will not',
+%%        "No i don't", 'no', 'no i will not', "No i don't", "What's up?",
+%%        "What's up?", 'he', 'a', 'd', 'i', 'm', 'o', 's', 't', 'y',
+%%        'I will', 'Will do', 'No', 'no', 'No it is not', "No I don't",
+%%        'No', "I'm here"
 
 
 \subsection{Clustering for sentence representation evaluation}
 \label{subsec:clustering2}
 
-Thanks to clustering it is possible to see how current representation can reflect desirable labels. Also, it can provide us with information which classes will be easier to identify and which can mix with others. Using score for evalution clustering models helps us to compare different ways of representing sentences and chosing the best one.
+We use clustering to assess the degree to which sentence representations support the correct classification i.e., the assignment of the correct intent. Also, clustering provides us with information about which classes will be easier to identify and which can mix with others. Using evalution metrics for clustering helps us to compare different ways of representing sentences and to chose the best one.
 
-
-Forum data is splitted into 20 (number of intents). For selecting the best model we changed space dimension (topics for LDA and features for W2W). Preferred number of features for W2V model is 200. It's the start point for our model.
+For each type of sentence representations described in
+Section~\ref{sec:}, we split the forum data  into 20 clusters
+which corresponds to the number of intents. To select the best model,
+we further experiment with different hyper-parameters (number of topics for
+LDA and embedding size for Word2Vec).
+%The preferred number of features for Word2Vec model is 200. It's the start point for our model.
 
 \subsubsection{Evaluation metrics}
 
-For every model following metrics and their average were calculated: purity score, Silhouette Coefficient, homogeneity and completeness scores. Later for each parameter average among clustering models calculated for each score in order to get both table and plot.
+For every model, we compute the following metrics and their average:
+purity score, Silhouette Coefficient, homogeneity and completeness
+scores.
+%Later for each parameter average among clustering models calculated for each score in order to get both table and plot.
 
-Also for each model confusion matrix created between cluster labels and initial intents.
+Also for each model, we create the confusion matrix between cluster labels and target intents.
 
 \paragraph{Purity} is calculated by assigning each cluster to the class that is most often found in the cluster, and then the accuracy of this assignment is measured by counting the number of correctly assigned documents and dividing by N.
 
@@ -505,9 +544,11 @@ h = 1 - \frac{H(C|K)}{H(C)}, c = 1 - \frac{H(K|C)}{H(K)}
 \end{equation}
 
 here is $K$ the result of clustering, is $C$ the true partitioning of the sample into classes. Thus, $h$ measures how much each cluster consists of objects of one class, and $c$ measues how much objects of one class belong to one cluster.
+
 \subsubsection{Word2Vec model}
 
-We compare results for different embedding size ranging from 10 to 600.
+For Word2Vec representations, we compare results for 
+embedding sizes ranging from 10 to 600.
 
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c|c| }
@@ -536,12 +577,14 @@ Embedding Dim.  & purity  & silhouette  & homogeneity  & completeness\\ \hline
 \end{figure}
 \FloatBarrier
 
+\add{Why 10 and 100? Here you need to discuss the table: which embedding size is best and why ?}
+
 Later we will try both 10 and 100 features.
 
 \begin{figure}[h]
 	\centering
  	\includegraphics[scale=0.7]{best_w2v_cm.png}
-	\caption{W2V confusion matrix}
+	\caption{Word2Vec confusion matrix}
  \label{w2v_cm_mat}
  \end{figure}
 \FloatBarrier
@@ -549,7 +592,9 @@ Later we will try both 10 and 100 features.
 \subsubsection{LDA model}
 \label{subsec:lda}
 
-We iterated through different numbers of topics for LDA model to see which one should be used to represent our dataset. In table \ref{LDA_num_topic} we can see the comparison. 
+For LDA representations, we iterated through different numbers of
+topics for LDA model to see which one should be used to represent our
+dataset. Table~\ref{LDA_num_topic} shows the results. 
 
 \begin{table}[htb]
 \begin{center}
@@ -570,13 +615,13 @@ num & purity  & silhouette  & homogeneity  & completeness \\ \hline
 600  & 0.254261  & 0.191729  & 0.171744  & 0.186001 \\
 \hline 
 \end{tabular}
-\caption{Comparision of LDA with different number of topics}
+\caption{Comparison of LDA with different number of topics}
 \label{LDA_num_topic}
 \end{center}
 \end{table}
 \FloatBarrier
 
-The best model - is LDA with 400 topics according to scores and with priority to purity and homogeneity ones.
+The best model is LDA with 400 topics according to scores and with priority to purity and homogeneity ones. \add{say why you give priority to purity and homogeneity}
 
 \begin{figure}[h]
 	\centering
@@ -588,21 +633,21 @@ The best model - is LDA with 400 topics according to scores and with priority to
 \end{figure}
 \FloatBarrier
 
-Thanks to confusion matrix that is constructed based on cluster and
-intent labels we can make hypotheses about possible errors and
-difficulties and figure out what connections our model distinguishes
-well. Though different clustering algorithms still capture different
-connections between intents, there are some common errors for all of
-them. In particular, the following intent are incorrectly clustered
-together: fallback and hello; alcohol, drugAddiction and risk; social
-and emotions.
+The confusion matrix between clusters and intent labels helps us make
+hypotheses about possible errors and difficulties and figure out what
+connections our model distinguishes well. Thus, although there are
+differences between the confusion matrices shown for the three
+clustering algorithms, they all show a reccurrent set of errors. In
+particular, the following intent are incorrectly clustered together:
+fallback and hello; alcohol, drugAddiction and risk; social and
+emotions.
 
 \subsubsection{CNN by word}
 From simple encoder, w2v, lda, w2v + lda
 
 \subsubsection{BiLSTM by word}
 
-Following ( et al.) we trained BiLSTM encoder model verifying the best params. So we iterated through the number of layres, it's dimention and type of pooling.
+Following ( et al.) we trained BiLSTM encoder model experimenting with different hper-parameters such as  the number of layers, the dimension of the word embedding and the type of pooling.
 
 \begin{table}[htb]
 \begin{center}
@@ -619,7 +664,7 @@ layers & purity  & silhouette  & homogeneity  & completeness \\ \hline
 \end{table}
 \FloatBarrier
 
-So it's better to stay with one layer. Now for one layer we test its dimension.
+So it's better to stay with one layer. Now for one layer, we experiment with different dimensions (layer size).
 
 \begin{table}[htb]
 \begin{center}
@@ -641,7 +686,7 @@ layers & purity  & silhouette  & homogeneity  & completeness \\ \hline
 
 Finally, we chose 64 output size due to bigger difference in purity score.
 
-Next step is chose what encoder should we use: last hiiden layer or mean-pooling or max pool on them?
+The next step is to chose what encoder should we use: should the sentence representation be given by the last hidden layer of the LSTM, by mean or by max-pooling?
 
 \begin{table}[htb]
 \begin{center}
@@ -669,20 +714,20 @@ Finally we got BiLSTM model with one 64-dimensional layer without pooling.
 \end{figure}
 \FloatBarrier
 
-This model shows really good separatation for treatment and pain labels, 
-tends to group together (agree, fallback and hello) and (bye and disagree).
+This model shows really good separatation for treatment and pain labels but  
+tends to group together utternance belonging to the {\sc{agree, fallback}} and  {\sc{hello}} intent on the one hand and to the  {\sc{bye}} and  {\sc{disagree}} intent on the other.
 
 \subsubsection{Overall comparison}
 
-Here \ref{final_comparision} we provide the comparision of final models taking also in consideration pretrained GloVe and Google News W2V embedding. Among word-base models LDA occured to the best one and was used for word embedding for BiLSTM as described in section \ref{subsec:sentencerepresentations}. Last two models will be used for further steps.
+Table~\ref{final_comparison} summarizes the results, focusing on the best yper-parameters for each approach and additionally taking into consideration pretrained GloVe and Google News Word2Vec embeddings. LDA appears to provide the best sentence representation and was used as input for BiLSTM. These last two models will be used for further steps.
 
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c|c| }
 \hline
 model & features & purity   & silhouette  & homogeneity  & completeness \\ \hline 
-W2V 	& 10   	& 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
-W2V 	& 100  	& 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
+Word2Vec 	& 10   	& 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
+Word2Vec 	& 100  	& 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
 GloVe	& 25	& 0.191125  & 0.003554  & 0.110058  & 0.147367 \\ \hline
 GloVe 	& 200	& 0.186283  & -0.026413 & 0.102103  & 0.137332 \\ \hline
 Google  & 300 	& 0.201614  & -0.016592 & 0.109450  & 0.156423 \\ \hline
@@ -691,7 +736,7 @@ BiLSTM 	& 64  	& \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline
 \end{tabular}
 \end{center}
 \caption{Overall comparison}
-\label{final_comparision}
+\label{final_comparison}
 \end{table}
 \FloatBarrier
 
@@ -700,7 +745,9 @@ BiLSTM 	& 64  	& \textbf{0.281683}  & 0.22728  & 0.231666  & 0.232176\\ \hline
 \subsection{Classifier}
 \label{subsec:classifying2}
 
-This section contains details about training classifier on the labelled data (cf. Section \ref{subsec:labelleddata}) and choosing the best parameters as baseline for the further semi-supervised approach.
+In the previous section, we compared different settings for building sentence representations using different methods (LDA, Word2Vec, Glove Embedding etc.) and experimenting with different hyper-parameters. We concluded that the best models were (i) LDA and (ii) biLSTM.
+
+In this section, we now explore how these representations can be used to help guess the corresponding intents and further, how external (forum) data that is automatically labelled using the procedure described in Section~\ref{subsec:dataexpansion} can help improve intent classification.
 
 \subsubsection{Evaluation metrics}
 
@@ -738,7 +785,7 @@ Predicted negative & False negative & True negative \\ \hline
 
 \subsubsection{Results}
 
-For training train and test dataset were created with 65 and 43 items per category respectively that makes 60/40 ratio. Both sets are balanced, so that each category is represented by the same number of items. 
+For training train and test, dataset were created with 65 and 43 items per category respectively that makes 60/40 ratio. Both sets are balanced, so that each category is represented by the same number of items. 
 
 SVC model was chosen with the best parameters by using Grid Search. We are comparing two kernels - rbf (C=10, gamma=1) and linear (C=10, gamma=0.001). For each model, we use 5 fold cross validation.
 5-folds Cross Validation error on train set 0.401 + 0.0115 and on test set 0.371 + 0.0338. Small %difference in score indicates good performance and absence of overfitting. 
@@ -832,7 +879,7 @@ smoking 		&  0.60 & 0.44 & 0.49 && 0.68 & 0.59 & 0.66 && 0.64 & 0.51 & 0.56 \\ \
 social 			&  0.14 & 0.14 & 0.26 && 0.20 & 0.21 & 0.31 && 0.16 & 0.17 & 0.28 \\ \hline 
 treatment		&  0.19 & 0.58 & 0.56 && 0.80 & 0.75 & 0.15 && 0.30 & 0.67 & 0.24 \\ \hline 
 \end{tabular}
-\caption{Comparision of classification scores for SVC with linear kernel}
+\caption{Comparison of classification scores for SVC with linear kernel}
 \end{center}
 \end{table}
 \FloatBarrier
@@ -906,7 +953,7 @@ smoking 		& 0.65 &  0.51 & 0.58 && 0.61 & 0.54 & 0.54 && 0.63 & 0.52 & 0.56\\ \h
 social 			& 0.33 &  0.19 & 0.21 && 0.50 & 0.29 & 0.56 && 0.49 & 0.23 & 0.31\\ \hline 
 treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ \hline 
 \end{tabular}
-\caption{Comparision of classification scores for SVC with rbf kernel}
+\caption{Comparison of classification scores for SVC with rbf kernel}
 \end{center}
 \end{table}
 \FloatBarrier
@@ -926,7 +973,7 @@ treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ 
 \section{Conclusion and future work}
 \label{sec:conclusion}
 
-In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and W2V models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
+In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and Word2Vec models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
 
 Our results shows how high rate of confusion between labels in intial classifier increases this confusion in futher data expansion though in general algorithms tends to converge to be more precise. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually.
 
