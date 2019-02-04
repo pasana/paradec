@@ -16,12 +16,7 @@
 \newcommand\modi[1]{{\textcolor{green}{MODIFIED: #1}}}
 \newcommand\remove[1]{{\textcolor{red}{REMOVE: #1}}}
 \newcommand\expand[1]{{\textcolor{blue}{EXPAND: #1}}}
-\newcommand\rewrite[1]{{\textcolor{green}{REWRITE: #1}}}
-
-
-
-% Titre complet
-
+\newcommand\review[1]{{\textcolor{green}{REVIEW: #1}}}
 
 \title{Data expansion for semantic classification}
 
@@ -88,7 +83,7 @@ intent) and automatically expanding this labelled data. To this
 end, we developed a semi-supervised data expansion technique which
 permits expanding the initial data with utterances extracted from a
 medical forum. We show that the expanded data permits improving the
-classifier by \add{0.05} accuracty points.
+classifier by 0.05 accuracty points.
 
 This report is structured as follows. Section~\ref{sec:relatedwork}
 briefly reviews the state of the art and situates our proposal with
@@ -398,7 +393,7 @@ pain-management & 25 \\ \hline
 \end{table}
 \FloatBarrier
 
-Finally, the corpus consists of \add{N}  sentences. 
+Finally, the corpus consists of 380014 sentences. 
 
 Also, for big number of iterations, the data should be divided in
 subsets by increasing sentence length because of the difference in
@@ -437,11 +432,14 @@ a pre-processsing step is applied to segment the forum data into
 sentences, to tokenize and lemmatize the resulting sentences and to
 remove stop words.
 
-\add{Do you actually lemmatize ? If so say which tool you use and show some example of lemmatized sentences}
+For lemmatization we used SpaCy as it provides lemmas for every token. Next examples shows the transformation:
 
-We compared two libraries, NLTK and SpaCy.
+\begin{quote}
+Before: 	I can go for month\textbf{s} and at \textbf{least} a year or so without drink\textbf{ing} \\
+After: 		I can go for month and at little a year or so without drink
+\end{quote}
 
-For tokenization, they give different results that can influence not only simple statistics but also meaning. Some example of different tokenizations can be seen in table \ref{token_dif}. Although tokenizing  words such as 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning, in our case it seems better to stay with SpaCy way of tokenization in order to have a smaller and simpler vocabulary.
+We compared two libraries, NLTK and SpaCy for tokenization, they give different results that can influence not only simple statistics but also meaning. Some example of different tokenizations can be seen in table \ref{token_dif}. Although tokenizing  words such as 'flulike' or '35mg' or 'longterm' sometimes gives more robust and concrete meaning, in our case it seems better to stay with SpaCy way of tokenization in order to have a smaller and simpler vocabulary.
 
 \begin{center}
 \begin{table}
@@ -584,7 +582,7 @@ Later we will try both 10 and 100 features.
 
 \begin{figure}[h]
 	\centering
- 	\includegraphics[scale=0.7]{best_w2v_cm.png}
+ 	\includegraphics[scale=0.5]{best_w2v_cm.png}
 	\caption{Word2Vec confusion matrix}
  \label{w2v_cm_mat}
  \end{figure}
@@ -622,7 +620,7 @@ num & purity  & silhouette  & homogeneity  & completeness \\ \hline
 \end{table}
 \FloatBarrier
 
-The best model is LDA with 400 topics according to scores and with priority to purity and homogeneity ones. \add{say why you give priority to purity and homogeneity}
+The best model is LDA with 400 topics according to scores and with priority to purity and homogeneity ones as \review{it's more important for us to have one intent in one cluster even if some intents will be present in several ones.}
 
 \begin{figure}[h]
 	\centering
@@ -642,9 +640,6 @@ clustering algorithms, they all show a reccurrent set of errors. In
 particular, the following intent are incorrectly clustered together:
 fallback and hello; alcohol, drugAddiction and risk; social and
 emotions.
-
-\subsubsection{CNN by word}
-From simple encoder, w2v, lda, w2v + lda
 
 \subsubsection{BiLSTM by word}
 
@@ -711,7 +706,7 @@ Finally we got BiLSTM model with one 64-dimensional layer without pooling.
 	\includegraphics[scale=0.28]{bilstm_gm_cm.png}
 	\includegraphics[scale=0.28]{bilstm_km_cm.png}
 	\caption{BiLSTM confusion matrixes: : agglomerative clustering, gaussian mixture, Kmeans}
-\label{lda_gm_cm}
+\label{bilstm_gm_cm}
 \end{figure}
 \FloatBarrier
 
@@ -720,11 +715,8 @@ tends to group together utternance belonging to the {\sc{agree, fallback}} and  
 
 \subsubsection{Overall comparison}
 
-<<<<<<< HEAD
-Here in Table \ref{final_comparision} we provide the comparision of final models taking also in consideration pretrained GloVe and Google News W2V embedding. Among word-base models LDA occured to the best one and was used for word embedding for BiLSTM as described in section \ref{subsec:sentencerepresentations}. Last two models will be used for further steps.
-=======
 Table~\ref{final_comparison} summarizes the results, focusing on the best yper-parameters for each approach and additionally taking into consideration pretrained GloVe and Google News Word2Vec embeddings. LDA appears to provide the best sentence representation and was used as input for BiLSTM. These last two models will be used for further steps.
->>>>>>> 2ed2b78ea14fbd743e61503e052b4e24519dcb56
+
 
 \begin{table}[htb]
 \begin{center}
@@ -814,10 +806,10 @@ Though model with rbf model has higher scores, the linear one is less prone to o
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.40]{svc0_cm.png}
+	\includegraphics[scale=0.30]{svc0_cm.png}
 	\includegraphics[scale=0.40]{lsvc_0.png}
 	\caption{SVC confusion matrix}
-\label{lda_gm_cm}
+\label{svcs_cm}
 \end{figure}
 \FloatBarrier
 
@@ -959,12 +951,7 @@ smoking 		& 0.65 &  0.51 & 0.58 && 0.61 & 0.54 & 0.54 && 0.63 & 0.52 & 0.56\\ \h
 social 			& 0.33 &  0.19 & 0.21 && 0.50 & 0.29 & 0.56 && 0.49 & 0.23 & 0.31\\ \hline 
 treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ \hline 
 \end{tabular}
-<<<<<<< HEAD
-\caption{Comparision of classification scores for SVC with rbf kernel}
-=======
 \caption{Comparison of classification scores for SVC with rbf kernel}
-\end{center}
->>>>>>> 2ed2b78ea14fbd743e61503e052b4e24519dcb56
 \end{table}
 \FloatBarrier
 
@@ -984,11 +971,7 @@ Though scores for the second iteration (Table \ref{rbf_gen_scores}) of data expa
 \section{Conclusion and future work}
 \label{sec:conclusion}
 
-<<<<<<< HEAD
 In this project we were dealing with task of semi-supervised text classification for expanding initial dataset. Our approch is to train a sentence representation model that will be able to provide clusters similar to initial classes. For this purpose we used LDA, W2V and BiLSTM models and  evaluated them with the help of clustering scores. Later SVC and Kmeans models were trained to label external data and chose the representative examples to extend existing dataset and update models with them.
-=======
-In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and Word2Vec models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
->>>>>>> 2ed2b78ea14fbd743e61503e052b4e24519dcb56
 
 Our results shows how algorithm tends to converge and to be more precise though high rate of confusion between labels in intial classifier increases this confusion in futher data expansion. This confusion can be measured before going through semi-supervised routine in order to achive acceptable level or eliminate some intents. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually while diversified data can cause even more perplexity.
 
@@ -1000,9 +983,9 @@ Future work will be devoted to improving word embedding model, trying one-shot a
 
 \bibliography{biblio}
 
-\section{Annex}
+\section{Supplemental materials}
 
-\subsection{Semi linear}
+\subsection{Iterations with SVC with linear kernel}
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c|c|c| }
@@ -1139,7 +1122,7 @@ weighted avg 	&  0.40 & 0.32 & 0.33 &  860\\ \hline
 
 
 
-\subsection{Semi rbf}
+\subsection{Iterations with SVC with rbf kernel}
 
 \begin{table}[htb]
 \begin{center}
@@ -1273,37 +1256,6 @@ weighted avg & 0.34 &   0.32 &   0.32 &    860\\ \hline
 	\caption{SVC confusion matrix for iteration 2.}
 \label{svc_cm_2}
 \end{figure}
-\FloatBarrier
-
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{ |r|c|c|c| }
-\hline
-Intent & It 0 & It 1 & It 2 \\ \hline
-activity		& 0.31+0.10 & 0.51+0.02	\\ \hline
-agree 			& 0.17+0.06 & 0.32+0.01	\\ \hline
-alcohol 		& 0.37+0.13 & 0.53+0.03	\\ \hline
-bye 			& 0.17+0.03 & 0.40+0.03	\\ \hline
-disagree 		& 0.19+0.03 & 0.27+0.03	\\ \hline
-drugAddiction 	& 0.22+0.06 & 0.32+0.03 \\ \hline
-eatingDisorders & 0.33+0.13 & 0.66+0.07 \\ \hline
-fallback 		& 0.16+0.03 & 0.19+0.05	\\ \hline
-hello 			& 0.17+0.02 & 0.31+0.14	\\ \hline
-incomprehension & 0.20+0.04 & 0.46+0.02	\\ \hline
-infoPatient 	& 0.39+0.18 & 0.71+0.05 \\ \hline
-negativeEmo 	& 0.17+0.03 & 0.34+0.06 \\ \hline
-pain 			& 0.36+0.14 & 0.67+0.05 \\ \hline
-pathology 		& 0.16+0.04 & 0.39+0.06 \\ \hline
-positiveEmo 	& 0.19+0.04 & 0.27+0.03 \\ \hline
-risk 			& 0.28+0.07 & 0.31+0.03 \\ \hline
-sleep 			& 0.42+0.18 & 0.96+0.01 \\ \hline
-smoking 		& 0.49+0.17 & 0.79+0.02 \\ \hline
-social 			& 0.23+0.07 & 0.38+0.04 \\ \hline
-treatment 		& 0.25+0.04 & 0.43+0.04 \\ \hline
-\end{tabular}
-\caption{Intention mean probability}
-\end{center}
-\end{table}
 \FloatBarrier
 
 \end{document}
