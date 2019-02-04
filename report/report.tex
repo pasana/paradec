@@ -5,17 +5,20 @@
 \usepackage{color}
 \usepackage[english]{babel}
 \usepackage{placeins}
- \usepackage{url}
- \usepackage{mathtools}
+\usepackage{url}
+\usepackage{mathtools}
 \usepackage{enumerate}
 %\usepackage{mylingmacros}
 
 \begin{document}
+
 \newcommand\add[1]{{\textcolor{blue}{ADD: #1}}}
 \newcommand\modi[1]{{\textcolor{green}{MODIFIED: #1}}}
 \newcommand\remove[1]{{\textcolor{red}{REMOVE: #1}}}
 \newcommand\expand[1]{{\textcolor{blue}{EXPAND: #1}}}
 \newcommand\rewrite[1]{{\textcolor{green}{REWRITE: #1}}}
+
+
 
 % Titre complet
 
@@ -85,7 +88,7 @@ intent) and automatically expanding this labelled data. To this
 end, we developed a semi-supervised data expansion technique which
 permits expanding the initial data with utterances extracted from a
 medical forum. We show that the expanded data permits improving the
-classifier by \add{ADD NB of improvment points} accuracty points.
+classifier by \add{0.05} accuracty points.
 
 This report is structured as follows. Section~\ref{sec:relatedwork}
 briefly reviews the state of the art and situates our proposal with
@@ -98,15 +101,13 @@ with pointers for further research.
 \section{Literature review}
 \label{sec:relatedwork}
 
-To use supervised text classification methods, it is important to have a dataset of a reasonable size in order to make their training efficient. When only a small set of labelled documents is available, the semi-supervised learning becomes a way-out and helps to resolve tasks by comparing the distributions between labelled and unlabelled specimens.
+To use supervised text classification methods, it is important to have a dataset of a reasonable size in order to make their training efficient. When only a small set of labelled documents is available, the semi-supervised learning becomes a way-out and helps to resolve tasks by comparing the distributions between labelled and unlabelled items.
 
-\cite{N18-2058} presented an approach for automatically generating additional training data for event extraction systems. First, they trained a baseline classifier on available gold data. Then, they split external data to obtain clusters of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor and achieved significant improvement of F1 score.
+\cite{N18-2058} presented an approach for automatically generating additional training data for event extraction systems. First, they trained a baseline classifier on available gold data. Then, they split external data into clusters of paraphrases using the NewsSpike method introduced by \cite{zhang2015}. They then label the clusters using the baseline model trained on the initial dataset of labelled data. Combining the new labelled data and the original one, they then retrained the event extractor and achieved significant improvement of F1 score.
 
-There are many models that encode sentences into fixed-size representations. LDA and Word2Vec models are the most popular word embedding model which show their effectiveness on the continuation of a long time and a wide range of tasks\cite{Iacobacci2016EmbeddingsFW} \cite{Jelodar2017}. \cite{P18-1198} also showed the efficiency of BiLSTM-max model for capturing word context in encoding sentences.
+There are many models that encode sentences into fixed-size representations. LDA and Word2Vec models have been extensively used and have shown their effectiveness on the continuation of a long time and a wide range of tasks\cite{Iacobacci2016EmbeddingsFW} \cite{Jelodar2017}. Due to their popularity, there are pre-trained models on Tweets and Google News data. Though, the research of \cite{Li2018ComparisonOW} demonstrates that GloVe embeddings trained on the specific data produce better results in narrow field problems than the pre-trained ones that are better for more wide tasks. \cite{P18-1198} also showed the efficiency of BiLSTM-max model for capturing word context in encoding sentences.
 
-\add{mention about pretrained embeddings and svc \cite{Li2018ComparisonOW}}
-
-SVM is considered to be a hands-on approach in textual classification \cite{SVM}. These classifiers are fast, reliable, work well in both linear and non-linear separation and can effectively deal with sparse data, and have a great ability to generalize knowledge in multidimensional spaces \cite{joachims98a}. Last two advantages especially important due to the common use of high dimension in sentence representation task and its sparse nature in case of LDA.
+SVM is considered to be a hands-on approach in textual classification \cite{SVM} that tends to perform better than other traditional models regardless of the word embedding type \cite{Li2018ComparisonOW}. These classifiers are fast, reliable, work well in both linear and non-linear separation and can effectively deal with sparse data, and have a great ability to generalize knowledge in multidimensional spaces \cite{joachims98a}. Last two advantages especially important due to the common use of high dimension in sentence representation task and its sparse nature in case of LDA.
 
 \section{Methodology}
 \label{sec:methodology}
@@ -674,7 +675,7 @@ tends to group together (agree, fallback and hello) and (bye and disagree).
 
 \subsubsection{Overall comparison}
 
-Here \ref{final_comparision} we provide the comparision of final models taking also in consideration pretrained GloVe and Google News W2V embedding. Among word-base models LDA occured to the best one and was used for word embedding for BiLSTM as described in section \ref{subsec:sentencerepresentations}. Last two models will be used for further steps.
+Here in Table \ref{final_comparision} we provide the comparision of final models taking also in consideration pretrained GloVe and Google News W2V embedding. Among word-base models LDA occured to the best one and was used for word embedding for BiLSTM as described in section \ref{subsec:sentencerepresentations}. Last two models will be used for further steps.
 
 \begin{table}[htb]
 \begin{center}
@@ -837,8 +838,8 @@ treatment		&  0.19 & 0.58 & 0.56 && 0.80 & 0.75 & 0.15 && 0.30 & 0.67 & 0.24 \\ 
 \end{table}
 \FloatBarrier
 
-As we can see from \ref{lin_gen_scores} score on the gold test dataset, precision and F1 score steadily increasing, though values for CV score and recall are not stable. 
-From \ref{lsvc_cm} we can see how confusion matrix became more diagonalized though some categories that were confusing from the very begining (agree, diasagree, fallback, hello, negativeEmo, positiveEmo, risk and alcohol). Coming back to section \ref{subsec:lda} we can see that these categories were considered to be in the same cluster, so on that early stage it was possible to predict such outcome.
+As we can see from Table \ref{lin_gen_scores} score on the gold test dataset, precision and F1 score steadily increasing, though values for CV score and recall are not stable. 
+From Figure \ref{lsvc_cm} we can see how confusion matrix became more diagonalized though some categories that were confusing from the very begining (agree, diasagree, fallback, hello, negativeEmo, positiveEmo, risk and alcohol). Coming back to section \ref{subsec:lda} we can see that these categories were considered to be in the same cluster, so on that early stage it was possible to predict such outcome.
 On the other hand such intents like social, incompresension, infoPatient, treatment became predicted more precise. 
 
 \begin{figure}[h]
@@ -875,12 +876,13 @@ Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
 2 			& 0.3167 & 0.332   & 0.0150 & 0.316 	& 0.331  & 0.313 \\ \hline
 \end{tabular}
 \caption{Classifier scores comparison}
+\label{rbf_gen_scores}
 \end{center}
 \end{table}
 \FloatBarrier
 
 \begin{table}[htb]
-\begin{center}
+\centering
 \begin{tabular}{ |r|c|c|c|l|c|c|c|l|c|c|c| }
 \hline
 label 			& \multicolumn{3}{c|}{precision} && \multicolumn{3}{c|}{recall} && \multicolumn{3}{c|}{f1} \\ \hline 
@@ -907,10 +909,10 @@ social 			& 0.33 &  0.19 & 0.21 && 0.50 & 0.29 & 0.56 && 0.49 & 0.23 & 0.31\\ \h
 treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ \hline 
 \end{tabular}
 \caption{Comparision of classification scores for SVC with rbf kernel}
-\end{center}
 \end{table}
 \FloatBarrier
 
+Though scores for the second iteration (Table \ref{rbf_gen_scores}) of data expansion falling down the confusion matrix anyway becoming more diagonalized (Figure \ref{rbf_svc_cm}) as well as F1 measure grows in comparision to the baseline. It's remarkable that such intents as drugAddiction, disagree succeded to gain precise just after first iteration. Some confusing groups like (agree, bye, diasgree, fallback, hello) or (positiveEmo and negativeEmo) or (risk and alcohol) still tends to stay together.
 
 \begin{figure}[h]
 	\centering
@@ -918,7 +920,7 @@ treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ 
 	\includegraphics[scale=0.25]{svc1_cm.png}
 	\includegraphics[scale=0.25]{svc2_cm.png}
 	\caption{SVC confusion matrix for iteration 0, 1, 2.}
-\label{lda_gm_cm}
+\label{rbf_svc_cm}
 \end{figure}
 \FloatBarrier
 
@@ -926,16 +928,17 @@ treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ 
 \section{Conclusion and future work}
 \label{sec:conclusion}
 
-In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and W2V models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
+In this project we were dealing with task of semi-supervised text classification for expanding initial dataset. Our approch is to train a sentence representation model that will be able to provide clusters similar to initial classes. For this purpose we used LDA, W2V and BiLSTM models and  evaluated them with the help of clustering scores. Later SVC and Kmeans models were trained to label external data and chose the representative examples to extend existing dataset and update models with them.
 
-Our results shows how high rate of confusion between labels in intial classifier increases this confusion in futher data expansion though in general algorithms tends to converge to be more precise. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually.
+Our results shows how algorithm tends to converge and to be more precise though high rate of confusion between labels in intial classifier increases this confusion in futher data expansion. This confusion can be measured before going through semi-supervised routine in order to achive acceptable level or eliminate some intents. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually while diversified data can cause even more perplexity.
 
-Future work will be devoted to improving word embedding model, trying one-shot learning model in order to improve classification score. Transfering from one-intent to multi-intent is preferable due to the fact that sentences are usually ambiguous than not. Another possible direction for development can be creating framework for adding new labels to the existing classifier.
+Future work will be devoted to improving word embedding model, trying one-shot and transfer learning model in order to improve classification score. Transfering from one-intent to multi-intent is preferable due to the fact that sentences are usually ambiguous than not. Another possible direction is developmenting a framework for adding new labels to the existing classifier.
 
 \section{References}
+
 \bibliographystyle{alpha}
+
 \bibliography{biblio}
-$ Ward J.H. Hierarchical grouping to optimize an objective function // J. of the American Statistical Association, 1963. — 236 р. $
 
 \section{Annex}
 
