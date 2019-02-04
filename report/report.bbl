@@ -1,0 +1,91 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{ZHDCZ15}
+
+\bibitem[BK14]{elbow_rule}
+Purnima Bholowalia and Arvind Kumar.
+\newblock Article: Ebk-means: A clustering technique based on elbow method and
+  k-means in wsn.
+\newblock volume 105, pages 17--24, November 2014.
+\newblock Full text available.
+
+\bibitem[BNJ03]{lda_def}
+David~M. Blei, Andrew~Y. Ng, and Michael~I. Jordan.
+\newblock Latent dirichlet allocation.
+\newblock volume~3, 2003.
+
+\bibitem[CKL{\etalchar{+}}18]{P18-1198}
+Alexis Conneau, Germ{\'a}n Kruszewski, Guillaume Lample, Lo{\"i}c Barrault, and
+  Marco Baroni.
+\newblock What you can cram into a single {\backslash}{\$}{\&}!{\#}* vector:
+  Probing sentence embeddings for linguistic properties.
+\newblock In {\em Proceedings of the 56th Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers)}, pages 2126--2136.
+  Association for Computational Linguistics, 2018.
+
+\bibitem[FLWH18]{N18-2058}
+James Ferguson, Colin Lockard, Daniel Weld, and Hannaneh Hajishirzi.
+\newblock Semi-supervised event extraction with paraphrase clusters.
+\newblock In {\em Proceedings of the 2018 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies, Volume 2 (Short Papers)}, pages 359--364. Association for
+  Computational Linguistics, 2018.
+
+\bibitem[IPN16]{Iacobacci2016EmbeddingsFW}
+Ignacio Iacobacci, Mohammad~Taher Pilehvar, and Roberto Navigli.
+\newblock Embeddings for word sense disambiguation: An evaluation study.
+\newblock In {\em ACL}, 2016.
+
+\bibitem[Joa98]{joachims98a}
+Thorsten Joachims.
+\newblock Text categorization with support vector machines: learning with many
+  relevant features.
+\newblock In Claire Nedellec and Céline Rouveirol, editors, {\em Proceedings
+  of {ECML}-98, 10th European Conference on Machine Learning}, pages 137--142,
+  Heidelberg et al., 1998. Springer.
+
+\bibitem[JWY{\etalchar{+}}17]{Jelodar2017}
+Hamed Jelodar, Yongli Wang, Chi Yuan, Xia Feng, Xiahui Jiang, Yanchao Li, and
+  Liang Zhao.
+\newblock {Latent Dirichlet Allocation (LDA) and Topic modeling: models,
+  applications, a survey}.
+\newblock nov 2017.
+
+\bibitem[LLCC18]{Li2018ComparisonOW}
+Hongmin Li, Xukun Li, Doina Caragea, and Cornelia Caragea.
+\newblock Comparison of word embeddings and sentence encodings as generalized
+  representations for crisis tweet classification tasks.
+\newblock 2018.
+
+\bibitem[MCCD13]{Mikolov2013EfficientEO}
+Tomas Mikolov, Kai Chen, Gregory~S. Corrado, and Jeffrey Dean.
+\newblock Efficient estimation of word representations in vector space.
+\newblock {\em CoRR}, abs/1301.3781, 2013.
+
+\bibitem[Rey15]{reynolds2015gaussian}
+Douglas Reynolds.
+\newblock Gaussian mixture models.
+\newblock {\em Encyclopedia of biometrics}, pages 827--832, 2015.
+
+\bibitem[SGZH10]{sondhi-EtAl:2010:POSTERS}
+Parikshit Sondhi, Manish Gupta, ChengXiang Zhai, and Julia Hockenmaier.
+\newblock Shallow information extraction from medical forum data.
+\newblock In {\em Coling 2010: Posters}, pages 1158--1166, Beijing, China,
+  August 2010. Coling 2010 Organizing Committee.
+
+\bibitem[Tha18]{SVM}
+&~Sivakami~M. Thangaraj, M.
+\newblock Text classification techniques: A literature review.
+\newblock volume~13, pages 117--135, 2018.
+
+\bibitem[War63]{ward63:_hierar_group_optim_objec_funct}
+Joe~H. Ward.
+\newblock Hierarchical grouping to optimize an objective function.
+\newblock {\em Journal of the American Statistical Association},
+  58(301):236--244, 1963.
+
+\bibitem[ZHDCZ15]{zhang2015}
+Thomas Zhang, Jason H~D~Cho, and Chengxiang Zhai.
+\newblock Understanding user intents in online health forums.
+\newblock {\em IEEE journal of biomedical and health informatics}, 19, 03 2015.
+
+\end{thebibliography}

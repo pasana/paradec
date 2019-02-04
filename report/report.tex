@@ -553,40 +553,52 @@ embedding sizes ranging from 10 to 600.
 \begin{tabular}{ |c|c|c|c|c|c| }
 \hline
 Embedding Dim.  & purity  & silhouette  & homogeneity  & completeness\\ \hline 
-10  & 0.183157  & 0.0680834  & 0.108901  & 0.12661\\ \hline 
-20  & 0.182854  & 0.0506986  & 0.111099  & 0.124805\\ \hline 
-30  & \textbf{0.185477}  & 0.0683824  & 0.110799  & 0.132563\\ \hline 
-50  & 0.184569  & 0.0647393  & \textbf{0.111876}  & 0.131964\\ \hline 
-100  & 0.182148  & \textbf{0.0813837}  & 0.108022  & 0.138329\\ \hline 
-150  & 0.183661  & 0.0298524  & 0.106401  & 0.141179\\ \hline 
-200  & 0.176803  & 0.0581627  & 0.103708  & 0.141973\\ \hline 
-300  & 0.176097  & 0.0432732  & 0.106379  & 0.151118\\ \hline 
-400  & 0.169642  & 0.0626822  & 0.100455  & 0.148768\\ \hline 
-500  & 0.168533  & 0.0653733  & 0.0976706  & 0.146799\\ \hline 
-550  & 0.17176  & 0.0584935  & 0.0994422  & \textbf{0.151185}\\ \hline 
-600  & 0.169138  & 0.0574187  & 0.0980455  & 0.150695\\ \hline \end{tabular}
+10  & 0.179526  & 0.0767427  & 0.106067  & 0.12561\\ \hline 
+20  & 0.185678  & 0.0873321  & 0.107696  & 0.132483\\ \hline 
+30  & \textbf{0.189007}  & 0.0695026  & 0.110232  & 0.13267\\ \hline 
+50  & 0.180535  & 0.0441912  & 0.110117  & 0.131568\\ \hline 
+100  & 0.186788  & 0.0594827  & \textbf{0.11196}  & 0.139803\\ \hline 
+150  & 0.184569  & 0.0427566  & 0.107914  & 0.141453\\ \hline 
+200  & 0.179425  & 0.0504081  & 0.103741  & 0.13929\\ \hline 
+300  & 0.174382  & 0.047393  & 0.102877  & 0.147216\\ \hline 
+400  & 0.175391  & 0.0520504  & 0.103353  & \textbf{0.153824}\\ \hline 
+500  & 0.171659  & 0.0443621  & 0.0973479  & 0.153174\\ \hline 
+550  & 0.170449  & \textbf{0.11301}  & 0.099802  & 0.133441\\ \hline 
+600  & 0.171357  & 0.0593728  & 0.0977992  & 0.151583\\ \hline 
+\end{tabular}
 \end{center}
 \FloatBarrier
 
 \begin{figure}[h]
 \centering
  	\includegraphics[scale=0.7]{w2v_scores.png}
-	\caption{LDA scores}
+	\caption{Word2Vec scores}
 \label{w2v_scores}
 \end{figure}
 \FloatBarrier
 
-\add{Why 10 and 100? Here you need to discuss the table: which embedding size is best and why ?}
-
-Later we will try both 10 and 100 features.
+Scores don't provide clear choice, so let's look at confusion matrixes of models with 30 (Figure \ref{w2v30_cm}) and 100 dimension vector (Figure \ref{w2v100_cm}) that have the highest scores for purity and homogeneity. As we can see from figures models tends to put most of the items into two general clusters: social-like (agree, bye, fallback, hello) and others. KMeans clusterization for W2V with 30 dimensions seems to have more separated groups, so it will be left for further selection.
 
 \begin{figure}[h]
 	\centering
- 	\includegraphics[scale=0.5]{best_w2v_cm.png}
-	\caption{Word2Vec confusion matrix}
- \label{w2v_cm_mat}
- \end{figure}
+	\includegraphics[scale=0.28]{w2v30_ac.png}
+	\includegraphics[scale=0.28]{w2v30_gm.png}
+	\includegraphics[scale=0.28]{w2v30_km.png}
+	\caption{30 dimension W2V confusion matrixes: agglomerative clustering, gaussian mixture, Kmeans}
+\label{w2v30_cm}
+\end{figure}
 \FloatBarrier
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.28]{w2v100_ac.png}
+	\includegraphics[scale=0.28]{w2v100_gm.png}
+	\includegraphics[scale=0.28]{w2v100_km.png}
+	\caption{100 dimension W2V confusion matrixes: agglomerative clustering, gaussian mixture, Kmeans}
+\label{w2v100_cm}
+\end{figure}
+\FloatBarrier
+
 
 \subsubsection{LDA model}
 \label{subsec:lda}
@@ -620,7 +632,7 @@ num & purity  & silhouette  & homogeneity  & completeness \\ \hline
 \end{table}
 \FloatBarrier
 
-The best model is LDA with 400 topics according to scores and with priority to purity and homogeneity ones as \review{it's more important for us to have one intent in one cluster even if some intents will be present in several ones.}
+The best model is LDA with 400 topics according to scores and with priority to purity and homogeneity ones as it's more important for us to have one intent in one cluster even if some intents will be present in several ones.
 
 \begin{figure}[h]
 	\centering
@@ -643,7 +655,7 @@ emotions.
 
 \subsubsection{BiLSTM by word}
 
-Following \add{( et al.)} we trained BiLSTM encoder model experimenting with different hper-parameters such as  the number of layers, the dimension of the word embedding and the type of pooling.
+Following \cite{P18-1198} we trained BiLSTM encoder model experimenting with different hyper-parameters such as  the number of layers, the dimension of the word embedding and the type of pooling.
 
 \begin{table}[htb]
 \begin{center}
@@ -724,8 +736,7 @@ be used for further steps.
 \begin{tabular}{ |r|c|c|c|c|c| }
 \hline
 model & features & purity   & silhouette  & homogeneity  & completeness \\ \hline 
-Word2Vec 	& 10   	& 0.192032  & 0.077404  & 0.108761  & 0.127672 \\ \hline 
-Word2Vec 	& 100  	& 0.184266  & 0.065381  & 0.109944  & 0.144074 \\ \hline 
+Word2Vec 	& 30  & 0.18901 & 0.0695026  & 0.110232  & 0.13267\\ \hline 
 GloVe	& 25	& 0.191125  & 0.003554  & 0.110058  & 0.147367 \\ \hline
 GloVe 	& 200	& 0.186283  & -0.026413 & 0.102103  & 0.137332 \\ \hline
 Google  & 300 	& 0.201614  & -0.016592 & 0.109450  & 0.156423 \\ \hline

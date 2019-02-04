@@ -1,0 +1,44 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Goal and Motivations}{4}
+\contentsline {section}{\numberline {3}Related Work}{4}
+\contentsline {section}{\numberline {4}Methodology}{5}
+\contentsline {subsection}{\numberline {4.1}Building and Evaluating Sentence Representations}{5}
+\contentsline {subsubsection}{\numberline {4.1.1}Creating Continuous Representations of Sentences.}{5}
+\contentsline {paragraph}{LDA.}{5}
+\contentsline {paragraph}{Word2Vec.}{6}
+\contentsline {paragraph}{Bi-LSTM.}{7}
+\contentsline {subsubsection}{\numberline {4.1.2}Clustering Sentences}{7}
+\contentsline {paragraph}{K-Means.}{8}
+\contentsline {paragraph}{Agglomerative Clustering}{8}
+\contentsline {paragraph}{Gaussian Mixture.}{9}
+\contentsline {subsection}{\numberline {4.2}Semi-Supervised approach to Data Expansion and Classification}{9}
+\contentsline {subsubsection}{\numberline {4.2.1}Classification.}{10}
+\contentsline {subsubsection}{\numberline {4.2.2}Clustering.}{10}
+\contentsline {subsubsection}{\numberline {4.2.3}Filtering.}{11}
+\contentsline {subsubsection}{\numberline {4.2.4}Data Expansion.}{11}
+\contentsline {section}{\numberline {5}Datasets}{11}
+\contentsline {subsection}{\numberline {5.1}Labelled Data}{11}
+\contentsline {subsection}{\numberline {5.2}Forum data}{12}
+\contentsline {section}{\numberline {6}Experiment}{14}
+\contentsline {subsection}{\numberline {6.1}Preprocessing }{14}
+\contentsline {subsection}{\numberline {6.2}Clustering for sentence representation evaluation}{16}
+\contentsline {subsubsection}{\numberline {6.2.1}Evaluation metrics}{16}
+\contentsline {paragraph}{Purity}{16}
+\contentsline {paragraph}{Silhouette Coefficient}{16}
+\contentsline {paragraph}{Homogeneity and completeness.}{17}
+\contentsline {subsubsection}{\numberline {6.2.2}Word2Vec model}{17}
+\contentsline {subsubsection}{\numberline {6.2.3}LDA model}{19}
+\contentsline {subsubsection}{\numberline {6.2.4}BiLSTM by word}{21}
+\contentsline {subsubsection}{\numberline {6.2.5}Overall comparison}{22}
+\contentsline {subsection}{\numberline {6.3}Classifier}{23}
+\contentsline {subsubsection}{\numberline {6.3.1}Evaluation metrics}{23}
+\contentsline {subsubsection}{\numberline {6.3.2}Training on the Manually Labelled Dataset}{24}
+\contentsline {subsection}{\numberline {6.4}Semi Supervised Learning}{25}
+\contentsline {subsubsection}{\numberline {6.4.1}SVC with linear kernel}{25}
+\contentsline {subsubsection}{\numberline {6.4.2}SVC with rbf kernel}{27}
+\contentsline {section}{\numberline {7}Conclusion and future work}{29}
+\contentsline {section}{\numberline {8}References}{30}
+\contentsline {section}{\numberline {9}Supplemental materials}{31}
+\contentsline {subsection}{\numberline {9.1}Iterations with SVC with linear kernel}{31}
+\contentsline {subsection}{\numberline {9.2}Iterations with SVC with rbf kernel}{37}
