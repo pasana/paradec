@@ -547,6 +547,7 @@ Later we will try both 10 and 100 features.
 \FloatBarrier
 
 \subsubsection{LDA model}
+\label{subsec:lda}
 
 We iterated through different numbers of topics for LDA model to see which one should be used to represent our dataset. In table \ref{LDA_num_topic} we can see the comparison. 
 
@@ -800,6 +801,7 @@ Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
 2 			& 0.3174 & 0.333   & 0.0118 & 0.317 	& 0.325  & 0.304 \\ \hline
 \end{tabular}
 \caption{Classifier scores comparison}
+\label{lin_gen_scores}
 \end{center}
 \end{table}
 \FloatBarrier
@@ -835,6 +837,9 @@ treatment		&  0.19 & 0.58 & 0.56 && 0.80 & 0.75 & 0.15 && 0.30 & 0.67 & 0.24 \\ 
 \end{table}
 \FloatBarrier
 
+As we can see from \ref{lin_gen_scores} score on the gold test dataset, precision and F1 score steadily increasing, though values for CV score and recall are not stable. 
+From \ref{lsvc_cm} we can see how confusion matrix became more diagonalized though some categories that were confusing from the very begining (agree, diasagree, fallback, hello, negativeEmo, positiveEmo, risk and alcohol). Coming back to section \ref{subsec:lda} we can see that these categories were considered to be in the same cluster, so on that early stage it was possible to predict such outcome.
+On the other hand such intents like social, incompresension, infoPatient, treatment became predicted more precise. 
 
 \begin{figure}[h]
 	\centering
@@ -842,9 +847,11 @@ treatment		&  0.19 & 0.58 & 0.56 && 0.80 & 0.75 & 0.15 && 0.30 & 0.67 & 0.24 \\ 
 	\includegraphics[scale=0.3]{lsvc_1.png}
 	\includegraphics[scale=0.3]{lsvc_2.png}
 	\caption{SVC confusion matrix for iteration 0, 1, 2.}
-\label{lda_gm_cm}
+\label{lsvc_cm}
 \end{figure}
 \FloatBarrier
+
+
 
 
 \subsubsection{SVC with rbf kernel}
@@ -969,6 +976,16 @@ weighted avg 	&  0.33 & 0.27 & 0.27 &  860\\ \hline
 \end{table}
 \FloatBarrier
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{lsvc_0.png}
+	\caption{SVC confusion matrix for iteration 0.}
+\label{lsvc_cm_0}
+\end{figure}
+\FloatBarrier
+
+
+
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c|c|c| }
@@ -1004,6 +1021,15 @@ weighted avg 	&  0.33 & 0.29 & 0.29 &  860\\ \hline
 \end{table}
 \FloatBarrier
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{lsvc_1.png}
+	\caption{SVC confusion matrix for iteration 1.}
+\label{lsvc_cm_1}
+\end{figure}
+\FloatBarrier
+
+
 
 \begin{table}[htb]
 \begin{center}
@@ -1038,6 +1064,14 @@ weighted avg 	&  0.40 & 0.32 & 0.33 &  860\\ \hline
 \caption{Classifier 2}
 \end{center}
 \end{table}
+\FloatBarrier
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{lsvc_2.png}
+	\caption{SVC confusion matrix for iteration 2.}
+\label{lsvc_cm_2}
+\end{figure}
 \FloatBarrier
 
 
@@ -1079,6 +1113,15 @@ weighted avg 	& 0.42 & 0.32 & 0.34 & 860\\ \hline
 \end{table}
 \FloatBarrier
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{svc0_cm.png}
+	\caption{SVC confusion matrix for iteration 0.}
+\label{svc_cm_0}
+\end{figure}
+\FloatBarrier
+
+
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c| }
@@ -1114,6 +1157,15 @@ weighted avg 	&  0.40 & 0.35 & 0.36 &  860\\ \hline
 \end{center}
 \end{table}
 \FloatBarrier
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{svc1_cm.png}
+	\caption{SVC confusion matrix for iteration 1.}
+\label{svc_cm_1}
+\end{figure}
+\FloatBarrier
+
 
 \begin{table}[htb]
 \begin{center}
@@ -1152,35 +1204,12 @@ weighted avg & 0.34 &   0.32 &   0.32 &    860\\ \hline
 \end{table}
 \FloatBarrier
 
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{ |r|c|c|c| }
-\hline
-Intent & It 0 & It 1 & It 2 \\ \hline
-activity		& 0.31+0.10 & 0.51+0.02	\\ \hline
-agree 			& 0.17+0.06 & 0.32+0.01	\\ \hline
-alcohol 		& 0.37+0.13 & 0.53+0.03	\\ \hline
-bye 			& 0.17+0.03 & 0.40+0.03	\\ \hline
-disagree 		& 0.19+0.03 & 0.27+0.03	\\ \hline
-drugAddiction 	& 0.22+0.06 & 0.32+0.03 \\ \hline
-eatingDisorders & 0.33+0.13 & 0.66+0.07 \\ \hline
-fallback 		& 0.16+0.03 & 0.19+0.05	\\ \hline
-hello 			& 0.17+0.02 & 0.31+0.14	\\ \hline
-incomprehension & 0.20+0.04 & 0.46+0.02	\\ \hline
-infoPatient 	& 0.39+0.18 & 0.71+0.05 \\ \hline
-negativeEmo 	& 0.17+0.03 & 0.34+0.06 \\ \hline
-pain 			& 0.36+0.14 & 0.67+0.05 \\ \hline
-pathology 		& 0.16+0.04 & 0.39+0.06 \\ \hline
-positiveEmo 	& 0.19+0.04 & 0.27+0.03 \\ \hline
-risk 			& 0.28+0.07 & 0.31+0.03 \\ \hline
-sleep 			& 0.42+0.18 & 0.96+0.01 \\ \hline
-smoking 		& 0.49+0.17 & 0.79+0.02 \\ \hline
-social 			& 0.23+0.07 & 0.38+0.04 \\ \hline
-treatment 		& 0.25+0.04 & 0.43+0.04 \\ \hline
-\end{tabular}
-\caption{Intention mean probability}
-\end{center}
-\end{table}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{svc2_cm.png}
+	\caption{SVC confusion matrix for iteration 2.}
+\label{svc_cm_2}
+\end{figure}
 \FloatBarrier
 
 \begin{table}[htb]
