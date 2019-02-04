@@ -60,7 +60,7 @@ The chatbot consists of two main modules:
 In this project, we focus on natural language understanding and
 consider a simplified notion of understanding where each user input is
 mapped to an ``intent''. Given a pre-defined and finite set of intents
-(Does the user speaks about pain, physical activity etc. ?), the aim
+(Does the user speaks about pain, physical activity etc. ), the aim
 of the NLU module is to assign each user input an intent\footnote{We
   make the simplifying (and incorrect) assuption that the user input
   contains a single intent.}. The detected intent is then used, in
@@ -193,7 +193,7 @@ vectors of the content words present in that sentence.
 
 In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidirectional LSTM computes a set of T vectors $\{h_{t}\}_{t}$. For $t ∈ [1 ,. ,,, T]$, $h_{t}$ is the combination of forward and backward LSTM, that read sentences in two opposite directions. 
 
-We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models (Conneau et al., 2018) 
+We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models \cite{P18-1198}.
 
 
 \subsubsection{Clustering Sentences}
@@ -722,7 +722,7 @@ Finally we got BiLSTM model with one 64-dimensional layer without pooling.
 \end{figure}
 \FloatBarrier
 
-This model shows really good separatation for treatment and pain labels but  
+This model shows really good separatation for {\sc{treatment}} and {\sc{pain}} labels but  
 tends to group together utternance belonging to the {\sc{agree, fallback}} and  {\sc{hello}} intent on the one hand and to the  {\sc{bye}} and  {\sc{disagree}} intent on the other.
 
 \subsubsection{Overall comparison}
@@ -823,16 +823,6 @@ Model 	& Kernel 	& Train & Test & precision & recall & F1 \\ \hline
 
 Although the rbf model model has higher scores, the linear one is less prone to overfitting as shown by the small difference between train and test errors. It was decided to try both and observe their behavior.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.30]{svc0_cm.png}
-	\includegraphics[scale=0.40]{lsvc_0.png}
-	\caption{SVC confusion matrix}
-\label{svcs_cm}
-\end{figure}
-\FloatBarrier
-
-\add{if you include the above confusion matrix you need to comment on them: what do they show?}
 
 \subsection{Semi Supervised Learning}
 \label{subsec:semisupervised}
@@ -846,14 +836,15 @@ the baseline model trained on the manually labelled data.
 
 For the first iteration, we created subset of external data with
 $N=500$ sentences for each predicted intent, then splitted data into
-200 clusters, majority threshold=, hreshold for probability was chosen
+200 clusters, a threshold for probability was chosen
 pretty low (0.12) in order to be able to extend all 20 categories. In
 result, we achieved 15 new items.
 
 For the second iteration, we repeated the procedure choosing
 probability threshold as 0.1 and obtaining 13 new items.
 
-\add{The following sentence is unclear. What do you mean by ``provide expansion to all categories'' ? what shows this ? }: BiLSTM model didn't succeded to provide expansion to all categories so result only for LDA model are provided.
+%\add{The following sentence is unclear. What do you mean by ``provide expansion to all categories'' ? what shows this ? }: 
+BiLSTM model didn't succeded to provide expansion to all categories. It means that after labelling all sentences there was no candidates for some intents. So result only for LDA model are provided.
 
 %Rbf just to next ones: sleep, risk, eatingDisorders, drugAddiction, alcohol, social, activity, smoking, infoPatient, pain, negativeEmo, incomprehension, treatment.
 
