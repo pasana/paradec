@@ -196,7 +196,7 @@ In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidi
 We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models \cite{P18-1198}.
 
 
-\subsubsection{Clustering Sentences}
+\subsubsection{Evaluating Sentence Representations Using Clustering}
 
 Using the sentence representations described in the previous section,
 we apply clustering to group together sentences that are similar.  We
