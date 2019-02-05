@@ -720,11 +720,11 @@ tends to group together utternance belonging to the {\sc{agree, fallback}} and  
 
 \subsubsection{Overall comparison}
 
-<<<<<<< HEAD
+
 Table~\ref{final_comparison} summarizes the results, focusing on the best hyper-parameters for each approach and  taking into consideration pretrained GloVe and Google News Word2Vec embeddings. The last two models (LDA and BiLSTM) appear to provide the best results and will therefore
 be used for further steps.
 
-Table~\ref{final_comparison} summarizes the results, focusing on the best hyper-parameters for each approach and additionally taking into consideration pretrained GloVe and Google News Word2Vec embeddings. LDA appears to provide the best sentence representation and was used as input for BiLSTM. These last two models will be used for further steps.
+
 
 \begin{table}[htb]
 \begin{center}
@@ -975,7 +975,6 @@ social 			& 0.33 &  0.19 & 0.21 && 0.50 & 0.29 & 0.56 && 0.49 & 0.23 & 0.31\\ \h
 treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ \hline 
 \end{tabular}
 \caption{Comparison of classification scores for SVC with rbf kernel}
-\end{center}
 \end{table}
 \FloatBarrier
 
@@ -1004,8 +1003,6 @@ In this project we were dealing with task of semi-supervised text classification
 Our results shows how algorithm tends to converge and to be more precise though high rate of confusion between labels in intial classifier increases this confusion in futher data expansion. This confusion can be measured before going through semi-supervised routine in order to achive acceptable level or eliminate some intents. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually while diversified data can cause even more perplexity.
 
 Future work will be devoted to improving word embedding model, trying one-shot and transfer learning model in order to improve classification score. Transfering from one-intent to multi-intent is preferable due to the fact that sentences are usually ambiguous than not. Another possible direction is developmenting a framework for adding new labels to the existing classifier.
-
-\section{References}
 
 \bibliographystyle{alpha}
 
