@@ -38,6 +38,6 @@
 \contentsline {subsubsection}{\numberline {6.4.1}SVC with linear kernel}{25}
 \contentsline {subsubsection}{\numberline {6.4.2}SVC with rbf kernel}{27}
 \contentsline {section}{\numberline {7}Conclusion and future work}{29}
-\contentsline {section}{\numberline {8}Supplemental materials}{31}
-\contentsline {subsection}{\numberline {8.1}Iterations with SVC with linear kernel}{31}
+\contentsline {section}{\numberline {8}Supplemental materials}{32}
+\contentsline {subsection}{\numberline {8.1}Iterations with SVC with linear kernel}{32}
 \contentsline {subsection}{\numberline {8.2}Iterations with SVC with rbf kernel}{37}
