@@ -1,42 +1,34 @@
-This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
-Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: alpha.bst
 Database file #1: biblio.bib
-Too many commas in name 1 of "Thangaraj, M., & Sivakami, M." for entry SVM
-while executing---line 1185 of file alpha.bst
-Too many commas in name 1 of "Thangaraj, M., & Sivakami, M." for entry SVM
-while executing---line 1185 of file alpha.bst
-Too many commas in name 1 of "Thangaraj, M., & Sivakami, M." for entry SVM
-while executing---line 1185 of file alpha.bst
 Warning--empty booktitle in elbow_rule
 Warning--can't use both volume and number fields in elbow_rule
 Warning--empty booktitle in lda_def
 Warning--empty journal in Jelodar2017
 Warning--empty booktitle in Li2018ComparisonOW
-Too many commas in name 1 of "Thangaraj, M., & Sivakami, M." for entry SVM
-while executing---line 1250 of file alpha.bst
 Warning--empty booktitle in SVM
 You've used 14 entries,
             2543 wiz_defined-function locations,
-            653 strings with 7434 characters,
-and the built_in function-call counts, 6774 in all, are:
-= -- 677
-> -- 338
-< -- 14
-+ -- 121
-- -- 121
-* -- 473
-:= -- 1067
+            653 strings with 7435 characters,
+and the built_in function-call counts, 6832 in all, are:
+= -- 683
+> -- 349
+< -- 13
++ -- 125
+- -- 125
+* -- 479
+:= -- 1079
 add.period$ -- 47
 call.type$ -- 14
-change.case$ -- 99
+change.case$ -- 100
 chr.to.int$ -- 14
 cite$ -- 20
-duplicate$ -- 285
+duplicate$ -- 284
 empty$ -- 475
-format.name$ -- 137
-if$ -- 1428
+format.name$ -- 140
+if$ -- 1439
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 14
@@ -44,18 +36,18 @@ newline$ -- 75
 num.names$ -- 44
 pop$ -- 110
 preamble$ -- 1
-purify$ -- 113
+purify$ -- 114
 quote$ -- 0
-skip$ -- 256
+skip$ -- 258
 stack$ -- 0
 substring$ -- 347
 swap$ -- 85
-text.length$ -- 14
-text.prefix$ -- 4
+text.length$ -- 13
+text.prefix$ -- 3
 top$ -- 0
 type$ -- 112
 warning$ -- 6
-while$ -- 60
+while$ -- 61
 width$ -- 15
 write$ -- 187
-(There were 4 error messages)
+(There were 6 warnings)
