@@ -193,7 +193,7 @@ vectors of the content words present in that sentence.
 
 In more formal way, for the sequence of words $T \{w_{t}\}_{t = 1, ..., T}$ bidirectional LSTM computes a set of T vectors $\{h_{t}\}_{t}$. For $t ∈ [1 ,. ,,, T]$, $h_{t}$ is the combination of forward and backward LSTM, that read sentences in two opposite directions. 
 
-We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) (Collobert and Weston, 2008) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models \cite{P18-1198}.
+We experiment with two ways of combining a changing number $(h_{1}, ..., h_{T})$ to form a vector of a fixed size, either by choosing the last hidden state $h_{T}$ (BiLSTM-last), or either by selecting the maximum value over each dimension of the hidden units (max pooling) or by considering the average of the representations (mean pooling). The choice of these models is motivated by their demonstrated effectiveness in embedding models \cite{P18-1198}.
 
 
 \subsubsection{Evaluating Sentence Representations Using Clustering}
@@ -814,12 +814,11 @@ Model 	& Kernel 	& Train & Test & precision & recall & F1 \\ \hline
 \multirow{2}{*}{BiLSTM}&	rbf		& 0.418 + 0.0193 & 0.373 + 0.0548 & 0.280 & 0.297 & 0.275 \\ 
 & linear	& 0.376 + 0.0147 & 0.343 + 0.0484 & 0.265 & 0.291 & 0.251 \\ \hline
 \end{tabular}
-\caption{CV score comparison} \label{tab:classificationresults}
+\caption{Comparison of classifier scores} \label{tab:classificationresults}
 \end{center}
 \end{table}
 \FloatBarrier
 
-\add{What is CV?}
 
 Although the rbf model model has higher scores, the linear one is less prone to overfitting as shown by the small difference between train and test errors. It was decided to try both and observe their behavior.
 
@@ -859,19 +858,17 @@ categories (after labelling all forum sentences, there was no
 candidates for some of the intents), we only provide results for the
 LDA model. The results are shown in Table~\ref{tab:lin_gen_scores}.
 
-\add{in the tables below: what is ``Score''? If you mean accuracy, you should replace score by accuracy everywhere. Score is vague.}
-
 
 \begin{table}[htb]
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c|c|c| }
 \hline
-Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
+Iteration 	& Accuracy  & CV mean & CV std & precision & recall & F1 \\ \hline
 0			& 0.2651 & 0.337   & 0.0503 & 0.265 	& 0.340  & 0.262 \\ \hline
 1			& 0.2895 & 0.323   & 0.0212 & 0.289 	& 0.319  & 0.290 \\ \hline
 2 			& 0.3174 & 0.333   & 0.0118 & 0.317 	& 0.325  & 0.304 \\ \hline
 \end{tabular}
-\caption{Classifier scores comparison}
+\caption{Classifier scores comparison on each iteration}
 \label{tab:lin_gen_scores}
 \end{center}
 \end{table}
@@ -909,10 +906,10 @@ treatment		&  0.19 & 0.58 & 0.56 && 0.80 & 0.75 & 0.15 && 0.30 & 0.67 & 0.24 \\ 
 \end{table}
 \FloatBarrier
 
-As can be seen from Table \ref{tab:lin_gen_scores}, scores on the gold
+As can be seen from Table \ref{tab:lin_gen_scores}, accuracy on the gold
 test dataset, precision and F1 score are steadily increasing (although
-values for CV score and recall are not stable\add{what does this mean?
-  what is CV?}.  From Figure \ref{lsvc_cm}, we can also see that the
+values for 5-fold cross validation (CV) score and recall are not stable.  
+From Figure \ref{lsvc_cm}, we can also see that the
 confusion matrix became more diagonalized although categories that
 were confusing from the very begining ({\sc{agree, diasagree, fallback,
 hello, negativeEmo, positiveEmo, risk, alcohol}}) are still mixed
@@ -955,12 +952,12 @@ the predictions for such intents as {\sc{social, incomprehension, infoPatient, t
 \begin{center}
 \begin{tabular}{ |r|c|c|c|c|c|c| }
 \hline
-Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
+Iteration 	& Accuracy  & CV mean & CV std & precision & recall & F1 \\ \hline
 0			& 0.3186 & 0.371   & 0.0338 & 0.308 	& 0.316  & 0.287 \\ \hline
 1			& 0.3523 & 0.350   & 0.0153 & 0.352 	& 0.371  & 0.346 \\ \hline
 2 			& 0.3167 & 0.332   & 0.0150 & 0.316 	& 0.331  & 0.313 \\ \hline
 \end{tabular}
-\caption{Classifier scores comparison}
+\caption{Classifier scores comparison on each iteration}
 \label{tab:rbf_gen_scores}
 \end{center}
 \end{table}

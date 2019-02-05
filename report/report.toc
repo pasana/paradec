@@ -1,4 +1,4 @@
-\select@language {english}
+\babel@toc {english}{}
 \contentsline {section}{\numberline {1}Introduction}{3}
 \contentsline {section}{\numberline {2}Goal and Motivations}{4}
 \contentsline {section}{\numberline {3}Related Work}{4}
@@ -8,7 +8,7 @@
 \contentsline {paragraph}{LDA.}{5}
 \contentsline {paragraph}{Word2Vec.}{6}
 \contentsline {paragraph}{Bi-LSTM.}{7}
-\contentsline {subsubsection}{\numberline {4.1.2}Clustering Sentences}{7}
+\contentsline {subsubsection}{\numberline {4.1.2}Evaluating Sentence Representations Using Clustering}{7}
 \contentsline {paragraph}{K-Means.}{8}
 \contentsline {paragraph}{Agglomerative Clustering}{8}
 \contentsline {paragraph}{Gaussian Mixture.}{9}
