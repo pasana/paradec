@@ -54,7 +54,7 @@ The chatbot consists of two main modules:
 \begin{center}
 \includegraphics[width=.9\textwidth]{img/rasa.pdf}
 \end{center}
-\caption{}
+\caption{RASA Architecture for Human-Machine Dialog }
 \label{fig:rasa}
 \end{figure}
 In this project, we focus on natural language understanding and
@@ -775,7 +775,7 @@ If we want to get an idea how our classifier deals with both classes (in simple 
 F1 = \frac{2*P*R}{P+R}
 \end{equation}
 
-    There is a more clean and unambiguous way to describe the model behaviour that is a confusion matrix. The bigger values on the main diagonal the better as well as the more balanced small values on antidiagonal.
+    There is a cleaner and less ambiguous way to describe the model behaviour that is a confusion matrix. Bigger values on the main diagonal indicate low confusion and good classification accuracy. 
 
 \begin{table}[htb]
 \begin{center}
@@ -819,6 +819,8 @@ Model 	& Kernel 	& Train & Test & precision & recall & F1 \\ \hline
 \end{table}
 \FloatBarrier
 
+\add{What is CV?}
+
 Although the rbf model model has higher scores, the linear one is less prone to overfitting as shown by the small difference between train and test errors. It was decided to try both and observe their behavior.
 
 
@@ -826,29 +828,38 @@ Although the rbf model model has higher scores, the linear one is less prone to 
 \label{subsec:semisupervised}
 
 We now report on the classifier results produced after each data
-expansion step (cf. Section~\ref{subsec:dataexpansion}).
- 
-On iteration 0, there is no data expansion and scores are provided for
-the baseline model trained on the manually labelled data.
+expansion step following the procedure described in
+Section~\ref{subsec:dataexpansion}.
 
-
-For the first iteration, we created subset of external data with
-$N=500$ sentences for each predicted intent, then splitted data into
-200 clusters, a threshold for probability was chosen
-pretty low (0.12) in order to be able to extend all 20 categories. In
-result, we achieved 15 new items.
-
-For the second iteration, we repeated the procedure choosing
-probability threshold as 0.1 and obtaining 13 new items.
-
-%\add{The following sentence is unclear. What do you mean by ``provide expansion to all categories'' ? what shows this ? }: 
-BiLSTM model didn't succeded to provide expansion to all categories. It means that after labelling all sentences there was no candidates for some intents. So result only for LDA model are provided.
 
 %Rbf just to next ones: sleep, risk, eatingDisorders, drugAddiction, alcohol, social, activity, smoking, infoPatient, pain, negativeEmo, incomprehension, treatment.
 
 %Linear just to next ones: sleep, risk, eatingDisorders, drugAddiction, social, activity, smoking, alcohol, pain, infoPatient, negativeEmo.
   
 \subsubsection{SVC with linear kernel}
+
+For the SVC classifier with linear kernel, we use the following settings.
+
+\begin{itemize}
+\item Iteration 0: there is no data expansion. Results show the scores
+  obtained for the baseline model (BL) trained on the manually labelled
+  data.
+\item Iteration 1: Using the we BL model created at iteration 0, we
+  label 500 forum sentences for each of the 20 target intents
+  yielding a set of 10K labelled sentences. We then cluster these
+  sentences into 200 clusters which we then filter using a probability
+  threshold of 0.12. After filtering, we have 15 new items per intent.
+\item Iteration 2: We repeated the same procedure with a probability
+  threshold of 0.1. We obtain 13 new items per intent.
+\end{itemize}
+%\add{The following sentence is unclear. What do you mean by ``provide expansion to all categories'' ? what shows this ? }: 
+
+As the BiLSTM model did not succeed in providing expansion for all
+categories (after labelling all forum sentences, there was no
+candidates for some of the intents), we only provide results for the
+LDA model. The results are shown in Table~\ref{tab:lin_gen_scores}.
+
+\add{in the tables below: what is ``Score''? If you mean accuracy, you should replace score by accuracy everywhere. Score is vague.}
 
 
 \begin{table}[htb]
@@ -861,7 +872,7 @@ Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
 2 			& 0.3174 & 0.333   & 0.0118 & 0.317 	& 0.325  & 0.304 \\ \hline
 \end{tabular}
 \caption{Classifier scores comparison}
-\label{lin_gen_scores}
+\label{tab:lin_gen_scores}
 \end{center}
 \end{table}
 \FloatBarrier
@@ -893,13 +904,22 @@ social 			&  0.14 & 0.14 & 0.26 && 0.20 & 0.21 & 0.31 && 0.16 & 0.17 & 0.28 \\ \
 treatment		&  0.19 & 0.58 & 0.56 && 0.80 & 0.75 & 0.15 && 0.30 & 0.67 & 0.24 \\ \hline 
 \end{tabular}
 \caption{Comparison of classification scores for SVC with linear kernel}
+\label{tab:results-svc-linear}
 \end{center}
 \end{table}
 \FloatBarrier
 
-As we can see from Table \ref{lin_gen_scores} score on the gold test dataset, precision and F1 score steadily increasing, though values for CV score and recall are not stable. 
-From Figure \ref{lsvc_cm} we can see how confusion matrix became more diagonalized though some categories that were confusing from the very begining (agree, diasagree, fallback, hello, negativeEmo, positiveEmo, risk and alcohol). Coming back to section \ref{subsec:lda} we can see that these categories were considered to be in the same cluster, so on that early stage it was possible to predict such outcome.
-On the other hand such intents like social, incompresension, infoPatient, treatment became predicted more precise. 
+As can be seen from Table \ref{tab:lin_gen_scores}, scores on the gold
+test dataset, precision and F1 score are steadily increasing (although
+values for CV score and recall are not stable\add{what does this mean?
+  what is CV?}.  From Figure \ref{lsvc_cm}, we can also see that the
+confusion matrix became more diagonalized although categories that
+were confusing from the very begining ({\sc{agree, diasagree, fallback,
+hello, negativeEmo, positiveEmo, risk, alcohol}}) are still mixed
+together. Coming back to section \ref{subsec:lda}, we can see that
+these categories were considered to be in the same cluster, so on that
+early stage it was possible to predict such outcome. On the other hand
+the predictions for such intents as {\sc{social, incomprehension, infoPatient, treatment}} improves.
 
 \begin{figure}[h]
 	\centering
@@ -917,13 +937,19 @@ On the other hand such intents like social, incompresension, infoPatient, treatm
 \subsubsection{SVC with rbf kernel}
 \label{subsec:semisupervised-rbf}
 
-Zero iteration stands for the baseline model performance. 
 
-For the first iteration we created subset of external data with $N=500$ sentences for each predicted intent, then splitted data into 1000 clusters, hreshold for probability was chosen pretty low (0.15) in order to be able to extend all 20 categories. In result, we achived 6 new items.
-
-For the second iteration we  used the same parameters, threshold for probability became lower(0.11) and in result 5 new items were obtained.
-
-Here we provide grouped results about classifier scores chaging by iteration. 
+\begin{itemize}
+\item Iteration 0: there is no data expansion. Results show the scores
+  obtained for the baseline model (BL) trained on the manually labelled
+  data.
+\item Iteration 1: Using the we BL model created at iteration 0, we
+  label 500 forum sentences for each of the 20 target intents
+  yielding a set of 10K labelled sentences. We then cluster these
+  sentences into 1000 clusters which we then filter using a probability
+  threshold of 0.15. After filtering, we have 6 new items per intent.
+\item Iteration 2: We repeated the same procedure with a probability
+  threshold of 0.11. We obtain 5 new items per intent.
+\end{itemize}
 
 \begin{table}[htb]
 \begin{center}
@@ -935,7 +961,7 @@ Iteration 	& Score  & CV mean & CV std & precision & recall & F1 \\ \hline
 2 			& 0.3167 & 0.332   & 0.0150 & 0.316 	& 0.331  & 0.313 \\ \hline
 \end{tabular}
 \caption{Classifier scores comparison}
-\label{rbf_gen_scores}
+\label{tab:rbf_gen_scores}
 \end{center}
 \end{table}
 \FloatBarrier
@@ -971,7 +997,7 @@ treatment 		& 0.51 &  0.63 & 0.40 && 0.35 & 0.40 & 0.22 && 0.42 & 0.49 & 0.28\\ 
 \end{table}
 \FloatBarrier
 
-Though scores for the second iteration (Table \ref{rbf_gen_scores}) of data expansion falling down the confusion matrix anyway becoming more diagonalized (Figure \ref{rbf_svc_cm}) as well as F1 measure grows in comparision to the baseline. It's remarkable that such intents as drugAddiction, disagree succeded to gain precise just after first iteration. Some confusing groups like (agree, bye, diasgree, fallback, hello) or (positiveEmo and negativeEmo) or (risk and alcohol) still tends to stay together.
+Although scores (Table \ref{tab:rbf_gen_scores}) decrease on the second iteration, the confusion matrix becomes more diagonalized (Figure \ref{rbf_svc_cm}) and F1 increases. Intents as{\sc{drugAddiction, disagree}} are better classified just after the first iteration. Some confusing groups like {\sc{agree, bye, diasgree, fallback, hello}} and {\sc{positiveEmo, negativeEmo}} or {\sc{risk, alcohol}} still tends to stay together.
 
 \begin{figure}[h]
 	\centering
@@ -987,13 +1013,38 @@ Though scores for the second iteration (Table \ref{rbf_gen_scores}) of data expa
 \section{Conclusion and future work}
 \label{sec:conclusion}
 
-In this project we were dealing with task of semi-supervised text classification for expanding initial dataset. Our approch is to train a sentence representation model that will be able to provide clusters similar to initial classes. For this purpose we used LDA, W2V and BiLSTM models and  evaluated them with the help of clustering scores. Later SVC and Kmeans models were trained to label external data and chose the representative examples to extend existing dataset and update models with them.
+In this project, we were dealing with task of semi-supervised text
+classification for expanding initial dataset. Our approach is to train
+a sentence representation model that will be able to provide clusters
+similar to initial classes. For this purpose we used LDA, W2V and
+BiLSTM models and evaluated them with the help of clustering
+scores. We then trained SVC and Kmeans models to label external,
+forum, data and chose the best examples to extend existing
+dataset and update models with them.
 
 %% In this project we were dealing with task of paraphrase detection for expanding initial dataset. Our approch is to train the word embedding model that will be able to provide clusters similar to initial classes. We used LDA and Word2Vec models for that and later trained SVC and Kmeans models to label external data and chose the representative example to extend existing dataset and retrain models on it.
 
-Our results shows how algorithm tends to converge and to be more precise though high rate of confusion between labels in intial classifier increases this confusion in futher data expansion. This confusion can be measured before going through semi-supervised routine in order to achive acceptable level or eliminate some intents. Also, the more data you have the higher chances to find more similar sentences to initial one so that possible context for each intent will grow gradually while diversified data can cause even more perplexity.
+Our results show how algorithm tends to converge and to be more
+precise though high rate of confusion between labels in intial
+classifier increases this confusion in futher data expansion. This
+confusion can be measured before going through semi-supervised routine
+in order to achive acceptable level or eliminate some intents. Also,
+the more data you have the higher chances to find more similar
+sentences to initial one so that possible context for each intent will
+grow gradually while diversified data can cause even more perplexity.
 
-Future work will be devoted to improving word embedding model, trying one-shot and transfer learning model in order to improve classification score. Transfering from one-intent to multi-intent is preferable due to the fact that sentences are usually ambiguous than not. Another possible direction is developmenting a framework for adding new labels to the existing classifier.
+Future work will be devoted to (i) improving the sentence
+representation models using neural methods such as for instance the
+recent BERT word embeddings \cite{devlin2018bert}; and (ii) investigating one-shot \cite{koch2015siamese} and transfer learning approaches \cite{huang2017zero} to improve classification
+scores.
+
+To handle real life examples, further directions include the development of classifiers which (i) label a user utterance with both an intent and a set of attribute-value pairs as illustrated in Figure~\ref{fig:rasa}; and (ii) can handle utterances with multiple intents. 
+
+%% Another direction is the development of a classifier As user utterances in fact often denote not a single but multiple intents,  Transfering from
+%% one-intent to multi-intent is preferable due to the fact that
+%% sentences are usually ambiguous than not. Another possible direction
+%% is developing a framework for adding new labels to the existing
+%% classifier.
 
 \bibliographystyle{alpha}
 

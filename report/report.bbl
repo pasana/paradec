@@ -16,11 +16,17 @@ David~M. Blei, Andrew~Y. Ng, and Michael~I. Jordan.
 \bibitem[CKL{\etalchar{+}}18]{P18-1198}
 Alexis Conneau, Germ{\'a}n Kruszewski, Guillaume Lample, Lo{\"i}c Barrault, and
   Marco Baroni.
-\newblock What you can cram into a single {\backslash}{\$}{\&}!{\#}* vector:
-  Probing sentence embeddings for linguistic properties.
+\newblock What you can cram into a single {\textbackslash}{\$}{\&}!{\#}*
+  vector: Probing sentence embeddings for linguistic properties.
 \newblock In {\em Proceedings of the 56th Annual Meeting of the Association for
   Computational Linguistics (Volume 1: Long Papers)}, pages 2126--2136.
   Association for Computational Linguistics, 2018.
+
+\bibitem[DCLT18]{devlin2018bert}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock {\em arXiv preprint arXiv:1810.04805}, 2018.
 
 \bibitem[FLWH18]{N18-2058}
 James Ferguson, Colin Lockard, Daniel Weld, and Hannaneh Hajishirzi.
@@ -29,6 +35,11 @@ James Ferguson, Colin Lockard, Daniel Weld, and Hannaneh Hajishirzi.
   Chapter of the Association for Computational Linguistics: Human Language
   Technologies, Volume 2 (Short Papers)}, pages 359--364. Association for
   Computational Linguistics, 2018.
+
+\bibitem[HJCV17]{huang2017zero}
+Lifu Huang, Heng Ji, Kyunghyun Cho, and Clare~R Voss.
+\newblock Zero-shot transfer learning for event extraction.
+\newblock {\em arXiv preprint arXiv:1707.01066}, 2017.
 
 \bibitem[IPN16]{Iacobacci2016EmbeddingsFW}
 Ignacio Iacobacci, Mohammad~Taher Pilehvar, and Roberto Navigli.
@@ -49,6 +60,11 @@ Hamed Jelodar, Yongli Wang, Chi Yuan, Xia Feng, Xiahui Jiang, Yanchao Li, and
 \newblock {Latent Dirichlet Allocation (LDA) and Topic modeling: models,
   applications, a survey}.
 \newblock nov 2017.
+
+\bibitem[KZS15]{koch2015siamese}
+Gregory Koch, Richard Zemel, and Ruslan Salakhutdinov.
+\newblock Siamese neural networks for one-shot image recognition.
+\newblock In {\em ICML Deep Learning Workshop}, volume~2, 2015.
 
 \bibitem[LLCC18]{Li2018ComparisonOW}
 Hongmin Li, Xukun Li, Doina Caragea, and Cornelia Caragea.

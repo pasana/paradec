@@ -9,45 +9,45 @@ Warning--empty booktitle in lda_def
 Warning--empty journal in Jelodar2017
 Warning--empty booktitle in Li2018ComparisonOW
 Warning--empty booktitle in SVM
-You've used 14 entries,
+You've used 17 entries,
             2543 wiz_defined-function locations,
-            653 strings with 7435 characters,
-and the built_in function-call counts, 6832 in all, are:
-= -- 683
-> -- 349
-< -- 13
-+ -- 125
-- -- 125
-* -- 479
-:= -- 1079
-add.period$ -- 47
-call.type$ -- 14
-change.case$ -- 100
-chr.to.int$ -- 14
-cite$ -- 20
-duplicate$ -- 284
-empty$ -- 475
-format.name$ -- 140
-if$ -- 1439
+            665 strings with 7944 characters,
+and the built_in function-call counts, 8038 in all, are:
+= -- 795
+> -- 436
+< -- 14
++ -- 158
+- -- 158
+* -- 568
+:= -- 1294
+add.period$ -- 56
+call.type$ -- 17
+change.case$ -- 123
+chr.to.int$ -- 17
+cite$ -- 23
+duplicate$ -- 327
+empty$ -- 546
+format.name$ -- 176
+if$ -- 1671
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 14
-newline$ -- 75
-num.names$ -- 44
-pop$ -- 110
+missing$ -- 17
+newline$ -- 90
+num.names$ -- 53
+pop$ -- 133
 preamble$ -- 1
-purify$ -- 114
+purify$ -- 140
 quote$ -- 0
-skip$ -- 258
+skip$ -- 295
 stack$ -- 0
-substring$ -- 347
-swap$ -- 85
-text.length$ -- 13
+substring$ -- 368
+swap$ -- 90
+text.length$ -- 14
 text.prefix$ -- 3
 top$ -- 0
-type$ -- 112
+type$ -- 136
 warning$ -- 6
-while$ -- 61
-width$ -- 15
-write$ -- 187
+while$ -- 70
+width$ -- 18
+write$ -- 224
 (There were 6 warnings)
